@@ -6,6 +6,8 @@ class Home extends CI_Controller {
         parent::__construct();
 		$this->load->model('project');
 		$this->load->helper('url');
+		$this->load->helper('form');
+        $this->load->library('form_validation');
     }
 
 	/**
@@ -24,8 +26,24 @@ class Home extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index()
-	{
-		$projects = $this->project->getProjects();
-		$this->load->view('admin/index', $projects);
+	{	$data = array(
+			'all_projects_title' => 'All Projects',
+			'open_projects_title' => 'Open Projects',
+			'completed_projects_title' => 'Completed Projects'
+		);
+		$data['projects'] = $this->project->getAllProjects();
+		$data['open'] = $this->project->getOpenProjects();
+		$data['completed'] = $this->project->getCompletedProjects();
+		$this->load->view('template/index', $data);
+	}
+	
+	public function create(){
+        $data['title'] = 'Create New Project';
+ 
+        $this->form_validation->set_rules('name', 'Name', 'required');
+		$this->form_validation->set_rules('code', 'Code', 'required');
+		$this->form_validation->set_rules('status', 'Status', 'required');
+		
+		$this->load->view('template/create', $data);
 	}
 }

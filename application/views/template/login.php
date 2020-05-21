@@ -44,7 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <input type="text" name="username" placeholder="Username or Email address" class="form-control border-0 shadow form-control-lg">
               </div>
               <div class="form-group mb-4">
-                <input type="password" name="passowrd" placeholder="Password" class="form-control border-0 shadow form-control-lg text-violet">
+                <input type="password" name="password" placeholder="Password" class="form-control border-0 shadow form-control-lg text-violet">
               </div>
               <div class="form-group mb-4">
                 <div class="custom-control custom-checkbox">
@@ -54,7 +54,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
               <div class="form-btn">
                 <button type="submit" class="btn btn-primary shadow px-5">Log in</button>
-                <a href="<?php echo base_url()?>index.php/projects" class="btn btn-primary back-btn shadow px-5">Back</a>
+                <a href="<?php echo base_url()?>" class="btn btn-primary back-btn shadow px-5">Back</a>
               </div>
             </form>
           </div>

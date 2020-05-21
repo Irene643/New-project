@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Bubbly - Boootstrap 4 Admin template by Bootstrapious.com</title>
+    <title>Writedrone</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -28,7 +28,7 @@
   <body>
     <!-- navbar-->
     <header class="header">
-      <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="index.html" class="navbar-brand font-weight-bold text-uppercase text-base">Bubbly Dashboard</a>
+      <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="index.html" class="navbar-brand font-weight-bold text-uppercase text-base">Writedrone Dashboard</a>
         <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
           <li class="nav-item">
             <form id="searchForm" class="ml-auto d-none d-lg-block">
@@ -80,10 +80,10 @@
       <div id="sidebar" class="sidebar py-3">
         <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">MAIN</div>
         <ul class="sidebar-menu list-unstyled">
-              <li class="sidebar-list-item"><a href="index" class="sidebar-link text-muted active"><i class="o-home-1 mr-3 text-gray"></i><span>Home</span></a></li>
+              <li class="sidebar-list-item"><a href="<?php echo base_url(); ?>" class="sidebar-link text-muted active"><i class="o-home-1 mr-3 text-gray"></i><span>Home</span></a></li>
               <li class="sidebar-list-item"><a href="../login/index" class="sidebar-link text-muted"><i class="o-sales-up-1 mr-3 text-gray"></i><span>Charts</span></a></li>
               <li class="sidebar-list-item"><a href="tables" class="sidebar-link text-muted"><i class="o-table-content-1 mr-3 text-gray"></i><span>Tables</span></a></li>
-              <li class="sidebar-list-item"><a href="forms" class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>Forms</span></a></li>
+              <li class="sidebar-list-item"><a href="<?php echo base_url(); ?>index.php/create" class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>Forms</span></a></li>
           <li class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>Pages</span></a>
             <div id="pages" class="collapse">
               <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
@@ -94,7 +94,7 @@
               </ul>
             </div>
           </li>
-              <li class="sidebar-list-item"><a href="login.html" class="sidebar-link text-muted"><i class="o-exit-1 mr-3 text-gray"></i><span>Login</span></a></li>
+              <li class="sidebar-list-item"><a href="<?php echo base_url(); ?>index.php/login" class="sidebar-link text-muted"><i class="o-exit-1 mr-3 text-gray"></i><span>Login</span></a></li>
         </ul>
         <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">EXTRAS</div>
         <ul class="sidebar-menu list-unstyled">
@@ -113,7 +113,7 @@
                   <div class="flex-grow-1 d-flex align-items-center">
                     <div class="dot mr-3 bg-violet"></div>
                     <div class="text">
-                      <h6 class="mb-0">Data consumed</h6><span class="text-gray">145,14 GB</span>
+                      <h6 class="mb-0"><?php echo $all_projects_title ?></h6><span class="text-gray"><?php  echo count($projects);?></span>
                     </div>
                   </div>
                   <div class="icon text-white bg-violet"><i class="fas fa-server"></i></div>
@@ -122,23 +122,23 @@
               <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
                 <div class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
                   <div class="flex-grow-1 d-flex align-items-center">
-                    <div class="dot mr-3 bg-green"></div>
+                    <div class="dot mr-3 bg-blue"></div>
                     <div class="text">
-                      <h6 class="mb-0">Open cases</h6><span class="text-gray"><?php echo $projects->id?></span>
+                      <h6 class="mb-0"><?php  echo $open_projects_title;?></h6><span class="text-gray"><?php  echo count($open);?></span>
                     </div>
                   </div>
-                  <div class="icon text-white bg-green"><i class="far fa-clipboard"></i></div>
+                  <div class="icon text-white bg-blue"><i class="far fa-clipboard"></i></div>
                 </div>
               </div>
               <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
                 <div class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
                   <div class="flex-grow-1 d-flex align-items-center">
-                    <div class="dot mr-3 bg-blue"></div>
+                    <div class="dot mr-3 bg-green"></div>
                     <div class="text">
-                      <h6 class="mb-0">Work orders</h6><span class="text-gray">400</span>
+                      <h6 class="mb-0"><?php  echo $completed_projects_title;?></h6><span class="text-gray"><?php  echo count($completed);?></span>
                     </div>
                   </div>
-                  <div class="icon text-white bg-blue"><i class="fa fa-dolly-flatbed"></i></div>
+                  <div class="icon text-white bg-green"><i class="fa fa-dolly-flatbed"></i></div>
                 </div>
               </div>
               <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
@@ -431,7 +431,7 @@
               </div>
               <div class="col-md-6 text-center text-md-right text-gray-400">
                 <p class="mb-0">Design by <a href="https://bootstrapious.com/admin-templates" class="external text-gray-400">Bootstrapious</a></p>
-                <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+                <!-- Please do not remove the backlink to us unless you support further theme development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
               </div>
             </div>
           </div>
