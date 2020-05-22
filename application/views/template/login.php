@@ -53,8 +53,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
               </div>
               <div class="form-btn">
-                <button type="submit" class="btn btn-primary shadow px-5">Log in</button>
-                <a href="<?php echo base_url()?>" class="btn btn-primary back-btn shadow px-5">Back</a>
+                <a href="<?php echo base_url()?>" class="btn btn-primary shadow px-5">Back</a>
+                <button type="submit" class="btn btn-primary back-btn shadow px-5">Log in</button>
               </div>
             </form>
           </div>

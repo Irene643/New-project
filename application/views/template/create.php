@@ -108,23 +108,64 @@
       <div class="page-holder w-100 d-flex flex-wrap">
         <div class="container-fluid px-xl-5 col-md-8">
           <section class="py-5">
-            <h2><?php echo $title; ?></h2>
-            
+            <h2>Create Project</h2>
             <?php echo validation_errors(); ?>
-            
-            <?php echo form_open('news/create'); ?>  
-            <form id="createProjectForm" action="#" class="mt-4">
-              <div class="form-group mb-4">
-                <input type="text" name="Name" placeholder="Username or Email address" class="form-control border-0 shadow ">
+            <?php echo form_open('index.php/home/saveProject'); ?>  
+              <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" name="title" value="<?php echo set_value('title'); ?>" class="form-control" id="title">
+              <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
               </div>
               <div class="form-group mb-4">
-                <input type="text" name="Code" placeholder="Password" class="form-control border-0 shadow form-control-lg text-violet">
+              <label for="category">Category</label>
+                <select name="category" value="<?php echo set_value('category'); ?>" class="form-control">
+                <?php foreach ($project_categories as $category):?>
+                  <option value="<?php echo $category->id ?>"><?php echo $category->name ?></option>
+                <?php endforeach; ?>
+                </select>
               </div>
               <div class="form-group mb-4">
-                <input type="text" name="Status" placeholder="Password" class="form-control border-0 shadow form-control-lg text-violet">
+              <label for="size">No of words or pages</label>
+                <input type="text" name="size" value="<?php echo set_value('size'); ?>" class="form-control">
+              </div>
+              <div class="form-group mb-4">
+                <label for="referenceType">Reference Type</label>
+                <select name="reference_type" value="<?php echo set_value('reference_type'); ?>" class="form-control">
+                <?php foreach ($project_references as $reference):?>
+                  <option value="<?php echo $reference->id ?>"><?php echo $reference->name ?></option>
+                <?php endforeach; ?>
+                </select>
+              </div>
+              <div class="form-group mb-4">
+                <label for="dueDate">Due date</label>
+                <input type="text" name="due_date" value="<?php echo set_value('due_date'); ?>" class="form-control">
+              </div>
+              <div class="form-group mb-4">
+                <label for="status">Status</label>
+                <select name="status" value="<?php echo set_value('status'); ?>" class="form-control">
+                <?php foreach ($project_status as $status):?>
+                  <option value="<?php echo $status->id ?>"><?php echo $status->name ?></option>
+                <?php endforeach; ?>
+                </select>
+              </div>
+              <div class="form-group mb-4">
+                <label for="Description">Description</label>
+                <input type="text" name="description" value="<?php echo set_value('description'); ?>" class="form-control">
+              </div>
+              <div class="form-group mb-4">
+                <label for="attachFiles">Attach File(s)</label>
+                <input type="file" name="attached_files" value="<?php echo set_value('attached_files'); ?>" class="form-control">
+              </div>
+              <div class="form-group mb-4">
+                <label for="billing">Customer Billing</label>
+                <input type="text" name="customer_billing" value="<?php echo set_value('customer_billing'); ?>" class="form-control">
+              </div>
+              <div class="form-group mb-4">
+                <label for="budget">Budget</label>
+                <input type="text" name="budget" value="<?php echo set_value('budget'); ?>" class="form-control">
               </div>
               <div class="form-btn">
-                <button type="submit" class="btn btn-primary shadow px-5">Create</button>
+                <button type="submit" name="create_project" class="btn btn-primary shadow px-5">Create</button>
               </div>
             </form>
           </section>

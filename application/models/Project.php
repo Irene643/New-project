@@ -17,5 +17,20 @@ class Project extends CI_Model {
         $query = $this->db->get_where('project', array('status' => 'completed'));
         return $query->result();
     }
+    public function saveProject($data){
+        $query=$this->db->insert('project', $data);
+    }
+    public function getProjectCategory(){
+        $query = $this->db->get('category');
+        return $query->result();
+    }
+    public function getProjectReferenceType(){
+        $query = $this->db->get('reference');
+        return $query->result();
+    }
+    public function getProjectStatus(){
+        $query = $this->db->get('status');
+        return $query->result();
+    }
 }
 ?>

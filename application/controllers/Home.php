@@ -7,7 +7,8 @@ class Home extends CI_Controller {
 		$this->load->model('project');
 		$this->load->helper('url');
 		$this->load->helper('form');
-        $this->load->library('form_validation');
+		$this->load->library('form_validation');
+		$this->load->database();
     }
 
 	/**
@@ -38,12 +39,63 @@ class Home extends CI_Controller {
 	}
 	
 	public function create(){
-        $data['title'] = 'Create New Project';
+		// $data['page_title'] = 'Create New Project';
+		$data['project_categories'] = $this->project->getProjectCategory();
+		$data['project_references'] = $this->project->getProjectReferenceType();
+		$data['project_status'] = $this->project->getProjectStatus();
  
-        $this->form_validation->set_rules('name', 'Name', 'required');
-		$this->form_validation->set_rules('code', 'Code', 'required');
+        $this->form_validation->set_rules('title', 'Title', 'required');
+		$this->form_validation->set_rules('category', 'Category', 'required');
 		$this->form_validation->set_rules('status', 'Status', 'required');
+		$this->form_validation->set_rules('size', 'Words/Pages', 'required');
+		$this->form_validation->set_rules('reference_type', 'Reference Type', 'required');
+		$this->form_validation->set_rules('due_date', 'Due Date', 'required');
+		$this->form_validation->set_rules('description', 'Description', 'required');
+		$this->form_validation->set_rules('attached_files', 'Attach Files', 'required');
+		$this->form_validation->set_rules('budget', 'Budget', 'required');
+		$this->form_validation->set_rules('customer_billing', 'Customer Billing', 'required');
+		if ($this->form_validation->run() == FALSE)
+		{
+			echo('please try again');
+			$this->load->view('template/create', $data);
+		}else{
+			echo('success');
+			$this->load->view('template/create', $data);
 		
-		$this->load->view('template/create', $data);
+		}
+		
+	}
+	public function saveProject(){
+		$this->load->view('template/create');
+
+		// var_dump($this->input->post());die;
+	
+		/*Check submit button */
+		$title=$this->input->post('title');
+		$category=$this->input->post('category');
+		$status=$this->input->post('status');
+		$size=$this->input->post('size');
+		$reference_type=$this->input->post('reference_type');
+		$due_date=$this->input->post('due_date');
+		$description=$this->input->post('description');
+		$attached_files=$this->input->post('attached_files');
+		$budget=$this->input->post('budget');
+		$customer_billing=$this->input->post('customer_billing');
+
+		$data = array(
+			'title'=>$title,
+			'category_id'=>$category,
+			'status_id'=>$status,
+			'size'=>$size,
+			'reference_id'=>$reference_type,
+			'due_date'=>$due_date,
+			'description'=>$description,
+			'attached_files'=>$attached_files,
+			'budget'=>$budget, 
+			'customer_billing'=>$customer_billing
+		);
+		$this->project->saveProject($data);	
+		echo "Records Saved Successfully";
+		
 	}
 }

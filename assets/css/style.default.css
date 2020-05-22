@@ -1551,7 +1551,7 @@ STYLE SWITCHER FOR DEMO
   padding: 0.4rem 1.8rem;
   font-size: 0.9rem;
   line-height: 1.5;
-  border-radius: 2rem;
+  /* border-radius: 2rem; */
   -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -3612,7 +3612,7 @@ a.text-dark:hover, a.text-dark:focus {
 /*
   * 6. FORMS
   */
-.form-control {
+.form-control-custom {
   padding: 0.4rem 0.8rem;
   font-size: 0.9rem;
   line-height: 1.5;
@@ -3706,7 +3706,7 @@ select.form-control-sm:not([size]):not([multiple]) {
   padding: 0.5rem 1.2rem;
   font-size: 1.125rem;
   line-height: 1.5;
-  border-radius: 2rem;
+  /* border-radius: 2rem; */
 }
 
 select.form-control-lg:not([size]):not([multiple]) {
