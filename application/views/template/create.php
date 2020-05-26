@@ -130,7 +130,7 @@
               </div>
               <div class="form-group mb-4">
                 <label for="referenceType">Reference Type</label>
-                <select name="reference_type" value="<?php echo set_value('reference_type'); ?>" class="form-control">
+                <select name="reference_type" value="<?php echo set_value('reference_type'); ?>" class="form-control" id="referenceType">
                 <?php foreach ($project_references as $reference):?>
                   <option value="<?php echo $reference->id ?>"><?php echo $reference->name ?></option>
                 <?php endforeach; ?>
@@ -138,7 +138,7 @@
               </div>
               <div class="form-group mb-4">
                 <label for="dueDate">Due date</label>
-                <input type="text" name="due_date" value="<?php echo set_value('due_date'); ?>" class="form-control">
+                <input type="text" name="due_date" value="<?php echo set_value('due_date'); ?>" class="form-control" id="datepicker" size="30">
               </div>
               <div class="form-group mb-4">
                 <label for="status">Status</label>
@@ -238,5 +238,16 @@
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/charts-home.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/front.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- <script>
+    $( function() {
+      $( "#datepicker" ).datepicker();
+        $( "#datepicker" ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
+    } );
+	</script> -->
   </body>
 </html>

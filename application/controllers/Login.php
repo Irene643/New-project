@@ -20,6 +20,16 @@ class Login extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('template/login');
+		$this->form_validation->set_rules('username', 'Username or Email address', 'required');
+		$this->form_validation->set_rules('password', 'Password', 'required');
+		if($this->form_validation->run() == FALSE){
+			echo('username or password is not correct');
+			$this->load->view('template/login');
+		}else{
+			$this->load->view('template/index');
+		}
+	}
+	public function postdata(){
+
 	}
 }
