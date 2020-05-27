@@ -53,8 +53,10 @@ $route['default_controller'] = 'home';
 $route['login'] = 'login';
 $route['projects'] = 'home/view_all';
 $route['create'] = 'home/create';
-$route['postdata'] = 'home/saveProject';
+$route['add-project'] = 'home/saveProject';
+$route['project/view/(:any)'] = 'home/view_single/$1';
 $route['project/edit/(:any)'] = 'home/edit/$1';
+$route['project/delete/(:any)'] = 'home/delete/$1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 

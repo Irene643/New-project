@@ -1,4 +1,3 @@
-  
 <!DOCTYPE html>
 <html>
   <head>
@@ -85,13 +84,14 @@
               <li class="sidebar-list-item"><a href="../login/index" class="sidebar-link text-muted"><i class="o-sales-up-1 mr-3 text-gray"></i><span>Charts</span></a></li>
               <li class="sidebar-list-item"><a href="tables" class="sidebar-link text-muted"><i class="o-table-content-1 mr-3 text-gray"></i><span>Tables</span></a></li>
               <li class="sidebar-list-item"><a href="<?php echo base_url(); ?>index.php/create" class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>Forms</span></a></li>
-          <li class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>Pages</span></a>
+          <li class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>Projects</span></a>
             <div id="pages" class="collapse">
               <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Page one</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Page two</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Page three</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Page four</a></li>
+                <li class="sidebar-list-item"><a id="all" href="#all" class="sidebar-link text-muted pl-lg-5">All<span class="badge badge-pill badge-light"><?php  echo count($projects);?></span></a></li>
+                <li class="sidebar-list-item"><a id="unassigned" href="#unassigned" class="sidebar-link text-muted pl-lg-5">Unassigned<span class="badge badge-pill badge-secondary"><?php  echo count($unassigned);?></span></a></li>
+                <li class="sidebar-list-item"><a href="#inprogress" class="sidebar-link text-muted pl-lg-5">In Progress<span class="badge badge-pill badge-primary"><?php  echo count($open);?></span></a></li>
+                <li class="sidebar-list-item"><a href="#waiting" class="sidebar-link text-muted pl-lg-5">Waiting for Client<span class="badge badge-pill badge-info"><?php  echo count($waiting_for_client);?></span></a></li>
+                <li class="sidebar-list-item"><a href="#done" class="sidebar-link text-muted pl-lg-5">Done<span class="badge badge-pill badge-success"><?php  echo count($completed);?></span></a></li>
               </ul>
             </div>
           </li>
@@ -106,77 +106,101 @@
         </ul>
       </div>
       <div class="page-holder w-100 d-flex flex-wrap">
-        <div class="container-fluid px-xl-5 col-md-8">
+        <div class="container-fluid px-xl-5">
           <section class="py-5">
-            <h2>Create Project</h2>
-            <?php print_r($project_categories);?>
-            <?php echo validation_errors(); ?>
-            <?php echo form_open('index.php/project/edit/'.$id); ?>  
-              <div class="form-group">
-                <label for="title">Title</label>
-                <input type="text" name="title" value="<?php echo set_value('title', $single_project['title']); ?>" class="form-control" id="title">
-              <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+            <div class="row">
+              <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
+                <div class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
+                  <div class="flex-grow-1 d-flex align-items-center">
+                    <div class="dot mr-3 bg-violet"></div>
+                    <div class="text">
+                      <h6 class="mb-0"><?php echo $all_projects_title ?></h6><span class="text-gray"><?php  echo count($projects);?></span>
+                    </div>
+                  </div>
+                  <div class="icon text-white bg-violet"><i class="fas fa-server"></i></div>
+                </div>
               </div>
-              <div class="form-group mb-4">
-              <label for="category">Category</label>
-                <select name="category" value="<?php echo set_value('category', $single_project['category']); ?>" class="form-control">
-                <?php foreach ($project_categories as $category):?>
-                  <option value="<?php echo $category->id ?>"><?php echo $category->name ?></option>
-                <?php endforeach; ?>
-                </select>
+              <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
+                <div class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
+                  <div class="flex-grow-1 d-flex align-items-center">
+                    <div class="dot mr-3 bg-blue"></div>
+                    <div class="text">
+                      <h6 class="mb-0"><?php  echo $open_projects_title;?></h6><span class="text-gray"><?php  echo count($open);?></span>
+                    </div>
+                  </div>
+                  <div class="icon text-white bg-blue"><i class="far fa-clipboard"></i></div>
+                </div>
               </div>
-              <div class="form-group mb-4">
-              <label for="category">Category</label>
-                <select name="category" value="<?php echo set_value('category', $single_project['category']); ?>" class="form-control">
-                <?php foreach ($project_categories as $category):?>
-                  <option value="<?php echo $category->id ?>"><?php echo $category->name ?></option>
-                <?php endforeach; ?>
-                </select>
+              <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
+                <div class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
+                  <div class="flex-grow-1 d-flex align-items-center">
+                    <div class="dot mr-3 bg-green"></div>
+                    <div class="text">
+                      <h6 class="mb-0"><?php  echo $completed_projects_title;?></h6><span class="text-gray"><?php  echo count($completed);?></span>
+                    </div>
+                  </div>
+                  <div class="icon text-white bg-green"><i class="fa fa-dolly-flatbed"></i></div>
+                </div>
               </div>
-              <div class="form-group mb-4">
-              <label for="size">No of words or pages</label>
-                <input type="text" name="size" value="<?php echo set_value('size', $single_project['size']); ?>" class="form-control">
+              <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
+                <div class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
+                  <div class="flex-grow-1 d-flex align-items-center">
+                    <div class="dot mr-3 bg-red"></div>
+                    <div class="text">
+                      <h6 class="mb-0">New invoices</h6><span class="text-gray">123</span>
+                    </div>
+                  </div>
+                  <div class="icon text-white bg-red"><i class="fas fa-receipt"></i></div>
+                </div>
               </div>
-              <div class="form-group mb-4">
-                <label for="referenceType">Reference Type</label>
-                <select name="reference_type" value="<?php echo set_value('reference_type', $single_project['reference_type']); ?>" class="form-control" id="referenceType">
-                <?php foreach ($project_references as $reference):?>
-                  <option value="<?php echo $reference->id ?>"><?php echo $reference->name ?></option>
-                <?php endforeach; ?>
-                </select>
-              </div>
-              <div class="form-group mb-4">
-                <label for="dueDate">Due date</label>
-                <input type="text" name="due_date" value="<?php echo set_value('due_date', $single_project['due_date']); ?>" class="form-control" id="datepicker" size="30">
-              </div>
-              <div class="form-group mb-4">
-                <label for="status">Status</label>
-                <select name="status" value="<?php echo set_value('status', $single_project['status']); ?>" class="form-control">
-                <?php foreach ($project_status as $status):?>
-                  <option value="<?php echo $status->id ?>"><?php echo $status->name ?></option>
-                <?php endforeach; ?>
-                </select>
-              </div>
-              <div class="form-group mb-4">
-                <label for="Description">Description</label>
-                <input type="text" name="description" value="<?php echo set_value('description', $single_project['description']); ?>" class="form-control">
-              </div>
-              <div class="form-group mb-4">
-                <label for="attachFiles">Attach File(s)</label>
-                <input type="file" name="attached_files" value="<?php echo set_value('attached_files', $single_project['attached_files']); ?>" class="form-control">
-              </div>
-              <div class="form-group mb-4">
-                <label for="billing">Customer Billing</label>
-                <input type="text" name="customer_billing" value="<?php echo set_value('customer_billing', $single_project['customer_billing']); ?>" class="form-control">
-              </div>
-              <div class="form-group mb-4">
-                <label for="budget">Budget</label>
-                <input type="text" name="budget" value="<?php echo set_value('budget', $single_project['budget']); ?>" class="form-control">
-              </div>
-              <div class="form-btn">
-                <button type="submit" name="create_project" class="btn btn-primary shadow px-5">Update</button>
-              </div>
-            </form>
+            </div>
+          </section>
+          <section>
+            <div class="row mb-4">
+                <div class="col-lg-7 mb-4 mb-lg-0">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="h6 mb-0">Title: <?php echo $project[0]->title; ?></h2>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">Category</h6>
+                            <p class="card-text"><?php echo $project[0]->category; ?></p>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">Status</h6>
+                            <p class="card-text"><?php echo $project[0]->status; ?></p>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">Size</h6>
+                            <p class="card-text"><?php echo $project[0]->size; ?></p>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">Reference Type</h6>
+                            <p class="card-text"><?php echo $project[0]->reference; ?></p>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">Description</h6>
+                            <p class="card-text"><?php echo $project[0]->description; ?></p>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">Due Date</h6>
+                            <p class="card-text"><?php echo $project[0]->due_date; ?></p>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">Budget</h6>
+                            <p class="card-text"><?php echo $project[0]->budget; ?></p>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">Customer Billing</h6>
+                            <p class="card-text"><?php echo $project[0]->customer_billing; ?></p>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">Attached Files</h6>
+                            <p class="card-text"><?php echo $project[0]->attached_files; ?></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
           </section>
           <section class="py-5">
             <div class="row">
@@ -239,6 +263,11 @@
       </div>
     </div>
     <!-- JavaScript files-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+    <!--data table--> 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/pdfmake-0.1.18/dt-1.10.12/b-1.2.2/b-colvis-1.2.2/b-html5-1.2.2/b-print-1.2.2/r-2.1.0/datatables.min.css" /> 
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/pdfmake-0.1.18/dt-1.10.12/b-1.2.2/b-colvis-1.2.2/b-html5-1.2.2/b-print-1.2.2/r-2.1.0/datatables.min.js"></script> 
     <script src="<?php echo base_url(); ?>assets/vendor/jquery/jquery.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/vendor/popper.js/umd/popper.min.js"> </script>
     <script src="<?php echo base_url(); ?>assets/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -248,15 +277,10 @@
     <script src="<?php echo base_url(); ?>assets/js/charts-home.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/front.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <!-- <script>
-    $( function() {
-      $( "#datepicker" ).datepicker();
-        $( "#datepicker" ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
-    } );
-	</script> -->
+    <script type="text/javascript"> 
+        $(document).ready(function() { 
+            $("#mytable").dataTable(); 
+        }); 
+    </script> 
   </body>
 </html>

@@ -12,3 +12,9 @@
     background-color: #fff;
     border: 1px solid #ced4da;
 }
+li.sidebar-list-item{
+    margin-left: -1em !important;
+}
+.badge-pill{
+    margin-left: 1em;
+}

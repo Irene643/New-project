@@ -110,7 +110,7 @@
           <section class="py-5">
             <h2>Create Project</h2>
             <?php echo validation_errors(); ?>
-            <?php echo form_open('index.php/home/saveProject'); ?>  
+            <?php echo form_open('index.php/add-project'); ?>  
               <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" name="title" value="<?php echo set_value('title'); ?>" class="form-control" id="title">
@@ -120,7 +120,8 @@
               <label for="category">Category</label>
                 <select name="category" value="<?php echo set_value('category'); ?>" class="form-control">
                 <?php foreach ($project_categories as $category):?>
-                  <option value="<?php echo $category->id ?>"><?php echo $category->name ?></option>
+                  <!-- <option value="<?php echo $status['id'] ?>" <?php if ($status['id'] == set_value('martial_status')) echo "selected = 'selected'"?>><?php echo $status['status_name'] ?></option> -->
+                  <option value="<?php echo $category->id ?>" <?php if ($category->id == set_value('category')) echo "selected = 'selected'"?>><?php echo $category->name ?></option>
                 <?php endforeach; ?>
                 </select>
               </div>

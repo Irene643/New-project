@@ -21,9 +21,20 @@ class Project extends CI_Model {
         $query = $this->db->get_where('project', array('status_id' => '3'));
         return $query->result();
     }
-    public function getWaitingProjects(){
+    public function get_waiting_for_client_projects(){
         $query = $this->db->get_where('project', array('status_id' => '4'));
         return $query->result();
+    }
+    public function get_unassigned_projects(){
+        $this->db->select('project.*, category.name as category, reference.name as reference, status.name as status');    
+        $this->db->from('project');
+        $this->db->join('category', 'category.id = project.category_id','left');
+        $this->db->join('reference', 'reference.id = project.reference_id','left');
+        $this->db->join('status', 'status.id = project.status_id');
+        $this->db->where('status_id = 1');
+
+        $query = $this->db->get();
+        return $query->result();;
     }
     public function saveProject($data){
         $query=$this->db->insert('project', $data);
@@ -60,6 +71,18 @@ class Project extends CI_Model {
         $query = $this->db->get_where('project', array('id' => $id));
         return $query->row_array();
     }
+    public function get_single_project($id = 0){
+
+        $this->db->select('project.*, category.name as category, reference.name as reference, status.name as status');    
+        $this->db->from('project');
+        $this->db->join('category', 'category.id = project.category_id','left');
+        $this->db->join('reference', 'reference.id = project.reference_id','left');
+        $this->db->join('status', 'status.id = project.status_id');
+        $this->db->where('project.id =',$id);
+
+        $query = $this->db->get();
+        return $query->result();
+    }
     
     public function set_project($id = 0, $data)
     {
@@ -69,6 +92,11 @@ class Project extends CI_Model {
             $this->db->where('id', $id);
             return $this->db->update('project', $data);
         }
+    }
+    public function delete_project($id)
+    {
+        $this->db->where('id', $id);
+        return $this->db->delete('project');
     }
 }
 ?>

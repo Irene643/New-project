@@ -84,13 +84,14 @@
               <li class="sidebar-list-item"><a href="../login/index" class="sidebar-link text-muted"><i class="o-sales-up-1 mr-3 text-gray"></i><span>Charts</span></a></li>
               <li class="sidebar-list-item"><a href="tables" class="sidebar-link text-muted"><i class="o-table-content-1 mr-3 text-gray"></i><span>Tables</span></a></li>
               <li class="sidebar-list-item"><a href="<?php echo base_url(); ?>index.php/create" class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>Forms</span></a></li>
-          <li class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>Pages</span></a>
+          <li class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>Projects</span></a>
             <div id="pages" class="collapse">
               <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Page one</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Page two</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Page three</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Page four</a></li>
+                <li class="sidebar-list-item"><a id="all" href="#all" class="sidebar-link text-muted pl-lg-5">All<span class="badge badge-pill badge-light"><?php  echo count($projects);?></span></a></li>
+                <li class="sidebar-list-item"><a id="unassigned" href="#unassigned" class="sidebar-link text-muted pl-lg-5">Unassigned<span class="badge badge-pill badge-secondary"><?php  echo count($unassigned);?></span></a></li>
+                <li class="sidebar-list-item"><a href="#inprogress" class="sidebar-link text-muted pl-lg-5">In Progress<span class="badge badge-pill badge-primary"><?php  echo count($open);?></span></a></li>
+                <li class="sidebar-list-item"><a href="#waiting" class="sidebar-link text-muted pl-lg-5">Waiting for Client<span class="badge badge-pill badge-info"><?php  echo count($waiting_for_client);?></span></a></li>
+                <li class="sidebar-list-item"><a href="#done" class="sidebar-link text-muted pl-lg-5">Done<span class="badge badge-pill badge-success"><?php  echo count($completed);?></span></a></li>
               </ul>
             </div>
           </li>
@@ -155,7 +156,7 @@
             </div>
           </section>
           <section>
-            <table class="table table-bordered table-striped" id="mytable"> 
+            <table class="table table-bordered table-striped" id="allprojects"> 
                 <thead> 
                     <tr> 
                         <th width="80px">No</th> 
@@ -197,13 +198,69 @@
                                 <?php echo $project->budget ?> 
                             </td>
                             <td style="text-align:center" width="200px"> 
-                                <?php  
-                    echo anchor(site_url('home/read/'.$project->id),'Read');  
-                    echo ' | ';  
-                    echo anchor(site_url('index.php/project/edit/'.$project->id),'Update');  
-                    echo ' | ';  
-                    echo anchor(site_url('home/delete/'.$project->id),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"');  
+                              <?php  
+                              echo anchor(site_url('index.php/project/view/'.$project->id),'View');  
+                              echo ' | ';  
+                              echo anchor(site_url('index.php/project/edit/'.$project->id),'Edit');  
+                              echo ' | ';  
+                              echo anchor(site_url('index.php/project/delete/'.$project->id),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"');  
+                              ?> 
+                            </td> 
+                        </tr> 
+                        <?php 
+                    } 
                     ?> 
+                </tbody> 
+            </table>
+            <table class="table table-bordered table-striped project-table" id="unassignedprojects">
+                <thead> 
+                    <tr> 
+                        <th width="80px">No</th> 
+                        <th>Title</th> 
+                        <th>Category</th> 
+                        <th>Status</th> 
+                        <th>Size</th> 
+                        <th>Reference Type</th>
+                        <th>Budget</th>
+                        <th>Actions</th>
+                    </tr> 
+                </thead> 
+                <tbody> 
+                    <?php 
+                    $start = 0; 
+                    foreach ($unassigned as $project) 
+                    { 
+                        ?> 
+                        <tr> 
+                            <td> 
+                                <?php echo ++$start ?> 
+                            </td> 
+                            <td> 
+                                <?php echo $project->title ?> 
+                            </td> 
+                            <td> 
+                                <?php echo $project->category ?> 
+                            </td> 
+                            <td> 
+                                <?php echo $project->status ?> 
+                            </td> 
+                            <td> 
+                                <?php echo $project->size ?> 
+                            </td> 
+                            <td> 
+                                <?php echo $project->reference ?> 
+                            </td>
+                            <td> 
+                                <?php echo $project->budget ?> 
+                            </td>
+                            <td style="text-align:center" width="200px"> 
+                              <?php  
+                              echo anchor(site_url('index.php/project/view/'.$project->id),'View');  
+                              echo ' | ';  
+                              echo anchor(site_url('index.php/project/edit/'.$project->id),'Edit');  
+                              echo ' | ';  
+                              echo anchor(site_url('index.php/project/delete/'.$project->id),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"');  
+                              ?> 
                             </td> 
                         </tr> 
                         <?php 
@@ -286,6 +343,7 @@
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/charts-home.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/front.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
     <script type="text/javascript"> 
         $(document).ready(function() { 
             $("#mytable").dataTable(); 

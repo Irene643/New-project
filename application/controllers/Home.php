@@ -27,6 +27,8 @@ class Home extends CI_Controller {
 		$data['projects'] = $this->project->getProjects();
 		$data['open'] = $this->project->getOpenProjects();
 		$data['completed'] = $this->project->getCompletedProjects();
+		$data['unassigned'] = $this->project->get_unassigned_projects();
+		$data['waiting_for_client'] = $this->project->get_waiting_for_client_projects();
 		$this->load->view('template/index', $data);
 	}
 	
@@ -58,8 +60,6 @@ class Home extends CI_Controller {
 		
 	}
 	public function saveProject(){
-		$this->load->view('template/create');
-
 		// var_dump($this->input->post());die;
 	
 		/*Check submit button */
@@ -74,7 +74,7 @@ class Home extends CI_Controller {
 		$budget=$this->input->post('budget');
 		$customer_billing=$this->input->post('customer_billing');
 
-		$data = array(
+		$post_data = array(
 			'title'=>$title,
 			'category_id'=>$category,
 			'status_id'=>$status,
@@ -86,7 +86,12 @@ class Home extends CI_Controller {
 			'budget'=>$budget, 
 			'customer_billing'=>$customer_billing
 		);
-		$this->project->saveProject($data);	
+		$data['project_categories'] = $this->project->getProjectCategory();
+		$data['project_references'] = $this->project->getProjectReferenceType();
+		$data['project_status'] = $this->project->getProjectStatus();
+		print_r($data['project_categories']);
+		$this->project->saveProject($post_data);
+		$this->load->view('template/create', $data);
 		echo "Records Saved Successfully";
 		
 	}
@@ -99,10 +104,38 @@ class Home extends CI_Controller {
 		$data['projects'] = $this->project->getProjects();
 		$data['open'] = $this->project->getOpenProjects();
 		$data['completed'] = $this->project->getCompletedProjects();
+		$data['unassigned'] = $this->project->get_unassigned_projects();
+		$data['waiting_for_client'] = $this->project->get_waiting_for_client_projects();
 		$this->load->view('template/view', $data);
+	}
+	public function view_single(){
+		$id = $this->uri->segment(3);
+		$data = array(
+			'all_projects_title' => 'All Projects',
+			'open_projects_title' => 'Open Projects',
+			'completed_projects_title' => 'Completed Projects'
+		);
+		$data['projects'] = $this->project->getProjects();
+		$data['open'] = $this->project->getOpenProjects();
+		$data['completed'] = $this->project->getCompletedProjects();
+		$data['unassigned'] = $this->project->get_unassigned_projects();
+		$data['waiting_for_client'] = $this->project->get_waiting_for_client_projects();
+		$data['project'] = $this->project->get_single_project($id);
+ 
+        $this->load->view('template/viewsingle', $data);
 	}
 	public function edit()
     {
+		$title=$this->input->post('title');
+		$category=$this->input->post('category');
+		$status=$this->input->post('status');
+		$size=$this->input->post('size');
+		$reference_type=$this->input->post('reference_type');
+		$due_date=$this->input->post('due_date');
+		$description=$this->input->post('description');
+		$attached_files=$this->input->post('attached_files');
+		$budget=$this->input->post('budget');
+		$customer_billing=$this->input->post('customer_billing');
         $id = $this->uri->segment(3);
         
         if (empty($id))
@@ -114,7 +147,10 @@ class Home extends CI_Controller {
 			'open_projects_title' => 'Open Projects',
 			'completed_projects_title' => 'Completed Projects'
 		);
-		$data['id'] = $this->uri->segment(3);
+		$data['project_categories'] = $this->project->getProjectCategory();
+		$data['project_references'] = $this->project->getProjectReferenceType();
+		$data['project_status'] = $this->project->getProjectStatus();
+		$data['id'] = $id;
 		$data['projects'] = $this->project->getProjects();
 		$data['open'] = $this->project->getOpenProjects();
 		$data['completed'] = $this->project->getCompletedProjects();
@@ -154,8 +190,22 @@ class Home extends CI_Controller {
 
             $this->project->set_project($id, $post_data);
             //$this->load->view('news/success');
-            redirect( base_url() . 'index.php/news');
+            redirect( base_url() . 'index.php/projects');
         }
+	}
+	public function delete()
+    {
+        $id = $this->uri->segment(3);
+        
+        if (empty($id))
+        {
+            show_404();
+        }
+                
+        $project = $this->project->get_project_by_id($id);
+        
+        $this->project->delete_project($id);        
+        redirect( base_url() . 'index.php/projects');        
     }
     
 }
