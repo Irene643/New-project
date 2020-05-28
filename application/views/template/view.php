@@ -91,7 +91,7 @@
                 <li class="sidebar-list-item"><a id="unassigned" href="#unassigned" class="sidebar-link text-muted pl-lg-5">Unassigned<span class="badge badge-pill badge-secondary"><?php  echo count($unassigned);?></span></a></li>
                 <li class="sidebar-list-item"><a href="#inprogress" class="sidebar-link text-muted pl-lg-5">In Progress<span class="badge badge-pill badge-primary"><?php  echo count($open);?></span></a></li>
                 <li class="sidebar-list-item"><a href="#waiting" class="sidebar-link text-muted pl-lg-5">Waiting for Client<span class="badge badge-pill badge-info"><?php  echo count($waiting_for_client);?></span></a></li>
-                <li class="sidebar-list-item"><a href="#done" class="sidebar-link text-muted pl-lg-5">Done<span class="badge badge-pill badge-success"><?php  echo count($completed);?></span></a></li>
+                <li class="sidebar-list-item"><a href="#completed" class="sidebar-link text-muted pl-lg-5">Done<span class="badge badge-pill badge-success"><?php  echo count($completed);?></span></a></li>
               </ul>
             </div>
           </li>
@@ -156,6 +156,21 @@
             </div>
           </section>
           <section>
+            <!-- datatable -->
+          <table id="userDetails" class="datatable table table-hover" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Hotel Name</th>
+                    <th>Admin Username</th>
+                    <th>Admin Name</th>
+                    <th>City</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <!-- datatable end -->
             <table class="table table-bordered table-striped" id="allprojects"> 
                 <thead> 
                     <tr> 
@@ -169,8 +184,9 @@
                         <th>Actions</th>
                     </tr> 
                 </thead> 
-                <tbody> 
-                    <?php 
+                <tbody id="completed"> 
+
+                    <!-- <?php 
                     $start = 0; 
                     foreach ($projects as $project) 
                     { 
@@ -209,7 +225,7 @@
                         </tr> 
                         <?php 
                     } 
-                    ?> 
+                    ?>  -->
                 </tbody> 
             </table>
             <table class="table table-bordered table-striped project-table" id="unassignedprojects">
@@ -330,12 +346,13 @@
       </div>
     </div>
     <!-- JavaScript files-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
+    
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
     <!--data table--> 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/pdfmake-0.1.18/dt-1.10.12/b-1.2.2/b-colvis-1.2.2/b-html5-1.2.2/b-print-1.2.2/r-2.1.0/datatables.min.css" /> 
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs/pdfmake-0.1.18/dt-1.10.12/b-1.2.2/b-colvis-1.2.2/b-html5-1.2.2/b-print-1.2.2/r-2.1.0/datatables.min.js"></script> 
-    <script src="<?php echo base_url(); ?>assets/vendor/jquery/jquery.min.js"></script>
+    <!-- <script src="<?php echo base_url(); ?>assets/vendor/jquery/jquery.min.js"></script> -->
     <script src="<?php echo base_url(); ?>assets/vendor/popper.js/umd/popper.min.js"> </script>
     <script src="<?php echo base_url(); ?>assets/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/vendor/jquery.cookie/jquery.cookie.js"> </script>
@@ -344,10 +361,10 @@
     <script src="<?php echo base_url(); ?>assets/js/charts-home.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/front.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
-    <script type="text/javascript"> 
+    <!-- <script type="text/javascript"> 
         $(document).ready(function() { 
-            $("#mytable").dataTable(); 
+            $("#mytaable").dataTable(); 
         }); 
-    </script> 
+    </script>  -->
   </body>
 </html>

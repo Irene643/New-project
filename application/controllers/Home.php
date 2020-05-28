@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+// defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller {
 
@@ -107,6 +107,21 @@ class Home extends CI_Controller {
 		$data['unassigned'] = $this->project->get_unassigned_projects();
 		$data['waiting_for_client'] = $this->project->get_waiting_for_client_projects();
 		$this->load->view('template/view', $data);
+	}
+	public function completed(){
+	$data = array();
+	$CI =& get_instance();
+	$csrf_name = $CI->security->get_csrf_token_name();;
+	$csrf_hash = $CI->security->get_csrf_hash();
+	$data = $this->project->getCompletedProjects();
+		// print_r(json_encode($data));
+		$json_req = array(
+
+            "sEcho"    =>1,
+            "aaData" => $data
+		);
+		
+		echo json_encode($json_req);
 	}
 	public function view_single(){
 		$id = $this->uri->segment(3);
