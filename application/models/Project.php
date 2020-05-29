@@ -9,20 +9,41 @@ class Project extends CI_Model {
         $query = $this->db->get('project');
         return $query->result();
     }
-    public function getUnassignedProjects(){
-        $query = $this->db->get_where('project', array('status_id' => '1'));
-        return $query->result();
-    }
+    // public function getUnassignedProjects(){
+    //     $query = $this->db->get_where('project', array('status_id' => '1'));
+    //     return $query->result();
+    // }
     public function getOpenProjects(){
-        $query = $this->db->get_where('project', array('status_id' => '2'));
+        $this->db->select('project.*, category.name as category, reference.name as reference, status.name as status');    
+        $this->db->from('project');
+        $this->db->join('category', 'category.id = project.category_id','left');
+        $this->db->join('reference', 'reference.id = project.reference_id','left');
+        $this->db->join('status', 'status.id = project.status_id');
+        $this->db->where('status.id = 2');
+
+        $query = $this->db->get();
         return $query->result();
     }
     public function getCompletedProjects(){
-        $query = $this->db->get_where('project', array('status_id' => '3'));
+        $this->db->select('project.*, category.name as category, reference.name as reference, status.name as status');    
+        $this->db->from('project');
+        $this->db->join('category', 'category.id = project.category_id','left');
+        $this->db->join('reference', 'reference.id = project.reference_id','left');
+        $this->db->join('status', 'status.id = project.status_id');
+        $this->db->where('status.id = 3');
+
+        $query = $this->db->get();
         return $query->result();
     }
     public function get_waiting_for_client_projects(){
-        $query = $this->db->get_where('project', array('status_id' => '4'));
+        $this->db->select('project.*, category.name as category, reference.name as reference, status.name as status');    
+        $this->db->from('project');
+        $this->db->join('category', 'category.id = project.category_id','left');
+        $this->db->join('reference', 'reference.id = project.reference_id','left');
+        $this->db->join('status', 'status.id = project.status_id');
+        $this->db->where('status.id = 4');
+
+        $query = $this->db->get();
         return $query->result();
     }
     public function get_unassigned_projects(){
@@ -52,7 +73,7 @@ class Project extends CI_Model {
         return $query->result();
     }
     public function getProjects(){
-        $this->db->select('project.id, project.title, project.size, project.budget, category.name as category, reference.name as reference, status.name as status');    
+        $this->db->select('project.*, category.name as category, reference.name as reference, status.name as status');    
         $this->db->from('project');
         $this->db->join('category', 'category.id = project.category_id','left');
         $this->db->join('reference', 'reference.id = project.reference_id','left');

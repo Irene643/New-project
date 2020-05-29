@@ -1,75 +1,74 @@
 
 $( function() {
     $( "#datepicker" ).datepicker();
-      $( "#datepicker" ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
+    $( "#datepicker" ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
 } );
-$(function() {
-  $('#all').click(function() {
-      // $.ajax({
-      //     type: "GET",
-      //     // token:csrfHash,
-      //     url: "home/completed",
-      //     dataType:'JSON',
-      //     success: function(response, status, xhr) {
-      //       if (data[0] === undefined) return;
-      //       alert("here "+data[0]);
-      //       console.log(response);
-      //         // $("#completed").html(data);
-      //     }
-      // });
-      var oTable = $('#userDetails').dataTable( {
-        "bJQueryUI": true,
-        "bPaginate": true,
-        "language": {
-                      oPaginate: {
-                          sNext: '<i class="fa fa-forward"></i>',
-                          sPrevious: '<i class="fa fa-backward"></i>',
-                          sFirst: '<i class="fa fa-step-backward"></i>',
-                          sLast: '<i class="fa fa-step-forward"></i>' 
-                      }
-      
-                   } ,
-        "bProcessing": true,
-        "display": 'envelope',
-        "bServerSide": false,
-        "sAjaxSource": "home/completed",
-        "aoColumns": [
-             { "mData": "title" },
-             { "mData": "category_id" },
-             { "mData": "status_id" },
-             { "mData": "size" },
-             { "mData": "budget" }
-        ]
-             });
-      
-    });
+
+var source = "home/completed";
+$(document).ready(function() {
+
+  $("#userDetails").hide();
+
+  $('.all').click(function() {
+    source = "home/all";
+    showData();
+  });
+
+  $('#unassigned').click(function() {
+    source = "home/unassigned";
+    showData();
+  });
+
+  $('#inprogress').click(function() {
+    source = "home/in_progress";
+    showData();
+  });
+
+  $('#waiting').click(function() {
+    source = "home/waiting_for_client";
+    showData();
+  });
+
+  $('#completed').click(function() {
+    source = "home/completed";
+    showData();
+  });
+
+  // $('#viewproject').click(function(){
+  //   var id = table.row( this ).id();
+  //   alert('clicked');
+  //   $.ajax({
+  //     url: 'home/view_single/'+id,
+  //     success: function(data) {
+  //       alert('Directory created');
+  //     }
+  //   });
+  // });
+
 });
 
 
-// $(document).ready(function() {
-//   var oTable = $('#userDetails').dataTable( {
-//   "bJQueryUI": true,
-//   "bPaginate": true,
-//   "language": {
-//                 oPaginate: {
-//                     sNext: '<i class="fa fa-forward"></i>',
-//                     sPrevious: '<i class="fa fa-backward"></i>',
-//                     sFirst: '<i class="fa fa-step-backward"></i>',
-//                     sLast: '<i class="fa fa-step-forward"></i>' 
-//                 }
+var showData = (function(){
+  $("#userDetails").show();
+  $('#userDetails').dataTable( {
+    "bJQueryUI": true,
+    "bPaginate": true,
+    "bProcessing": true,
+    "display": 'envelope',
+    "bServerSide": false,
+    "sAjaxSource": source,
+    "aoColumns": [
+        { "mData": "title" },
+        { "mData": "category" },
+        { "mData": "reference" },
+        { "mData": "size" },
+        { "mData": "status" },
+        { "mData": "due_date" },
+        { "mData": "budget" },
+        {"mData":null,"defaultContent":"<a href='/Edit/'>Edit</a>"}
+        // {"mData":null,"defaultContent":'<a id="viewproject" href="/view/+mData[0]">View</a><span> | </span><a href="#">Edit</a><span> | </span> <a href="#">Delete</a>'}
+    ],
+    destroy : true
+  });
+}); 
 
-//              } ,
-//   "bProcessing": true,
-//   "display": 'envelope',
-//   "bServerSide": false,
-//   "sAjaxSource": "home/completed",
-//   "aoColumns": [
-//        { "mData": "title" },
-//        { "mData": "category_id" },
-//        { "mData": "status_id" },
-//        { "mData": "size" },
-//        { "mData": "budget" }
-//   ]
-//        });
-
-//   });

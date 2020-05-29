@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
     <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/bootstrap/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/pdfmake-0.1.18/dt-1.10.12/b-1.2.2/b-colvis-1.2.2/b-html5-1.2.2/b-print-1.2.2/r-2.1.0/datatables.min.css" />  -->
+    
     <!-- Font Awesome CSS-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <!-- Google fonts - Popppins for copy-->
@@ -21,6 +22,8 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/custom.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/img/favicon.png?3">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://nightly.datatables.net/css/dataTables.bootstrap4.min.css">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -84,14 +87,14 @@
               <li class="sidebar-list-item"><a href="../login/index" class="sidebar-link text-muted"><i class="o-sales-up-1 mr-3 text-gray"></i><span>Charts</span></a></li>
               <li class="sidebar-list-item"><a href="tables" class="sidebar-link text-muted"><i class="o-table-content-1 mr-3 text-gray"></i><span>Tables</span></a></li>
               <li class="sidebar-list-item"><a href="<?php echo base_url(); ?>index.php/create" class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>Forms</span></a></li>
-          <li class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>Projects</span></a>
+          <li class="sidebar-list-item"><a href="#all" data-toggle="collapse" data-target="#pages" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted all"><i class="o-wireframe-1 mr-3 text-gray"></i><span>Projects</span></a>
             <div id="pages" class="collapse">
               <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                <li class="sidebar-list-item"><a id="all" href="#all" class="sidebar-link text-muted pl-lg-5">All<span class="badge badge-pill badge-light"><?php  echo count($projects);?></span></a></li>
+                <li class="sidebar-list-item "><a href="#all" class=" all sidebar-link text-muted pl-lg-5">All<span class="badge badge-pill badge-light"><?php  echo count($projects);?></span></a></li>
                 <li class="sidebar-list-item"><a id="unassigned" href="#unassigned" class="sidebar-link text-muted pl-lg-5">Unassigned<span class="badge badge-pill badge-secondary"><?php  echo count($unassigned);?></span></a></li>
-                <li class="sidebar-list-item"><a href="#inprogress" class="sidebar-link text-muted pl-lg-5">In Progress<span class="badge badge-pill badge-primary"><?php  echo count($open);?></span></a></li>
-                <li class="sidebar-list-item"><a href="#waiting" class="sidebar-link text-muted pl-lg-5">Waiting for Client<span class="badge badge-pill badge-info"><?php  echo count($waiting_for_client);?></span></a></li>
-                <li class="sidebar-list-item"><a href="#completed" class="sidebar-link text-muted pl-lg-5">Done<span class="badge badge-pill badge-success"><?php  echo count($completed);?></span></a></li>
+                <li class="sidebar-list-item"><a id="inprogress" href="#inprogress" class="sidebar-link text-muted pl-lg-5">In Progress<span class="badge badge-pill badge-primary"><?php  echo count($open);?></span></a></li>
+                <li class="sidebar-list-item"><a id="waiting" href="#waiting" class="sidebar-link text-muted pl-lg-5">Waiting for Client<span class="badge badge-pill badge-info"><?php  echo count($waiting_for_client);?></span></a></li>
+                <li class="sidebar-list-item"><a id="completed" href="#completed" class="sidebar-link text-muted pl-lg-5">Done<span class="badge badge-pill badge-success"><?php  echo count($completed);?></span></a></li>
               </ul>
             </div>
           </li>
@@ -114,7 +117,7 @@
                   <div class="flex-grow-1 d-flex align-items-center">
                     <div class="dot mr-3 bg-violet"></div>
                     <div class="text">
-                      <h6 class="mb-0"><?php echo $all_projects_title ?></h6><span class="text-gray"><?php  echo count($projects);?></span>
+                      <h6><a href="#" class="mb-0 text-muted all"><?php echo $all_projects_title ?></a></h6><span class="text-gray"><?php  echo count($projects);?></span>
                     </div>
                   </div>
                   <div class="icon text-white bg-violet"><i class="fas fa-server"></i></div>
@@ -157,133 +160,24 @@
           </section>
           <section>
             <!-- datatable -->
-          <table id="userDetails" class="datatable table table-hover" cellspacing="0" width="100%">
+          <table id="userDetails" class="datatable table table-bordered table-hover table-striped" cellspacing="0" width="100%">
             <thead>
                 <tr>
-                    <th>Hotel Name</th>
-                    <th>Admin Username</th>
-                    <th>Admin Name</th>
-                    <th>City</th>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Reference Type</th>
+                    <th>Size</th>
                     <th>Status</th>
+                    <th>Date</th>
+                    <th>Budget</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
             </tbody>
         </table>
         <!-- datatable end -->
-            <table class="table table-bordered table-striped" id="allprojects"> 
-                <thead> 
-                    <tr> 
-                        <th width="80px">No</th> 
-                        <th>Title</th> 
-                        <th>Category</th> 
-                        <th>Status</th> 
-                        <th>Size</th> 
-                        <th>Reference Type</th>
-                        <th>Budget</th>
-                        <th>Actions</th>
-                    </tr> 
-                </thead> 
-                <tbody id="completed"> 
-
-                    <!-- <?php 
-                    $start = 0; 
-                    foreach ($projects as $project) 
-                    { 
-                        ?> 
-                        <tr> 
-                            <td> 
-                                <?php echo ++$start ?> 
-                            </td> 
-                            <td> 
-                                <?php echo $project->title ?> 
-                            </td> 
-                            <td> 
-                                <?php echo $project->category ?> 
-                            </td> 
-                            <td> 
-                                <?php echo $project->status ?> 
-                            </td> 
-                            <td> 
-                                <?php echo $project->size ?> 
-                            </td> 
-                            <td> 
-                                <?php echo $project->reference ?> 
-                            </td>
-                            <td> 
-                                <?php echo $project->budget ?> 
-                            </td>
-                            <td style="text-align:center" width="200px"> 
-                              <?php  
-                              echo anchor(site_url('index.php/project/view/'.$project->id),'View');  
-                              echo ' | ';  
-                              echo anchor(site_url('index.php/project/edit/'.$project->id),'Edit');  
-                              echo ' | ';  
-                              echo anchor(site_url('index.php/project/delete/'.$project->id),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"');  
-                              ?> 
-                            </td> 
-                        </tr> 
-                        <?php 
-                    } 
-                    ?>  -->
-                </tbody> 
-            </table>
-            <table class="table table-bordered table-striped project-table" id="unassignedprojects">
-                <thead> 
-                    <tr> 
-                        <th width="80px">No</th> 
-                        <th>Title</th> 
-                        <th>Category</th> 
-                        <th>Status</th> 
-                        <th>Size</th> 
-                        <th>Reference Type</th>
-                        <th>Budget</th>
-                        <th>Actions</th>
-                    </tr> 
-                </thead> 
-                <tbody> 
-                    <?php 
-                    $start = 0; 
-                    foreach ($unassigned as $project) 
-                    { 
-                        ?> 
-                        <tr> 
-                            <td> 
-                                <?php echo ++$start ?> 
-                            </td> 
-                            <td> 
-                                <?php echo $project->title ?> 
-                            </td> 
-                            <td> 
-                                <?php echo $project->category ?> 
-                            </td> 
-                            <td> 
-                                <?php echo $project->status ?> 
-                            </td> 
-                            <td> 
-                                <?php echo $project->size ?> 
-                            </td> 
-                            <td> 
-                                <?php echo $project->reference ?> 
-                            </td>
-                            <td> 
-                                <?php echo $project->budget ?> 
-                            </td>
-                            <td style="text-align:center" width="200px"> 
-                              <?php  
-                              echo anchor(site_url('index.php/project/view/'.$project->id),'View');  
-                              echo ' | ';  
-                              echo anchor(site_url('index.php/project/edit/'.$project->id),'Edit');  
-                              echo ' | ';  
-                              echo anchor(site_url('index.php/project/delete/'.$project->id),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"');  
-                              ?> 
-                            </td> 
-                        </tr> 
-                        <?php 
-                    } 
-                    ?> 
-                </tbody> 
-            </table>
+            
           </section>
           <section class="py-5">
             <div class="row">
@@ -347,14 +241,13 @@
     </div>
     <!-- JavaScript files-->
     
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
-    <!--data table--> 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/pdfmake-0.1.18/dt-1.10.12/b-1.2.2/b-colvis-1.2.2/b-html5-1.2.2/b-print-1.2.2/r-2.1.0/datatables.min.css" /> 
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/pdfmake-0.1.18/dt-1.10.12/b-1.2.2/b-colvis-1.2.2/b-html5-1.2.2/b-print-1.2.2/r-2.1.0/datatables.min.js"></script> 
-    <!-- <script src="<?php echo base_url(); ?>assets/vendor/jquery/jquery.min.js"></script> -->
+    <script src="<?php echo base_url(); ?>assets/vendor/jquery/jquery.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/vendor/popper.js/umd/popper.min.js"> </script>
     <script src="<?php echo base_url(); ?>assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+    <!--data table--> 
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/pdfmake-0.1.18/dt-1.10.12/b-1.2.2/b-colvis-1.2.2/b-html5-1.2.2/b-print-1.2.2/r-2.1.0/datatables.min.js"></script> 
     <script src="<?php echo base_url(); ?>assets/vendor/jquery.cookie/jquery.cookie.js"> </script>
     <script src="<?php echo base_url(); ?>assets/vendor/chart.js/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>

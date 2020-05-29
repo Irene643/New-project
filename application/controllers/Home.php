@@ -2,6 +2,26 @@
 // defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller {
+	// "global" items
+    var $data;
+
+    function __construct(){
+        parent::__construct(); // needed when adding a constructor to a controller
+        $this->data = array(
+			'projects' => $this->project->getProjects(),
+			'open' => $this->project->getOpenProjects(),
+			'completed' => $this->project->getCompletedProjects(),
+			'unassigned' => $this->project->get_unassigned_projects(),
+			'waiting_for_client' => $this->project->get_waiting_for_client_projects(),
+			'project_categories' => $this->project->getProjectCategory(),
+			'project_references' => $this->project->getProjectReferenceType(),
+			'project_status' => $this->project->getProjectStatus(),
+			'all_projects_title' => 'All Projects',
+			'open_projects_title' => 'Open Projects',
+			'completed_projects_title' => 'Completed Projects'
+        );
+        // $this->data can be accessed from anywhere in the controller.
+    }    
 
 	/**
 	 * Index Page for this controller.
@@ -19,24 +39,13 @@ class Home extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index()
-	{	$data = array(
-			'all_projects_title' => 'All Projects',
-			'open_projects_title' => 'Open Projects',
-			'completed_projects_title' => 'Completed Projects'
-		);
-		$data['projects'] = $this->project->getProjects();
-		$data['open'] = $this->project->getOpenProjects();
-		$data['completed'] = $this->project->getCompletedProjects();
-		$data['unassigned'] = $this->project->get_unassigned_projects();
-		$data['waiting_for_client'] = $this->project->get_waiting_for_client_projects();
+	{	
+		$data = $this->data;
 		$this->load->view('template/index', $data);
 	}
 	
 	public function create(){
-		// $data['page_title'] = 'Create New Project';
-		$data['project_categories'] = $this->project->getProjectCategory();
-		$data['project_references'] = $this->project->getProjectReferenceType();
-		$data['project_status'] = $this->project->getProjectStatus();
+		$data = $this->data;
  
         $this->form_validation->set_rules('title', 'Title', 'required');
 		$this->form_validation->set_rules('category', 'Category', 'required');
@@ -50,16 +59,17 @@ class Home extends CI_Controller {
 		$this->form_validation->set_rules('customer_billing', 'Customer Billing', 'required');
 		if ($this->form_validation->run() == FALSE)
 		{
-			echo('please try again');
+			// echo('please try again');
 			$this->load->view('template/create', $data);
 		}else{
-			echo('success');
+			// echo('success');
 			$this->load->view('template/create', $data);
 		
 		}
 		
 	}
 	public function saveProject(){
+		$data = $this->data;
 		// var_dump($this->input->post());die;
 	
 		/*Check submit button */
@@ -86,59 +96,87 @@ class Home extends CI_Controller {
 			'budget'=>$budget, 
 			'customer_billing'=>$customer_billing
 		);
-		$data['project_categories'] = $this->project->getProjectCategory();
-		$data['project_references'] = $this->project->getProjectReferenceType();
-		$data['project_status'] = $this->project->getProjectStatus();
-		print_r($data['project_categories']);
 		$this->project->saveProject($post_data);
 		$this->load->view('template/create', $data);
 		echo "Records Saved Successfully";
 		
 	}
 	public function view_all()
-	{	$data = array(
-			'all_projects_title' => 'All Projects',
-			'open_projects_title' => 'Open Projects',
-			'completed_projects_title' => 'Completed Projects'
-		);
-		$data['projects'] = $this->project->getProjects();
-		$data['open'] = $this->project->getOpenProjects();
-		$data['completed'] = $this->project->getCompletedProjects();
-		$data['unassigned'] = $this->project->get_unassigned_projects();
-		$data['waiting_for_client'] = $this->project->get_waiting_for_client_projects();
+	{
+		$data = $this->data;	
 		$this->load->view('template/view', $data);
 	}
-	public function completed(){
-	$data = array();
-	$CI =& get_instance();
-	$csrf_name = $CI->security->get_csrf_token_name();;
-	$csrf_hash = $CI->security->get_csrf_hash();
-	$data = $this->project->getCompletedProjects();
-		// print_r(json_encode($data));
+
+	public function unassigned(){
+		$data = $this->data;
+		$unassigned = $data['unassigned'];
 		$json_req = array(
 
             "sEcho"    =>1,
-            "aaData" => $data
+            "aaData" => $unassigned
+		);
+		
+		echo json_encode($json_req);
+	}
+	
+	public function in_progress(){
+		$data = $this->data;
+		$open = $data['open'];
+		$json_req = array(
+
+            "sEcho"    =>1,
+            "aaData" => $open
+		);
+		
+		echo json_encode($json_req);
+	}
+
+	public function waiting_for_client(){
+		$data = $this->data;
+		$waiting = $data['waiting_for_client'];
+		$json_req = array(
+
+            "sEcho"    =>1,
+            "aaData" => $waiting
+		);
+		
+		echo json_encode($json_req);
+	}
+	public function completed(){
+		$data = $this->data;
+		$completed = $data['completed'];
+		$json_req = array(
+
+            "sEcho"    =>1,
+            "aaData" => $completed
+		);
+		
+		echo json_encode($json_req);
+	}
+
+	public function all(){
+		$data = $this->data;
+		// $CI =& get_instance();
+		// $csrf_name = $CI->security->get_csrf_token_name();;
+		// $csrf_hash = $CI->security->get_csrf_hash();
+		$all = $data['projects'];
+		// print_r(json_encode($all));die;
+		$json_req = array(
+
+            "sEcho"    =>1,
+            "aaData" => $all
 		);
 		
 		echo json_encode($json_req);
 	}
 	public function view_single(){
 		$id = $this->uri->segment(3);
-		$data = array(
-			'all_projects_title' => 'All Projects',
-			'open_projects_title' => 'Open Projects',
-			'completed_projects_title' => 'Completed Projects'
-		);
-		$data['projects'] = $this->project->getProjects();
-		$data['open'] = $this->project->getOpenProjects();
-		$data['completed'] = $this->project->getCompletedProjects();
-		$data['unassigned'] = $this->project->get_unassigned_projects();
-		$data['waiting_for_client'] = $this->project->get_waiting_for_client_projects();
-		$data['project'] = $this->project->get_single_project($id);
+		$data = $this->data;
  
-        $this->load->view('template/viewsingle', $data);
+		$this->load->view('template/viewsingle', $data);
+		return true;
 	}
+
 	public function edit()
     {
 		$title=$this->input->post('title');
@@ -157,18 +195,7 @@ class Home extends CI_Controller {
         {
             show_404();
 		}
-		$data = array(
-			'all_projects_title' => 'All Projects',
-			'open_projects_title' => 'Open Projects',
-			'completed_projects_title' => 'Completed Projects'
-		);
-		$data['project_categories'] = $this->project->getProjectCategory();
-		$data['project_references'] = $this->project->getProjectReferenceType();
-		$data['project_status'] = $this->project->getProjectStatus();
-		$data['id'] = $id;
-		$data['projects'] = $this->project->getProjects();
-		$data['open'] = $this->project->getOpenProjects();
-		$data['completed'] = $this->project->getCompletedProjects();
+
         $data['title'] = 'Edit Project';        
         $data['single_project'] = $this->project->get_project_by_id($id);
         
