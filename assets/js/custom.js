@@ -4,12 +4,14 @@ $( function() {
     $( "#datepicker" ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
 } );
 
-var source = "home/completed";
+var source;
 $(document).ready(function() {
+  $("#addproject").hide();
 
   $("#userDetails").hide();
 
   $('.all').click(function() {
+    $("#addproject").show();
     source = "home/all";
     showData();
   });
@@ -52,6 +54,7 @@ var showData = (function(){
   $("#userDetails").show();
   $('#userDetails').dataTable( {
     "bJQueryUI": true,
+    "scrollX":   true,
     "bPaginate": true,
     "bProcessing": true,
     "display": 'envelope',
@@ -65,10 +68,21 @@ var showData = (function(){
         { "mData": "status" },
         { "mData": "due_date" },
         { "mData": "budget" },
-        {"mData":null,"defaultContent":"<a href='/Edit/'>Edit</a>"}
-        // {"mData":null,"defaultContent":'<a id="viewproject" href="/view/+mData[0]">View</a><span> | </span><a href="#">Edit</a><span> | </span> <a href="#">Delete</a>'}
+        // {"mRender": function(data, type, full) {
+        //   return '<a class="btn btn-info btn-sm" href=project/view/' + 14 + '>' + 'View' + '</a>'+" "+'<a class="btn btn-warning btn-sm" href=project/edit/' + 14 + '>' + 'Edit' + '</a>'+" "+'<a class="btn btn-danger btn-sm" href=project/delete/' + 14 + '>' + 'Delete' + '</a>';}
+        // }
     ],
     destroy : true
   });
 }); 
+
+$('#userDetails').on( 'click', 'tr', function () {
+  // Get the rows id value
+  var id = table.row( this ).id();
+  // Filter for only numbers
+  id = id.replace(/\D/g, '');
+  // Transform to numeric value
+  id = parseInt(id, 10);
+  alert( 'Clicked row id '+id );
+});
 

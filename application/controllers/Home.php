@@ -41,7 +41,7 @@ class Home extends CI_Controller {
 	public function index()
 	{	
 		$data = $this->data;
-		$this->load->view('template/index', $data);
+		$this->load->view('template/home', $data);
 	}
 	
 	public function create(){
@@ -172,6 +172,7 @@ class Home extends CI_Controller {
 	public function view_single(){
 		$id = $this->uri->segment(3);
 		$data = $this->data;
+		$data['project'] = $this->project->get_single_project($id);
  
 		$this->load->view('template/viewsingle', $data);
 		return true;
@@ -179,6 +180,8 @@ class Home extends CI_Controller {
 
 	public function edit()
     {
+		$data = $this->data;
+		
 		$title=$this->input->post('title');
 		$category=$this->input->post('category');
 		$status=$this->input->post('status');
@@ -196,7 +199,7 @@ class Home extends CI_Controller {
             show_404();
 		}
 
-        $data['title'] = 'Edit Project';        
+		$data['title'] = 'Edit Project';     
         $data['single_project'] = $this->project->get_project_by_id($id);
         
         $this->form_validation->set_rules('title', 'Title', 'required');
@@ -212,11 +215,9 @@ class Home extends CI_Controller {
 
 		if ($this->form_validation->run() === FALSE)
 		{
-			echo('please try again');
-			$this->load->view('template/edit', $data);
-		}
-        else
-        {
+			echo('Please try again');
+			redirect( base_url() . 'index.php/projects#all');
+		}else{
 			$post_data = array(
 				'title'=>$title,
 				'category_id'=>$category,

@@ -111,7 +111,7 @@
             <h2>Create Project</h2>
             <?php print_r($project_categories);?>
             <?php echo validation_errors(); ?>
-            <?php echo form_open('index.php/project/edit/'.$id); ?>  
+            <?php echo form_open('index.php/project/edit/'.$single_project['id']); ?>  
               <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" name="title" value="<?php echo set_value('title', $single_project['title']); ?>" class="form-control" id="title">
