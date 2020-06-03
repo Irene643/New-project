@@ -41,6 +41,7 @@ class Home extends CI_Controller {
 	public function index()
 	{	
 		$data = $this->data;
+		$unassigned_project = $data['unassigned'];
 		$this->load->view('template/home', $data);
 	}
 	
@@ -109,6 +110,7 @@ class Home extends CI_Controller {
 
 	public function unassigned(){
 		$data = $this->data;
+
 		$unassigned = $data['unassigned'];
 		$json_req = array(
 

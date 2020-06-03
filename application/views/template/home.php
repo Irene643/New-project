@@ -155,46 +155,59 @@
               </div>
             </div>
           </section>
-          <section>
-            <div class="row mb-4">
-                <div class="col-lg-5 mb-4 mb-lg-0 pl-lg-0">
+          <section class="py-5">
+            <div class="row">
+              <div class="col-lg-7">
+                <div class="card">
+                  <div class="card-header text-center">Jobs For You (<?=count($unassigned)?>)</div>
+                  <div class="card-body">
+                  <?php foreach($unassigned as $unassigned_project):
+                    // print_r($unassigned_project);
+                    ?>
+
                     <div class="card">
-                        <div class="card-header"><h4 class="mb-0 d-flex align-items-center">Jobs for you</h4></div>
-                         <?php foreach($open as $open_project):?>
-                            <div class="card-body">
-                                <div class="card mb-3">
-                                    <div class="card-body">
-                                        <div class="row align-items-center flex-row">
-                                            <div class="col-lg-5">
-                                                <h4 class="mb-0 d-flex align-items-center"><span>86.4</span><span class="dot bg-green d-inline-block ml-3"></span></h4><span class="text-muted text-uppercase small">Work hours</span>
-                                                <hr><small class="text-muted">Lorem ipsum dolor sit</small>
-                                            </div>
-                                            <div class="col-lg-7">
-                                                <canvas id="pieChartHome1"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endforeach;?>
+                      <div class="card-header text-center"><?=$unassigned_project->title?></div>
+                      <div class="card-body">
+                        <div>
+                          <p>Reference Type: <?=$unassigned_project->reference?></p>
+                          <p>Due Date: <?=$unassigned_project->due_date?></p>
+                          <p>Price: <?=$unassigned_project->budget?></p>
+                          <?php
+                            $due_date = strtotime($unassigned_project->due_date);
+                            $current_date = strtotime(date('Y-m-d h:i:s'));
+                            $due_in = round(($due_date - $current_date)/(60*60),0);
+
+                            if($due_in > 0){
+                              if($due_in > 24 ) {
+                                $due_in = round(($due_in/24),0)."days";
+                              }else{
+                                $due_in = $due_in ."h";
+                              }
+                              
+                            }else{
+                              $due_in = "Expired";
+                            }
+                          ?>
+                          <p>Due in: <?=$due_in?></p>
                         </div>
+                        <div class="main-text"><?=$unassigned_project->description?></div>
+                        <div class="text-center read-more"><a class="btn btn-primary" href="<?=base_url();?>index.php/project/view/<?=$unassigned_project->id;?>">View Job</a></div>
+                      </div>
                     </div>
+                    <br>
+                    <?php endforeach ?>
+                  </div>
                 </div>
-                <div class="col-lg-7 mb-4 mb-lg-0">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="h6 text-uppercase mb-0">Current server uptime</h2>
-                        </div>
-                        <div class="card-body">
-                            <p class="text-gray">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            <div class="chart-holder">
-                                <canvas id="lineChart1" style="max-height: 14rem !important;" class="w-100"></canvas>
-                            </div>
-                        </div>
-                    </div>
+              </div>
+              <div class="col-lg-5">
+                <div class="card">
+                  <div class="card-header text-center">Notifications</div>
+                  <div class="card-body"></div>
                 </div>
+              </div>
             </div>
           </section>
+         
           <section class="py-5">
               
             <div class="row">
