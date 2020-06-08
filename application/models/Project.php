@@ -100,6 +100,7 @@ class Project extends CI_Model {
         $this->db->join('reference', 'reference.id = project.reference_id','left');
         $this->db->join('status', 'status.id = project.status_id');
         $this->db->where('project.id =',$id);
+        // $this->db->order_by STR_TO_DATE(DateTime, created_at,101)  DESC;
 
         $query = $this->db->get();
         return $query->result();

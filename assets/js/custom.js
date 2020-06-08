@@ -6,8 +6,9 @@ $( function() {
 
 var source;
 $(document).ready(function() {
+  
   $("#addproject").hide();
-
+ 
   $("#userDetails").hide();
 
   $('.all').click(function() {
@@ -68,9 +69,11 @@ var showData = (function(){
         { "mData": "status" },
         { "mData": "due_date" },
         { "mData": "budget" },
-        // {"mRender": function(data, type, full) {
-        //   return '<a class="btn btn-info btn-sm" href=project/view/' + 14 + '>' + 'View' + '</a>'+" "+'<a class="btn btn-warning btn-sm" href=project/edit/' + 14 + '>' + 'Edit' + '</a>'+" "+'<a class="btn btn-danger btn-sm" href=project/delete/' + 14 + '>' + 'Delete' + '</a>';}
-        // }
+        {"mRender": function(oObj, type, full) {
+          alert(full);
+          // return '<a class="btn btn-info btn-sm" href=project/view/' + oObj.mData[oObj.iDataColumn]+ '>View</a>' ;
+        }
+        }
     ],
     destroy : true
   });
@@ -85,4 +88,9 @@ $('#userDetails').on( 'click', 'tr', function () {
   id = parseInt(id, 10);
   alert( 'Clicked row id '+id );
 });
+
+$('.project-holder').hover(
+  function(){
+  	   $('.btn-bid').css('display', 'block')
+   });
 

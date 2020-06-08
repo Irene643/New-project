@@ -162,11 +162,23 @@
                   <div class="card-header text-center">Jobs For You (<?=count($unassigned)?>)</div>
                   <div class="card-body">
                   <?php foreach($unassigned as $unassigned_project):
-                    // print_r($unassigned_project);
+                  $current_date = strtotime(date('Y-m-d h:i:s'));
+                  $created_at = strtotime($unassigned_project->created_at);
+                  $hr_difference = round(($current_date - $created_at)/(60*60),0);
+                  if($hr_difference > 0){
+                    if($hr_difference > 24 ) {
+                      $day_difference = round(($hr_difference/24),0)."d";
+                    }
+                    if($hr_difference <= 24 ){
+                      $hr_difference = $hr_difference ."h";
+                    }
+                  }
+                    // print_r($hr_difference);
                     ?>
-
-                    <div class="card">
-                      <div class="card-header text-center"><?=$unassigned_project->title?></div>
+                    
+                <div class="card">
+                  <div class="card-header text-center"><?=$unassigned_project->title?><span class="float-right"><?php if($hr_difference < 24):?><span style="color:green"class="badge badge-light">New</span><?php endif; if($hr_difference >24){echo $day_difference;}else{ echo $hr_difference;}?><i class="fa fa-heart"style="color: orange;padding-left:0.5em" ></i></span></div>
+                    <a href="<?=base_url();?>index.php/project/view/<?=$unassigned_project->id;?>"title="View this job"class="project-holder">
                       <div class="card-body">
                         <div>
                           <p>Reference Type: <?=$unassigned_project->reference?></p>
@@ -174,7 +186,6 @@
                           <p>Price: <?=$unassigned_project->budget?></p>
                           <?php
                             $due_date = strtotime($unassigned_project->due_date);
-                            $current_date = strtotime(date('Y-m-d h:i:s'));
                             $due_in = round(($due_date - $current_date)/(60*60),0);
 
                             if($due_in > 0){
@@ -183,16 +194,16 @@
                               }else{
                                 $due_in = $due_in ."h";
                               }
-                              
                             }else{
                               $due_in = "Expired";
                             }
                           ?>
                           <p>Due in: <?=$due_in?></p>
+                          <div class="main-text"><?=$unassigned_project->description?></div>
                         </div>
-                        <div class="main-text"><?=$unassigned_project->description?></div>
-                        <div class="text-center read-more"><a class="btn btn-primary" href="<?=base_url();?>index.php/project/view/<?=$unassigned_project->id;?>">View Job</a></div>
+                        <div class="text-center read-more"><span id="<?=$unassigned_project->id?>"class="btn-bid float-left"><a class="btn btn-sm btn-success"href="">Bid now</a></span></div>
                       </div>
+                      </a>
                     </div>
                     <br>
                     <?php endforeach ?>

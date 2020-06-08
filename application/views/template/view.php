@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
+  <?php
+  if (isset($this->session->userdata['logged_in'])) {
+    $username = ($this->session->userdata['logged_in']['username']);
+    $email = ($this->session->userdata['logged_in']['email']);
+  } else {
+    header("location: login");
+  }
+  ?>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Writedrone</title>

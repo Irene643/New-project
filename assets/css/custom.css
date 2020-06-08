@@ -25,3 +25,15 @@ div.main-text {height:60px;
     overflow:hidden!important;
 }
 .read-more{margin-top: 2em;}
+.btn-bid{
+    display:none;
+}
+
+a.project-holder:hover ~ span.btn-bid{
+    display:block !important; 
+}
+a.project-holder,
+a.project-holder:hover {
+  color: inherit;
+  text-decoration: none;
+}

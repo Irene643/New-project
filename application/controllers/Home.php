@@ -6,7 +6,9 @@ class Home extends CI_Controller {
     var $data;
 
     function __construct(){
-        parent::__construct(); // needed when adding a constructor to a controller
+		parent::__construct(); // needed when adding a constructor to a controller
+			// Load form helper library
+		$this->load->model('login_database');
         $this->data = array(
 			'projects' => $this->project->getProjects(),
 			'open' => $this->project->getOpenProjects(),
@@ -69,11 +71,13 @@ class Home extends CI_Controller {
 		}
 		
 	}
+	//send to database
 	public function saveProject(){
 		$data = $this->data;
 		// var_dump($this->input->post());die;
 	
 		/*Check submit button */
+		$created_at=$this->input->post('created_at');
 		$title=$this->input->post('title');
 		$category=$this->input->post('category');
 		$status=$this->input->post('status');
@@ -86,6 +90,7 @@ class Home extends CI_Controller {
 		$customer_billing=$this->input->post('customer_billing');
 
 		$post_data = array(
+			'created_at'=>$created_at,
 			'title'=>$title,
 			'category_id'=>$category,
 			'status_id'=>$status,
@@ -164,13 +169,13 @@ class Home extends CI_Controller {
 		$all = $data['projects'];
 		// print_r(json_encode($all));die;
 		$json_req = array(
-
-            "sEcho"    =>1,
-            "aaData" => $all
+            "data" => $all
 		);
+		print_r(json_encode($json_req));die;
 		
 		echo json_encode($json_req);
 	}
+	//view single project
 	public function view_single(){
 		$id = $this->uri->segment(3);
 		$data = $this->data;
@@ -179,7 +184,7 @@ class Home extends CI_Controller {
 		$this->load->view('template/viewsingle', $data);
 		return true;
 	}
-
+	//Edit project
 	public function edit()
     {
 		$data = $this->data;
@@ -221,6 +226,7 @@ class Home extends CI_Controller {
 			redirect( base_url() . 'index.php/projects#all');
 		}else{
 			$post_data = array(
+				'created_at'=>$created_at,
 				'title'=>$title,
 				'category_id'=>$category,
 				'status_id'=>$status,
