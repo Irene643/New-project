@@ -18,7 +18,7 @@
                 echo "<div class='error_msg'>";
                 echo validation_errors();
                 echo "</div>";
-                echo form_open('user_authentication/new_user_registration');
+                echo form_open('index.php/user_authentication/new_user_registration');
 
                 echo form_label('Create Username : ');
                 echo"<br/>";

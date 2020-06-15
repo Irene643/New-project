@@ -39,12 +39,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <h1 class="text-base text-primary text-center text-uppercase mb-4 card-login">Writedrone</h1>
             <h2 class="mb-4">Welcome back!</h2>
             <!-- <p class="text-muted">ogin to co.</p> -->
-            <form id="loginForm" action="index.html" class="mt-4">
+            <form id="loginForm" action="<?php echo base_url();?>index.php/login/login_user" class="mt-4">
               <div class="form-group mb-4">
                 <input type="text" name="username" placeholder="Username or Email address" class="form-control border-0 shadow form-control-lg">
+                <span class="text-danger"><?php echo form_error('username')?></span>
               </div>
               <div class="form-group mb-4">
                 <input type="password" name="password" placeholder="Password" class="form-control border-0 shadow form-control-lg text-violet">
+                <span class="text-danger"><?php echo form_error('password')?></span>
               </div>
               <div class="form-group mb-4">
                 <div class="custom-control custom-checkbox">

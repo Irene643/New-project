@@ -165,7 +165,7 @@
                   $current_date = strtotime(date('Y-m-d h:i:s'));
                   $created_at = strtotime($unassigned_project->created_at);
                   $hr_difference = round(($current_date - $created_at)/(60*60),0);
-                  if($hr_difference > 0){
+                  if($hr_difference >= 0){
                     if($hr_difference > 24 ) {
                       $day_difference = round(($hr_difference/24),0)."d";
                     }
@@ -201,7 +201,7 @@
                           <p>Due in: <?=$due_in?></p>
                           <div class="main-text"><?=$unassigned_project->description?></div>
                         </div>
-                        <div class="text-center read-more"><span id="<?=$unassigned_project->id?>"class="btn-bid float-left"><a class="btn btn-sm btn-success"href="">Bid now</a></span></div>
+                        <div class="text-center read-more"><span id="<?=$unassigned_project->id?>"class="btn-bid float-left"><a class="btn btn-sm btn-success"href="">Apply now</a></span></div>
                       </div>
                       </a>
                     </div>
