@@ -57,6 +57,24 @@ Class Login_Database extends CI_Model {
             return false;
         }
     }
+    public function validate($username, $password){
+        // grab user input
+
+        // Prep the query
+        $this->db->where('username', $username);
+        $this->db->where('password', $password);
+        
+        // Run the query
+        $query = $this->db->get('user');
+        // Let's check if there are any results
+        if($query->result()){
+            return $query->result();
+        }else{
+            return false;
+        }
+        // If the previous process did not validate
+        // then return false.
+    }
 
 }
 

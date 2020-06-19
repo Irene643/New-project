@@ -47,30 +47,34 @@ class Login extends CI_Controller {
 
 	// 
 	function login_user(){ 
-		// $data = $this->data;
-		$user_login=array(
-			'username'=>$this->input->post('username'),
-			'password'=>md5($this->input->post('password'))
-		); 
-	  //$user_login['user_email'],$user_login['user_password']
-		  $data['users']=$this->login_database->login($user_login);
-		  print_r($data['users']);
-		  
-		   if($data['users'])
-			{
-				if($data['users'][0]['user_name'] == $user_login['username']){
-					$this->session->set_userdata('user_id',$data['users'][0]['id']);
-					$this->session->set_userdata('username',$data['users'][0]['user_name']); 
-					$this->session->set_userdata('login', TRUE);
-					$this->load->view('template/home',$data);
-				}
-				
-		   }
-		   else{
-		     $this->session->set_flashdata('error_msg', 'Error occured,Try again.');
-		     $this->load->view("template/login.php");
-	   
-		   }
+		$data = $this->data;
+		// $username=$this->input->post('password');
+		// $user_login=array(
+		// 	'username'=>$this->input->post('username'),
+		// 	'password'=>md5($this->input->post('password'))
+		// ); 
+		// Load the model
+		$username = $this->security->xss_clean($this->input->post('username'));
+		$password = $this->security->xss_clean($this->input->post('password'));
+
+		$login_data = $this->login_database->validate($username, $password);
+		// print_r($login_data[0]->id);
+		if(isset($login_data[0])){
+			// echo($login_data[0]->id);
+			// If there is a user, then create session data
+			// $row = $query->row_data;
+			$session_data = array(
+				'id' => $login_data[0]->id,
+				'username' => $login_data[0]->username
+			);
+			print_r($session_data);
+			$this->session->set_userdata($session_data);
+			// error_reporting(1);
+			// redirect('index.php/projects');
+		}else{
+			echo('wrong login');
+			$this->load->view('template/login');
+		}
 	   
 	  }
 	   

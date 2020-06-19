@@ -39,9 +39,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <h1 class="text-base text-primary text-center text-uppercase mb-4 card-login">Writedrone</h1>
             <h2 class="mb-4">Welcome back!</h2>
             <!-- <p class="text-muted">ogin to co.</p> -->
-            <form id="loginForm" action="<?php echo base_url();?>index.php/login/login_user" class="mt-4">
+            <!-- <form id="loginForm" method="POST"action="<?php echo base_url();?>index.php/login/login_user" class="mt-4">-->
+            <?php echo validation_errors(); ?>
+            <?php echo form_open('index.php/login/login_user'); ?>  
               <div class="form-group mb-4">
-                <input type="text" name="username" placeholder="Username or Email address" class="form-control border-0 shadow form-control-lg">
+                <input type="text" name="username" value="<?php echo set_value('username'); ?>" placeholder="Username or Email address" class="form-control border-0 shadow form-control-lg">
                 <span class="text-danger"><?php echo form_error('username')?></span>
               </div>
               <div class="form-group mb-4">
@@ -69,12 +71,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
     </div>
     <!-- JavaScript files-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/popper.js/umd/popper.min.js"> </script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
-    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="<?php echo base_url(); ?>vendor/jquery/jquery.min.js"></script>
+    <script src="<?php echo base_url(); ?>vendor/popper.js/umd/popper.min.js"> </script>
+    <script src="<?php echo base_url(); ?>vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<?php echo base_url(); ?>vendor/jquery.cookie/jquery.cookie.js"> </script>
+    <script src="<?php echo base_url(); ?>vendor/chart.js/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-    <script src="js/front.js"></script>
+    <script src="<?php echo base_url(); ?>js/front.js"></script>
   </body>
 </html>
