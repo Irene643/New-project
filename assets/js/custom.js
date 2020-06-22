@@ -3,9 +3,14 @@ $( function() {
     $( "#datepicker" ).datepicker();
     $( "#datepicker" ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
 } );
+$("#signup").click(function(){
+  $("#sign-up").css("display","block");
+  $("#login").css("display","none");
+});
 
 var source;
 $(document).ready(function() {
+  $("#sign-up").css("display","none");
   
   $("#addproject").hide();
  

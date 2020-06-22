@@ -4,10 +4,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Login extends CI_Controller {
 
 	var $data;
+	var $is_logged_in;
 
     function __construct(){
 		parent::__construct(); // needed when adding a constructor to a controller
-			// Load form helper library
+		//start user session
+		// session_start();
+		// Load form helper library
 		$this->load->model('login_database');
         $this->data = array(
 			'projects' => $this->project->getProjects(),
@@ -56,8 +59,10 @@ class Login extends CI_Controller {
 		// Load the model
 		$username = $this->security->xss_clean($this->input->post('username'));
 		$password = $this->security->xss_clean($this->input->post('password'));
-
-		$login_data = $this->login_database->validate($username, $password);
+		// $password = $this->security->xss_clean($this->input->md5(post('password')));
+		if($username&&$password){
+			$login_data = $this->login_database->validate($username, $password);
+		}
 		// print_r($login_data[0]->id);
 		if(isset($login_data[0])){
 			// echo($login_data[0]->id);
@@ -67,15 +72,22 @@ class Login extends CI_Controller {
 				'id' => $login_data[0]->id,
 				'username' => $login_data[0]->username
 			);
-			print_r($session_data);
+			
 			$this->session->set_userdata($session_data);
-			// error_reporting(1);
-			// redirect('index.php/projects');
+			if (isset($_SESSION['username']) && ($_SESSION['username'] === $username)) {
+				print_r($_SESSION);
+				$_SESSION['is_logged_in'] = TRUE;
+				redirect('');
+			}
+			
 		}else{
 			echo('wrong login');
 			$this->load->view('template/login');
 		}
 	   
+	  }
+	  public function sign_up(){
+		print_r($_POST);
 	  }
 	   
 	  function user_profile(){
@@ -86,7 +98,7 @@ class Login extends CI_Controller {
 	  public function user_logout(){
 	   
 		$this->session->sess_destroy();
-		redirect('user/login_view', 'refresh');
+		redirect('', 'refresh');
 	  }
 	   
 }

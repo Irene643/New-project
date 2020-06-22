@@ -18,6 +18,7 @@ class Home extends CI_Controller {
 			'project_categories' => $this->project->getProjectCategory(),
 			'project_references' => $this->project->getProjectReferenceType(),
 			'project_status' => $this->project->getProjectStatus(),
+			'proficiencies' => $this->project->getProjectCategory(),
 			'all_projects_title' => 'All Projects',
 			'open_projects_title' => 'Open Projects',
 			'completed_projects_title' => 'Completed Projects'
@@ -43,7 +44,11 @@ class Home extends CI_Controller {
 	public function index()
 	{	
 		$data = $this->data;
-		$unassigned_project = $data['unassigned'];
+		$prof = array();
+		foreach($data['proficiencies'] as $proficiency => $value){
+			$prof[$value->id] = $value->id;
+		}
+		$data['prof'] = $prof;
 		$this->load->view('template/home', $data);
 	}
 	

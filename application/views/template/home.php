@@ -38,6 +38,7 @@
               </div>
             </form>
           </li>
+          <!-- <?php echo $_SESSION['is_logged_in']?> -->
           <li class="nav-item dropdown mr-3"><a id="notifications" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle text-gray-400 px-1"><i class="fa fa-bell"></i><span class="notification-icon"></span></a>
             <div aria-labelledby="notifications" class="dropdown-menu"><a href="#" class="dropdown-item">
                 <div class="d-flex align-items-center">
@@ -70,7 +71,7 @@
           <li class="nav-item dropdown ml-auto"><a id="userInfo" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><img src="img/avatar-6.jpg" alt="Jason Doe" style="max-width: 2.5rem;" class="img-fluid rounded-circle shadow"></a>
             <div aria-labelledby="userInfo" class="dropdown-menu"><a href="#" class="dropdown-item"><strong class="d-block text-uppercase headings-font-family">Mark Stephen</strong><small>Web Developer</small></a>
               <div class="dropdown-divider"></div><a href="#" class="dropdown-item">Settings</a><a href="#" class="dropdown-item">Activity log       </a>
-              <div class="dropdown-divider"></div><a href="login.html" class="dropdown-item">Logout</a>
+              <div class="dropdown-divider"></div><a href="<?php echo base_url(); ?>index.php/login/user_logout" class="dropdown-item">Logout</a>
             </div>
           </li>
         </ul>
@@ -211,12 +212,104 @@
                 </div>
               </div>
               <div class="col-lg-5">
-                <div class="card">
-                  <div class="card-header text-center">Notifications</div>
-                  <div class="card-body"></div>
+                <div id="login" class="card">
+                <!-- <h1 class="text-base text-primary text-center text-uppercase mb-4 card-login">Writedrone</h1> -->
+                  <div class="card-header text-center">Login</div>
+                    <div class="card-body">
+                <!-- <p class="text-muted">ogin to co.</p> -->
+                <!-- <form id="loginForm" method="POST"action="<?php echo base_url();?>index.php/login/login_user" class="mt-4">-->
+                        <?php echo validation_errors(); ?>
+                        <?php echo form_open('index.php/login/login_user'); ?>  
+                          <div class="form-group mb-4">
+                            <input type="text" name="username" placeholder="Username or Email address" class="form-control border-0 shadow form-control-lg">
+                            <span class="text-danger"><?php echo form_error('username')?></span>
+                          </div>
+                          <div class="form-group mb-4">
+                            <input type="password" name="password" placeholder="Password" class="form-control border-0 shadow form-control-lg text-violet">
+                            <span class="text-danger"><?php echo form_error('password')?></span>
+                          </div>
+                          <div class="form-group mb-4">
+                            <div class="custom-control custom-checkbox">
+                              <input id="customCheck1" type="checkbox" checked class="custom-control-input">
+                              <label for="customCheck1" class="custom-control-label">Remember Me</label>
+                            </div>
+                          </div>
+                          <div class="form-btn">
+                            <p class="text-muted">New user?</p>
+                            <a id="signup" class="btn btn-primary shadow px-5">Sign up</a>
+                            <button type="submit" name="login"class="btn btn-primary back-btn shadow px-5">Login</button>
+                          </div>
+                        </form>
+                      </div>
+                  </div>
+                <div class="card" id="sign-up">
+                <!-- <h1 class="text-base text-primary text-center text-uppercase mb-4 card-login">Writedrone</h1> -->
+                  <div class="card-header text-center">Sign Up</div>
+                    <div class="card-body">
+                <!-- <p class="text-muted">ogin to co.</p> -->
+                <!-- <form id="loginForm" method="POST"action="<?php echo base_url();?>index.php/login/login_user" class="mt-4">-->
+                        <?php echo validation_errors(); ?>
+                        <?php echo form_open('index.php/login/sign_up'); ?>
+                          <div class="form-group mb-4">
+                            <label for="firstname">First Name</label>
+                            <input type="text" name="firstname" placeholder="First Name" class="form-control border-0 shadow form-control-lg text-violet">
+                            <span class="text-danger"><?php echo form_error('firstname')?></span>
+                          </div> 
+                          <div class="form-group mb-4">
+                            <label for="lastname">First Name</label>
+                            <input type="text" name="lastname" placeholder="Last Name" class="form-control border-0 shadow form-control-lg text-violet">
+                            <span class="text-danger"><?php echo form_error('lastname')?></span>
+                          </div>  
+                          <div class="form-group mb-4">
+                          <label for="email">Email</label>
+                            <input type="email" name="email" placeholder="Email address" class="form-control border-0 shadow form-control-lg text-violet">
+                            <span class="text-danger"><?php echo form_error('email')?></span>
+                          </div> 
+                          <div class="form-group mb-4">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" placeholder="Username" class="form-control border-0 shadow form-control-lg text-violet">
+                            <span class="text-danger"><?php echo form_error('username')?></span>
+                          </div>
+                          <div class="form-group mb-4">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" placeholder="********" class="form-control border-0 shadow form-control-lg text-violet">
+                            <span class="text-danger"><?php echo form_error('password')?></span>
+                          </div>
+                          <div class="form-group mb-4">
+                            <label for="password1">Confirm Password</label>
+                            <input type="password" name="password1" placeholder="********" class="form-control border-0 shadow form-control-lg text-violet">
+                            <span class="text-danger"><?php echo form_error('password1')?></span>
+                          </div>
+                          <div class="form-group mb-4">
+                            <label for="experience_length">Experience Length</label>
+                            <select name="experience_length" class="form-control border-0 shadow form-control-lg text-violet">
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="More than 3 years">More than 3 years</option>
+                            </select>
+                            <span class="text-danger"><?php echo form_error('experience_length')?></span>
+                          </div>
+                          <div class="form-group mb-4">
+                            <label for="proficiency_areas">Proficiency Area(s)</label><br><span class="text-muted">Press and hold Ctrl(Windows) or Command(Mac) to select multiple</span>
+                            <select name="proficiency[]" multiple id="proficiency"class="form-control">
+                            <?php foreach ($project_categories as $category):?>
+                              <!-- <?php $selected = in_array($category->id,$prof) ? " selected " : null;?> -->
+                              <option value="<?php echo $category->id ?>"><?=$category->name?></option>
+                            <?php endforeach; ?>
+                            
+                            </select>
+                            <span></span>
+                          </div>
+                          <div class="form-btn text-center">
+                            <!-- <a href="<?php echo base_url()?>"class="btn btn-primary shadow px-5">Sign up</a> -->
+                            <button type="submit" name="signup"class="btn btn-primary  shadow px-5">Sign Up</button>
+                          </div>
+                        </form>
+                      </div>
+                  </div>
                 </div>
               </div>
-            </div>
           </section>
          
           <section class="py-5">
@@ -289,5 +382,6 @@
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/charts-home.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/front.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
   </body>
 </html>
