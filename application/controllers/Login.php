@@ -44,12 +44,14 @@ class Login extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index(){
-
-			$this->load->view('template/login');
+		$data = $this->data;
+		// $this-> login_user();
+		// $this->load->view('template/home', $data);
 	}
 
 	// 
 	function login_user(){ 
+		// print_r($_POST);die;
 		$data = $this->data;
 		// $username=$this->input->post('password');
 		// $user_login=array(
@@ -61,28 +63,43 @@ class Login extends CI_Controller {
 		$password = $this->security->xss_clean($this->input->post('password'));
 		// $password = $this->security->xss_clean($this->input->md5(post('password')));
 		if($username&&$password){
+			// print_r($username.' '. $password);die;
 			$login_data = $this->login_database->validate($username, $password);
-		}
-		// print_r($login_data[0]->id);
-		if(isset($login_data[0])){
-			// echo($login_data[0]->id);
-			// If there is a user, then create session data
-			// $row = $query->row_data;
-			$session_data = array(
-				'id' => $login_data[0]->id,
-				'username' => $login_data[0]->username
-			);
-			
-			$this->session->set_userdata($session_data);
-			if (isset($_SESSION['username']) && ($_SESSION['username'] === $username)) {
-				print_r($_SESSION);
-				$_SESSION['is_logged_in'] = TRUE;
-				redirect('');
+			// print_r($login_data);die;
+			// print_r($login_data[0]->id);
+			if(isset($login_data[0])){
+				// echo($login_data[0]->id);
+				// If there is a user, then create session data
+				// $row = $query->row_data;
+				$session_data = array(
+					'id' => $login_data[0]->id,
+					'username' => $login_data[0]->username,
+					'is_logged_in'=>TRUE
+				);
+				$this->session->set_userdata($session_data);
+				
+				
+
+				if (isset($_SESSION['username']) && ($_SESSION['username'] === $username)) {
+					print_r($_SESSION['username']);die;
+					// $_SESSION['is_logged_in'] = TRUE;
+					
+					
+					redirect('index.php/projects');
+					$log = $this->uri->segment(2);
+					error_reporting(E_ALL);
+					print_r($log);
+				}
+				
+			}else{
+				
+				redirect('', 'refresh');
+				echo('wrong login');
 			}
-			
 		}else{
-			echo('wrong login');
-			$this->load->view('template/login');
+			
+			redirect('index.php/projects', 'refresh');
+			echo('Please enter username and password');	
 		}
 	   
 	  }

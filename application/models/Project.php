@@ -1,10 +1,12 @@
 <?php
 
 class Project extends CI_Model {
-    // public function __construct() {
-    //     parent::__construct();
-    //     $this->load->database();
-    // }
+
+    public function __construct() {
+        parent::__construct();
+        // session_start();
+    }
+    
     public function getAllProjects(){
         $query = $this->db->get('project');
         return $query->result();
@@ -59,6 +61,7 @@ class Project extends CI_Model {
     }
     public function saveProject($data){
         $query=$this->db->insert('project', $data);
+        redirect('projects');
     }
     public function getProjectCategory(){
         $query = $this->db->get('category');

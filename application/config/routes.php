@@ -53,7 +53,7 @@ $route['default_controller'] = 'home';
 // $route['writer-dashboard'] = 'login/login_user';
 // $route['default_controller'] = 'user_authentication';
 
-// $route['login'] = 'login';
+$route['writer-dashboard'] = 'login/login_user';
 $route['projects'] = 'home/view_all';
 $route['create'] = 'home/create';
 $route['add-project'] = 'home/saveProject';
