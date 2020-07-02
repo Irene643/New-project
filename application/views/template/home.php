@@ -272,13 +272,14 @@
                           </div>
                           <div class="form-group mb-4">
                             <label for="password">Password</label>
-                            <input type="password" name="password" placeholder="********" class="form-control border-0 shadow form-control-lg text-violet">
+                            <input type="password" name="password" id="password" placeholder="********" class="form-control border-0 shadow form-control-lg text-violet">
                             <span class="text-danger"><?php echo form_error('password')?></span>
                           </div>
                           <div class="form-group mb-4">
-                            <label for="password1">Confirm Password</label>
-                            <input type="password" name="password1" placeholder="********" class="form-control border-0 shadow form-control-lg text-violet">
-                            <span class="text-danger"><?php echo form_error('password1')?></span>
+                            <label for="confirm_password">Confirm Password</label>
+                            <input type="password" name="confirm_password" placeholder="********" id="confirm_password"class="form-control border-0 shadow form-control-lg text-violet">
+                            <span class="text-danger"><?php echo form_error('confirm_password')?></span>
+                            <span id='message'></span>
                           </div>
                           <div class="form-group mb-4">
                             <label for="experience_length">Experience Length</label>

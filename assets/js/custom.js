@@ -3,11 +3,19 @@ $( function() {
     $( "#datepicker" ).datepicker();
     $( "#datepicker" ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
 } );
+//check if password match
+$('#password, #confirm_password').on('keyup', function () {
+  if ($('#password').val() == $('#confirm_password').val()) {
+    $('#message').html('Matching').css('color', 'green');
+  } else 
+    $('#message').html('Not Matching').css('color', 'red');
+});
+//Display signup form
 $("#signup").click(function(){
   $("#sign-up").css("display","block");
   $("#login").css("display","none");
 });
-
+//show various pr
 var source;
 $(document).ready(function() {
   $("#sign-up").css("display","none");
