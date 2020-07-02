@@ -114,7 +114,8 @@ class Home extends CI_Controller {
 	}
 	public function view_all()
 	{
-		$data = $this->data;	
+		$data = $this->data;
+		// print_r($data);die;	
 		$this->load->view('template/view', $data);
 	}
 
@@ -176,7 +177,7 @@ class Home extends CI_Controller {
 		$json_req = array(
             "data" => $all
 		);
-		print_r(json_encode($json_req));die;
+		// print_r(json_encode($json_req));die;
 		
 		echo json_encode($json_req);
 	}

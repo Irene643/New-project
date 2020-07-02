@@ -73,12 +73,7 @@ var showData = (function(){
         { "mData": "size" },
         { "mData": "status" },
         { "mData": "due_date" },
-        { "mData": "budget" },
-        {"mRender": function(oObj, type, full) {
-          alert(full);
-          // return '<a class="btn btn-info btn-sm" href=project/view/' + oObj.mData[oObj.iDataColumn]+ '>View</a>' ;
-        }
-        }
+        { "mData": "budget" }
     ],
     destroy : true
   });

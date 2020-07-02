@@ -4,7 +4,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Login extends CI_Controller {
 
 	var $data;
-	var $is_logged_in;
 
     function __construct(){
 		parent::__construct(); // needed when adding a constructor to a controller
@@ -81,41 +80,37 @@ class Login extends CI_Controller {
 				
 
 				if (isset($_SESSION['username']) && ($_SESSION['username'] === $username)) {
-					print_r($_SESSION['username']);die;
+					// print_r($_SESSION['username']);die;
 					// $_SESSION['is_logged_in'] = TRUE;
 					
+					redirect('index.php/projects', 'refresh');
+				
+				}else{
 					
-					redirect('index.php/projects');
-					$log = $this->uri->segment(2);
-					error_reporting(E_ALL);
-					print_r($log);
+					redirect('', 'refresh');
+					echo('wrong login');
 				}
-				
-			}else{
-				
-				redirect('', 'refresh');
-				echo('wrong login');
-			}
 		}else{
 			
 			redirect('index.php/projects', 'refresh');
 			echo('Please enter username and password');	
 		}
 	   
-	  }
-	  public function sign_up(){
+	}
+
+	public function sign_up(){
 		print_r($_POST);
-	  }
+	}
 	   
-	  function user_profile(){
+	function user_profile(){
 	   
-	  $this->load->view('user_profile.php');
+	$this->load->view('user_profile.php');
 	   
-	  }
-	  public function user_logout(){
+	}
+	public function user_logout(){
 	   
-		$this->session->sess_destroy();
+	this->session->sess_destroy();
 		redirect('', 'refresh');
-	  }
+	}
 	   
 }
