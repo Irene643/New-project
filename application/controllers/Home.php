@@ -10,7 +10,7 @@ class Home extends CI_Controller {
 			// Load form helper library
 		$this->load->model('login_database');
         $this->data = array(
-			'projects' => $this->project->getProjects(),
+			'projects' => $this->project->getAllProjects(),
 			'open' => $this->project->getOpenProjects(),
 			'completed' => $this->project->getCompletedProjects(),
 			'unassigned' => $this->project->get_unassigned_projects(),
@@ -19,6 +19,7 @@ class Home extends CI_Controller {
 			'project_references' => $this->project->getProjectReferenceType(),
 			'project_status' => $this->project->getProjectStatus(),
 			'proficiencies' => $this->project->getProjectCategory(),
+			'writer_projects' => $this->project->getWriterProjects(),
 			'all_projects_title' => 'All Projects',
 			'open_projects_title' => 'Open Projects',
 			'completed_projects_title' => 'Completed Projects'
@@ -68,6 +69,7 @@ class Home extends CI_Controller {
 		if ($this->form_validation->run() == FALSE)
 		{
 			// echo('please try again');
+			$this->session->set_flashdata("error", validation_errors());
 			$this->load->view('template/create', $data);
 		}else{
 			// echo('success');
@@ -79,9 +81,25 @@ class Home extends CI_Controller {
 	//send to database
 	public function saveProject(){
 		$data = $this->data;
-		// var_dump($this->input->post());die;
-	
-		/*Check submit button */
+		// $this->form_validation->set_rules('title', 'Title', 'required');
+		// $this->form_validation->set_rules('category', 'Category', 'required');
+		// $this->form_validation->set_rules('status', 'Status', 'required');
+		// $this->form_validation->set_rules('size', 'Words/Pages', 'required');
+		// $this->form_validation->set_rules('reference_type', 'Reference Type', 'required');
+		// $this->form_validation->set_rules('due_date', 'Due Date', 'required');
+		// $this->form_validation->set_rules('description', 'Description', 'required');
+		// $this->form_validation->set_rules('attached_files', 'Attach Files', 'required');
+		// $this->form_validation->set_rules('budget', 'Budget', 'required');
+		// $this->form_validation->set_rules('customer_billing', 'Customer Billing', 'required');
+		// if ($this->form_validation->run() == FALSE)
+		// {
+		// 	// echo('please try again');
+		// 	$this->session->set_flashdata("error", validation_errors());
+		// 	$this->load->view('template/create', $data);
+		// }else{
+			// echo('success');
+			// $this->load->view('template/create', $data);
+			/*Check submit button */
 		$created_at=$this->input->post('created_at');
 		$title=$this->input->post('title');
 		$category=$this->input->post('category');
@@ -108,14 +126,24 @@ class Home extends CI_Controller {
 			'customer_billing'=>$customer_billing
 		);
 		$this->project->saveProject($post_data);
-		$this->load->view('template/create', $data);
+		// $this->load->view('template/create', $data);
 		echo "Records Saved Successfully";
 		
+		// }
+		// var_dump($this->input->post());die;
+		
 	}
-	public function view_all()
+
+	public function admin_dashboard()
 	{
 		$data = $this->data;	
 		$this->load->view('template/view', $data);
+	}
+
+	public function writer_dashboard()
+	{
+		$data = $this->data;	
+		$this->load->view('writer/index', $data);
 	}
 
 	public function unassigned(){

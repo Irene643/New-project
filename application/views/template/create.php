@@ -111,7 +111,7 @@
           <section class="py-5">
             <h2>Create Project</h2>
             <?php echo validation_errors(); ?>
-            <?php echo form_open('index.php/add-project'); ?>  
+            <?php echo form_open('index.php/home/saveProject'); ?>  
               <input type="hidden" name="created_at" value="<?php echo date('Y-m-d h:i:s');?>"/>
               <div class="form-group">
                 <label for="title">Title</label>
@@ -121,6 +121,7 @@
               <div class="form-group mb-4">
               <label for="category">Category</label>
                 <select name="category" value="<?php echo set_value('category'); ?>" class="form-control">
+                <option  selected value="">Select Category</option>
                 <?php foreach ($project_categories as $category):?>
                   <option value="<?php echo $category->id ?>" <?php if ($category->id == set_value('category')) echo "selected = 'selected'"?>><?php echo $category->name ?></option>
                 <?php endforeach; ?>
@@ -133,6 +134,7 @@
               <div class="form-group mb-4">
                 <label for="referenceType">Reference Type</label>
                 <select name="reference_type" value="<?php echo set_value('reference_type'); ?>" class="form-control" id="referenceType">
+                <option selected value="">Select Reference Type</option>
                 <?php foreach ($project_references as $reference):?>
                   <option value="<?php echo $reference->id ?>"><?php echo $reference->name ?></option>
                 <?php endforeach; ?>

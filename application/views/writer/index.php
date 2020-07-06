@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
     <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/bootstrap/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/pdfmake-0.1.18/dt-1.10.12/b-1.2.2/b-colvis-1.2.2/b-html5-1.2.2/b-print-1.2.2/r-2.1.0/datatables.min.css" />  -->
+    
     <!-- Font Awesome CSS-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <!-- Google fonts - Popppins for copy-->
@@ -21,6 +22,8 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/custom.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/img/favicon.png?3">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://nightly.datatables.net/css/dataTables.bootstrap4.min.css">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -33,12 +36,11 @@
           <li class="nav-item">
             <form id="searchForm" class="ml-auto d-none d-lg-block">
               <div class="form-group position-relative mb-0">
-                <button type="submit" style="top: -3px; left: 0;" class="position-absolute bg-white border-0 p-0"><i class="o-search-magnify-1 text-gray text-lg"></i></button>
+                <buttonbutton type="submit" style="top: -3px; left: 0;" class="position-absolute bg-white border-0 p-0"><i class="o-search-magnify-1 text-gray text-lg"></i></buttonbutton>
                 <input type="search" placeholder="Search ..." class="form-control form-control-sm border-0 no-shadow pl-4">
               </div>
             </form>
           </li>
-          <?php if(isset($_SESSION['is_logged_in'])):?>
           <li class="nav-item dropdown mr-3"><a id="notifications" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle text-gray-400 px-1"><i class="fa fa-bell"></i><span class="notification-icon"></span></a>
             <div aria-labelledby="notifications" class="dropdown-menu"><a href="#" class="dropdown-item">
                 <div class="d-flex align-items-center">
@@ -68,13 +70,12 @@
               <div class="dropdown-divider"></div><a href="#" class="dropdown-item text-center"><small class="font-weight-bold headings-font-family text-uppercase">View all notifications</small></a>
             </div>
           </li>
-          <li class="nav-item dropdown ml-auto"><a id="userInfo" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><img src="img/avatar-6.jpg" alt="Jason Doe" style="max-width: 2.5rem;" class="img-fluid rounded-circle shadow"></a>
-            <div aria-labelledby="userInfo" class="dropdown-menu"><a href="#" class="dropdown-item"><strong class="d-block text-uppercase headings-font-family"><?php echo $_SESSION['username'];?></strong><small>Web Developer</small></a>
+          <li class="nav-item dropdown ml-auto"><a id="userInfo" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><img src="<?php echo base_url(); ?>assets/img/icon.png" alt="Jason Doe" style="max-width: 2.5rem;" class="img-fluid rounded-circle shadow"></a>
+            <div aria-labelledby="userInfo" class="dropdown-menu"><a href="#" class="dropdown-item"><strong class="d-block text-uppercase headings-font-family"><?php echo $_SESSION['firstname'];?></strong><small>Web Developer</small></a>
               <div class="dropdown-divider"></div><a href="#" class="dropdown-item">Settings</a><a href="#" class="dropdown-item">Activity log       </a>
-              <div class="dropdown-divider"></div><a href="<?php echo base_url(); ?>index.php/login/user_logout" class="dropdown-item">Logout</a>
+              <div class="dropdown-divider"></div><a href="login/user_logout" class="dropdown-item">Logout</a>
             </div>
           </li>
-          <?php endif; ?>
         </ul>
       </nav>
     </header>
@@ -86,14 +87,14 @@
               <li class="sidebar-list-item"><a href="../login/index" class="sidebar-link text-muted"><i class="o-sales-up-1 mr-3 text-gray"></i><span>Charts</span></a></li>
               <li class="sidebar-list-item"><a href="tables" class="sidebar-link text-muted"><i class="o-table-content-1 mr-3 text-gray"></i><span>Tables</span></a></li>
               <li class="sidebar-list-item"><a href="<?php echo base_url(); ?>index.php/create" class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>Forms</span></a></li>
-          <li class="sidebar-list-item"><a href="<?php echo base_url(); ?>index.php/projects" data-toggle="collapse" data-target="#pages" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>Projects</span></a>
+          <li class="sidebar-list-item"><a href="#all" data-toggle="collapse" data-target="#pages" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted all"><i class="o-wireframe-1 mr-3 text-gray"></i><span>Projects</span></a>
             <div id="pages" class="collapse">
               <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                <li class="sidebar-list-item"><a href="<?php echo base_url(); ?>index.php/projects" class="sidebar-link text-muted pl-lg-5">All<span class="badge badge-pill badge-light"><?php  echo count($projects);?></span></a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Unassigned<span class="badge badge-pill badge-secondary"><?php  echo count($unassigned);?></span></a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">In Progress<span class="badge badge-pill badge-primary"><?php  echo count($open);?></span></a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Waiting for Client<span class="badge badge-pill badge-info"><?php  echo count($waiting_for_client);?></span></a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Done<span class="badge badge-pill badge-success"><?php  echo count($completed);?></span></a></li>
+                <li class="sidebar-list-item "><a href="#all" class=" all sidebar-link text-muted pl-lg-5">All<span class="badge badge-pill badge-light"><?php  echo count($writer_projects);?></span></a></li>
+                <li class="sidebar-list-item"><a id="unassigned" href="<?php echo base_url(); ?>" class="sidebar-link text-muted pl-lg-5">Unassigned<span class="badge badge-pill badge-secondary"><?php  echo count($unassigned);?></span></a></li>
+                <li class="sidebar-list-item"><a id="inprogress" href="#inprogress" class="sidebar-link text-muted pl-lg-5">In Progress<span class="badge badge-pill badge-primary"><?php  echo count($open);?></span></a></li>
+                <li class="sidebar-list-item"><a id="waiting" href="#waiting" class="sidebar-link text-muted pl-lg-5">Waiting for Client<span class="badge badge-pill badge-info"><?php  echo count($waiting_for_client);?></span></a></li>
+                <li class="sidebar-list-item"><a id="completed" href="#completed" class="sidebar-link text-muted pl-lg-5">Done<span class="badge badge-pill badge-success"><?php  echo count($completed);?></span></a></li>
               </ul>
             </div>
           </li>
@@ -116,7 +117,7 @@
                   <div class="flex-grow-1 d-flex align-items-center">
                     <div class="dot mr-3 bg-violet"></div>
                     <div class="text">
-                      <h6 class="mb-0"><?php echo $all_projects_title ?></h6><span class="text-gray"><?php  echo count($projects);?></span>
+                      <h6><a href="#" class="mb-0 text-muted all"><?php echo $all_projects_title ?></a></h6><span class="text-gray"><?php  echo count($writer_projects);?></span>
                     </div>
                   </div>
                   <div class="icon text-white bg-violet"><i class="fas fa-server"></i></div>
@@ -157,176 +158,30 @@
               </div>
             </div>
           </section>
-          <section class="py-5">
-            <div class="row">
-              <div class="col-lg-7">
-                <div class="card">
-                  <div class="card-header text-center">Jobs For You (<?=count($unassigned)?>)</div>
-                  <div class="card-body">
-                  <?php foreach($unassigned as $unassigned_project):
-                  $current_date = strtotime(date('Y-m-d h:i:s'));
-                  $created_at = strtotime($unassigned_project->created_at);
-                  $hr_difference = round(($current_date - $created_at)/(60*60),0);
-                  if($hr_difference >= 0){
-                    if($hr_difference > 24 ) {
-                      $day_difference = round(($hr_difference/24),0)."d";
-                    }
-                    if($hr_difference <= 24 ){
-                      $hr_difference = $hr_difference ."h";
-                    }
-                  }
-                    // print_r($hr_difference);
-                    ?>
-                    
-                <div class="card">
-                  <div class="card-header text-center"><?=$unassigned_project->title?><span class="float-right"><?php if($hr_difference < 24):?><span style="color:green"class="badge badge-light">New</span><?php endif; if($hr_difference >24){echo $day_difference;}else{ echo $hr_difference;}?><i class="fa fa-heart"style="color: orange;padding-left:0.5em" ></i></span></div>
-                    <a href="<?=base_url();?>index.php/project/view/<?=$unassigned_project->id;?>"title="View this job"class="project-holder">
-                      <div class="card-body">
-                        <div>
-                          <p>Reference Type: <?=$unassigned_project->reference?></p>
-                          <p>Due Date: <?=$unassigned_project->due_date?></p>
-                          <p>Price: <?=$unassigned_project->budget?></p>
-                          <?php
-                            $due_date = strtotime($unassigned_project->due_date);
-                            $due_in = round(($due_date - $current_date)/(60*60),0);
-
-                            if($due_in > 0){
-                              if($due_in > 24 ) {
-                                $due_in = round(($due_in/24),0)."days";
-                              }else{
-                                $due_in = $due_in ."h";
-                              }
-                            }else{
-                              $due_in = "Expired";
-                            }
-                          ?>
-                          <p>Due in: <?=$due_in?></p>
-                          <div class="main-text"><?=$unassigned_project->description?></div>
-                        </div>
-                        <div class="text-center read-more"><span id="<?=$unassigned_project->id?>"class="btn-bid float-left"><a class="btn btn-sm btn-success"href="">Apply now</a></span></div>
-                      </div>
-                      </a>
-                    </div>
-                    <br>
-                    <?php endforeach ?>
-                  </div>
-                </div>
-              </div>
-              <?php if(!isset($_SESSION['is_logged_in'])):?>
-              <div class="col-lg-5">
-                <div id="login" class="card">
-                <!-- <h1 class="text-base text-primary text-center text-uppercase mb-4 card-login">Writedrone</h1> -->
-                  <div class="card-header text-center">Login</div>
-                    <div class="card-body">
-                <!-- <p class="text-muted">ogin to co.</p> -->
-                <!-- <form id="loginForm" method="POST"action="<?php echo base_url();?>index.php/login/login_user" class="mt-4">-->
-                        <?php echo validation_errors(); ?>
-                        <?php echo form_open('index.php/login/login_user'); ?>  
-                          <div class="form-group mb-4">
-                            <input type="text" name="username" placeholder="Username or Email address" class="form-control border-0 shadow form-control-lg">
-                            <span class="text-danger"><?php echo form_error('username')?></span>
-                          </div>
-                          <div class="form-group mb-4">
-                            <input type="password" name="password" placeholder="Password" class="form-control border-0 shadow form-control-lg text-violet">
-                            <span class="text-danger"><?php echo form_error('password')?></span>
-                          </div>
-                          <div class="form-group mb-4">
-                            <div class="custom-control custom-checkbox">
-                              <input id="customCheck1" type="checkbox" checked class="custom-control-input">
-                              <label for="customCheck1" class="custom-control-label">Remember Me</label>
-                            </div>
-                          </div>
-                          <div class="form-btn">
-                            <p class="text-muted">New user?</p>
-                            <a id="signup" class="btn btn-primary shadow px-5">Sign up</a>
-                            <button type="submit" name="login"class="btn btn-primary back-btn shadow px-5">Login</button>
-                          </div>
-                        </form>
-                      </div>
-                  </div>
-                <div class="card" id="sign-up">
-                <!-- <h1 class="text-base text-primary text-center text-uppercase mb-4 card-login">Writedrone</h1> -->
-                  <div class="card-header text-center">Sign Up</div>
-                    <div class="card-body">
-                <!-- <p class="text-muted">ogin to co.</p> -->
-                <!-- <form id="loginForm" method="POST"action="<?php echo base_url();?>index.php/login/login_user" class="mt-4">-->
-                        <?php echo validation_errors(); ?>
-                        <?php echo form_open('index.php/login/sign_up'); ?>
-                          <div class="form-group mb-4">
-                            <label for="firstname">First Name</label>
-                            <input type="text" name="firstname" placeholder="First Name" class="form-control border-0 shadow form-control-lg text-violet">
-                            <span class="text-danger"><?php echo form_error('firstname')?></span>
-                          </div> 
-                          <div class="form-group mb-4">
-                            <label for="lastname">First Name</label>
-                            <input type="text" name="lastname" placeholder="Last Name" class="form-control border-0 shadow form-control-lg text-violet">
-                            <span class="text-danger"><?php echo form_error('lastname')?></span>
-                          </div>  
-                          <div class="form-group mb-4">
-                          <label for="email">Email</label>
-                            <input type="email" name="email" placeholder="Email address" class="form-control border-0 shadow form-control-lg text-violet">
-                            <span class="text-danger"><?php echo form_error('email')?></span>
-                          </div> 
-                          <div class="form-group mb-4">
-                            <label for="username">Username</label>
-                            <input type="text" name="username" placeholder="Username" class="form-control border-0 shadow form-control-lg text-violet">
-                            <span class="text-danger"><?php echo form_error('username')?></span>
-                          </div>
-                          <div class="form-group mb-4">
-                            <label for="password">Password</label>
-                            <input type="password" name="password" id="password" placeholder="********" class="form-control border-0 shadow form-control-lg text-violet">
-                            <span class="text-danger"><?php echo form_error('password')?></span>
-                          </div>
-                          <div class="form-group mb-4">
-                            <label for="confirm_password">Confirm Password</label>
-                            <input type="password" name="confirm_password" placeholder="********" id="confirm_password"class="form-control border-0 shadow form-control-lg text-violet">
-                            <span class="text-danger"><?php echo form_error('confirm_password')?></span>
-                            <span id='message'></span>
-                          </div>
-                          <div class="form-group mb-4">
-                            <label for="experience_length">Experience Length</label>
-                            <select name="experience_length" class="form-control border-0 shadow form-control-lg text-violet">
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="More than 3 years">More than 3 years</option>
-                            </select>
-                            <span class="text-danger"><?php echo form_error('experience_length')?></span>
-                          </div>
-                          <div class="form-group mb-4">
-                            <label for="proficiency_areas">Proficiency Area(s)</label><br><span class="text-muted">Press and hold Ctrl(Windows) or Command(Mac) to select multiple</span>
-                            <select name="proficiency[]" multiple id="proficiency"class="form-control">
-                            <?php foreach ($project_categories as $category):?>
-                              <!-- <?php $selected = in_array($category->id,$prof) ? " selected " : null;?> -->
-                              <option value="<?php echo $category->id ?>"><?=$category->name?></option>
-                            <?php endforeach; ?>
-                            
-                            </select>
-                            <span></span>
-                          </div>
-                          <div class="form-btn text-center">
-                            <!-- <a href="<?php echo base_url()?>"class="btn btn-primary shadow px-5">Sign up</a> -->
-                            <button type="submit" name="signup"class="btn btn-primary  shadow px-5">Sign Up</button>
-                          </div>
-                        </form>
-                      </div>
-                  </div>
-                </div>
-                <?php endif;?>
-                <?php if(isset($_SESSION['is_logged_in'])):?>
-                <div class="col-lg-5">
-                  <div id="notifications" class="card">
-                    <div class="card-header text-center">Notifications</div>
-                    <div class="card-body"></div>
-                  </div>
-                </div>
-                <?php endif;?>
-              </div>
+          <section>
+          <a href="<?php echo base_url(); ?>index.php/create" id="addproject" class="btn btn-primary">Add Project</a>
+            <!-- datatable -->
+          <table id="userDetails" class="datatable table table-bordered table-hover table-striped" cellspacing="0" width="100%">
           
+            <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Category</th>
+                  <th>Reference</th>
+                  <th>Size</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                  <th>Budget</th>
+                  <th colspan="3">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <!-- datatable end -->
+            
           </section>
-         
           <section class="py-5">
-              
             <div class="row">
               <div class="col-lg-12"><a href="#" class="message card px-5 py-3 mb-4 bg-hover-gradient-primary no-anchor-style">
                   <div class="row">
@@ -370,7 +225,7 @@
                   </div></a></div>
             </div>
           </section>
-        </>
+        </div>
         <footer class="footer bg-white shadow align-self-end py-3 px-xl-5 w-100">
           <div class="container-fluid">
             <div class="row">
@@ -387,14 +242,24 @@
       </div>
     </div>
     <!-- JavaScript files-->
+    
     <script src="<?php echo base_url(); ?>assets/vendor/jquery/jquery.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/vendor/popper.js/umd/popper.min.js"> </script>
     <script src="<?php echo base_url(); ?>assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+    <!--data table--> 
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/pdfmake-0.1.18/dt-1.10.12/b-1.2.2/b-colvis-1.2.2/b-html5-1.2.2/b-print-1.2.2/r-2.1.0/datatables.min.js"></script> 
     <script src="<?php echo base_url(); ?>assets/vendor/jquery.cookie/jquery.cookie.js"> </script>
     <script src="<?php echo base_url(); ?>assets/vendor/chart.js/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/charts-home.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/front.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
+    <!-- <script type="text/javascript"> 
+        $(document).ready(function() { 
+            $("#mytaable").dataTable(); 
+        }); 
+    </script>  -->
   </body>
 </html>

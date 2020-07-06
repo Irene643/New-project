@@ -13,7 +13,7 @@ class Login extends CI_Controller {
 		// Load form helper library
 		$this->load->model('login_database');
         $this->data = array(
-			'projects' => $this->project->getProjects(),
+			'projects' => $this->project->getAllProjects(),
 			'open' => $this->project->getOpenProjects(),
 			'completed' => $this->project->getCompletedProjects(),
 			'unassigned' => $this->project->get_unassigned_projects(),
@@ -21,6 +21,8 @@ class Login extends CI_Controller {
 			'project_categories' => $this->project->getProjectCategory(),
 			'project_references' => $this->project->getProjectReferenceType(),
 			'project_status' => $this->project->getProjectStatus(),
+			'proficiencies' => $this->project->getProjectCategory(),
+			'writer_projects' => $this->project->getWriterProjects(),
 			'all_projects_title' => 'All Projects',
 			'open_projects_title' => 'Open Projects',
 			'completed_projects_title' => 'Completed Projects'
@@ -73,13 +75,19 @@ class Login extends CI_Controller {
 				$session_data = array(
 					'id' => $login_data[0]->id,
 					'username' => $login_data[0]->username,
+					'firstname'=> $login_data[0]->firstname,
+					'lastname'=> $login_data[0]->lastname,
+					'user_role'=>$login_data[0]->user_role,
 					'is_logged_in'=>TRUE
 				);
 				$this->session->set_userdata($session_data);
 
 				if ($this->session->userdata('is_logged_in')) {
 					// redirect('', 'refresh');
-					redirect('index.php/projects');
+					if($_SESSION['user_role'] == 0){
+						redirect('index.php/admin-dashboard');
+					}
+					redirect('index.php/writer-dashboard');
 					// print_r($this->session->userdata('is_logged_in'));die;
 				}
 				// if (isset($_SESSION['username']) && ($_SESSION['username'] == $username)) {
@@ -147,7 +155,8 @@ class Login extends CI_Controller {
 	  }
 	  public function user_logout(){
 	   
-		$this->session->sess_destroy();
+		session_destroy();
+		// echo $_SESSION['username'];die;
 		redirect('', 'refresh');
 	  }
 	   
