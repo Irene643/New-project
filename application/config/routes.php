@@ -50,14 +50,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'home';
-//projects
-$route['projects'] = 'home/view_all';
+// $route['writer-dashboard'] = 'login/login_user';
+// $route['default_controller'] = 'user_authentication';
+
+// $route['writer-dashboard'] = 'login/login_user';
+$route['admin-dashboard'] = 'home/admin_dashboard';
+$route['writer-dashboard'] = 'home/writer_dashboard';
 $route['create'] = 'home/create';
 $route['add-project'] = 'home/saveProject';
 $route['project/view/(:any)'] = 'home/view_single/$1';
 $route['project/edit/(:any)'] = 'home/edit/$1';
 $route['project/delete/(:any)'] = 'home/delete/$1';
-
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
