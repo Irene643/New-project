@@ -10,6 +10,9 @@ $('#password, #confirm_password').on('keyup', function () {
   } else 
     $('#message').html('Not Matching').css('color', 'red');
 });
+  document.ready(function(){
+    $("#sign-up").css("display","none");
+  });
 //Display signup form
 $("#signup").click(function(){
   $("#sign-up").css("display","block");
@@ -67,6 +70,7 @@ $(document).ready(function() {
 var showData = (function(){
   $("#userDetails").show();
   $('#userDetails').dataTable( {
+    "pagingType": "full_numbers"
     "bJQueryUI": true,
     "scrollX":   true,
     "bPaginate": true,
@@ -101,6 +105,10 @@ $('.project-holder').hover(
   function(){
   	   $('.btn-bid').css('display', 'block')
    });
+$('#bid-not-loggedin').click(function(e){
+  e.preventDefault();
+  alert('Please login to apply for this job');
+});
 // Variable to hold request
 
 // Bind to the submit event of our form
