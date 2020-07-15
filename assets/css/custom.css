@@ -37,3 +37,5 @@ a.project-holder:hover {
   color: inherit;
   text-decoration: none;
 }
+.pagination > li > a, .pagination > li > span{background-color:red}
+.pagination > li.active > a, .pagination > li.active >  span{background-color:green}

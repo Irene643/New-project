@@ -84,7 +84,7 @@ class Login extends CI_Controller {
 
 				if ($this->session->userdata('is_logged_in')) {
 					// redirect('', 'refresh');
-					if($_SESSION['user_role'] == 0){
+					if($_SESSION['user_role'] == 1){
 						redirect('index.php/admin-dashboard');
 					}
 					redirect('index.php/writer-dashboard');
