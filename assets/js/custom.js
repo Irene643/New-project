@@ -10,6 +10,9 @@ $('#password, #confirm_password').on('keyup', function () {
   } else 
     $('#message').html('Not Matching').css('color', 'red');
 });
+  document.ready(function(){
+    $("#sign-up").css("display","none");
+  });
 //Display signup form
 $("#signup").click(function(){
   $("#sign-up").css("display","block");
@@ -101,4 +104,43 @@ $('.project-holder').hover(
   function(){
   	   $('.btn-bid').css('display', 'block')
    });
+$('#bid-not-loggedin').click(function(e){
+  e.preventDefault();
+  alert('Please login to apply for this job');
+});
+// Variable to hold request
+
+// Bind to the submit event of our form
+// $("#bid").click(function(event){
+//   alert('1')
+
+//     // Prevent default posting of form - put here to work in case of errors
+//     event.preventDefault();
+
+//     // Abort any pending request
+//     // setup some local variables
+//     var $form = $(this);
+//     alert('here')
+
+//     // Let's select and cache all the fields
+//     // var $inputs = $form.find("input, select, button, textarea");
+
+//     // Serialize the data in the form
+//     var serializedData = $form.serialize();
+
+//     // Let's disable the inputs for the duration of the Ajax request.
+//     // Note: we disable elements AFTER the form data has been serialized.
+//     // Disabled form elements will not be serialized.
+//     // $inputs.prop("disabled", true);
+
+//     // Fire off the request to /form.php
+//     $.ajax({
+//         url: "index.php/writer/bid",
+//         type: "post",
+//         data: serializedData
+//     });
+//   }
+  $("#bid").click(function(){
+    alert('1')
+  }
 

@@ -28,7 +28,34 @@
   <body>
     <!-- navbar-->
     <header class="header">
-      <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="index.html" class="navbar-brand font-weight-bold text-uppercase text-base">Writedrone Dashboard</a>
+      <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow">
+        <?php if (!isset($_SESSION['is_logged_in'])):?>
+        <div class=" navbar-brand collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                About Us
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="#">About Writedrone</a>
+                <a class="dropdown-item" href="#">Our People</a>
+                <a class="dropdown-item" href="#">Our Services</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">News</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Contact Us</a>
+            </li>
+          </ul>
+        </div> 
+        <?php endif;?>   
+
+        <!-- <a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="index.html" class="navbar-brand font-weight-bold text-uppercase text-base">Writedrone Dashboard</a> -->
         <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
           <li class="nav-item">
             <form id="searchForm" class="ml-auto d-none d-lg-block">
@@ -110,6 +137,7 @@
       <div class="page-holder w-100 d-flex flex-wrap">
         <div class="container-fluid px-xl-5">
           <section class="py-5">
+            <?php if(isset($_SESSION['id'])): ?>
             <div class="row">
               <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
                 <div class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
@@ -156,6 +184,7 @@
                 </div>
               </div>
             </div>
+          <?php endif; ?>
           </section>
           <section class="py-5">
             <div class="row">
@@ -202,10 +231,24 @@
                           ?>
                           <p>Due in: <?=$due_in?></p>
                           <div class="main-text"><?=$unassigned_project->description?></div>
+                        </div></a>
+                        <div class="text-center read-more">
+                          <?php 
+                            if(isset($_SESSION['id'])):
+                               // echo form_open('index.php/writer/bid');
+                            ?>
+                            <form id="bid-form">
+                            <input type="hidden" name="user_id" value="<?= $_SESSION['id']?>"> 
+                            <input type="hidden" name="project_id" value="<?= $unassigned_project->id?>">
+                            <a href="#"id="bid" type="submit"class="btn btn-sm btn-success">Apply now</a>
+                            </form>
+
+                          <?php endif;?>
+                            <button id="bid-not-loggedin" class="btn btn-sm btn-success">Apply now</button>
+                            <span id="error-msg"></span>
                         </div>
-                        <div class="text-center read-more"><span id="<?=$unassigned_project->id?>"class="btn-bid float-left"><a class="btn btn-sm btn-success"href="">Apply now</a></span></div>
                       </div>
-                      </a>
+                      
                     </div>
                     <br>
                     <?php endforeach ?>
@@ -258,7 +301,7 @@
                             <span class="text-danger"><?php echo form_error('firstname')?></span>
                           </div> 
                           <div class="form-group mb-4">
-                            <label for="lastname">First Name</label>
+                            <label for="lastname">Last Name</label>
                             <input type="text" name="lastname" placeholder="Last Name" class="form-control border-0 shadow form-control-lg text-violet">
                             <span class="text-danger"><?php echo form_error('lastname')?></span>
                           </div>  
@@ -391,10 +434,10 @@
     <script src="<?php echo base_url(); ?>assets/vendor/popper.js/umd/popper.min.js"> </script>
     <script src="<?php echo base_url(); ?>assets/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/vendor/jquery.cookie/jquery.cookie.js"> </script>
+    <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
     <script src="<?php echo base_url(); ?>assets/vendor/chart.js/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/charts-home.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/front.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
   </body>
 </html>
