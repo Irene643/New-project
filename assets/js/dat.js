@@ -8,7 +8,6 @@ $(document).ready(function() {
     });
 
     $('#unassigned').click(function() {
-        alert('here')
         source = "home/unassigned";
         showData();
     });
@@ -28,7 +27,7 @@ $(document).ready(function() {
         showData();
     });
     editor = new $.fn.dataTable.Editor( {
-        "ajax": "home/create",
+        "ajax": "home/saveProject",
         "table": "#userDetails",
         "fields": [ {
             "label": "First name:",
@@ -91,7 +90,7 @@ $(document).ready(function() {
 
 var showData = (function(){
    
-    $('#userDetails').DataTable( {
+    var table = $('#userDetails').DataTable( {
         // "dom": '<"top"i>rt<"bottom"flp><"clear">',
         "pagingType": "full_numbers",
         ajax: "home/in_progress",
@@ -100,20 +99,53 @@ var showData = (function(){
             //     // Combine the first and last names into a single table field
             //     return data.first_name+' '+data.last_name;
             // } },
+            {"data":"id"},
             { "data": "title" },
             { "data": "category" },
             { "data": "reference" },
             { "data": "size" },
             { "data": "status" },
             { "data": "due_date" },
-            { "data": "budget" },
+            // { "data": "budget" },
             
             {
             data: null,
             className: "center",
-            defaultContent: '<a href="" class="editor_edit">Edit</a> / <a href="" class="editor_remove">Delete</a>'
+            defaultContent: '<button class="editor_edit">Edit</button> / <button class="editor_remove">Delete</button>'
             }
         ],
         destroy : true
     } );
+   $('#userDetails tbody').on( 'click', 'button', function () {
+    var action = this.className;
+    <?php $this->vars['csrf'] = array(
+        'name' => $this->security->get_csrf_token_name(),
+        'hash' => $this->security->get_csrf_hash()
+        ); 
+    ?>
+    var row_data = table.row( $(this).parents('tr') ).data();
+    if (s.type == "POST") {
+      xhr.setRequestHeader('X-CSRF-Token', '<?php echo ?>';
+   }
+    if(action == "editor_edit"){
+         $.ajax({
+            type: "post",
+            url: "home/edit/"+row_data.id,
+            success:function(url){
+                    alert(url);
+                }
+        });
+    }else{
+         $.ajax({
+            type: "post",
+            url: "home/delete/"+row_data.id,
+        });
+    }
+    
+        // var data_row = table.row($(this).closest('tr')).data();
+    } );
+   // $('#userDetails').on('click', 'tbody .editor_edit', function () {
+   //      var data_row = table.row($(this).closest('tr')).data();
+   //      alert(data_row);
+   //  })
 } );
