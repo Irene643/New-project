@@ -2,6 +2,7 @@
 $( function() {
     $( "#datepicker" ).datepicker();
     $( "#datepicker" ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
+    $("#sign-up").css("display","none");
 } );
 //check if password match
 $('#password, #confirm_password').on('keyup', function () {
@@ -10,9 +11,6 @@ $('#password, #confirm_password').on('keyup', function () {
   } else 
     $('#message').html('Not Matching').css('color', 'red');
 });
-  document.ready(function(){
-    $("#sign-up").css("display","none");
-  });
 //Display signup form
 $("#signup").click(function(){
   $("#sign-up").css("display","block");
@@ -142,5 +140,5 @@ $('#bid-not-loggedin').click(function(e){
 //   }
   $("#bid").click(function(){
     alert('1')
-  }
+  });
 

@@ -118,19 +118,18 @@ var showData = (function(){
     } );
    $('#userDetails tbody').on( 'click', 'button', function () {
     var action = this.className;
-    <?php $this->vars['csrf'] = array(
-        'name' => $this->security->get_csrf_token_name(),
-        'hash' => $this->security->get_csrf_hash()
-        ); 
-    ?>
+    var csrfName = '<?php echo $this->security->get_csrf_token_name(); ?>',
+    csrfHash = '<?php echo $this->security->get_csrf_hash(); ?>';
+    baseurl = '<?php echo base_url(); ?>';
+    
     var row_data = table.row( $(this).parents('tr') ).data();
-    if (s.type == "POST") {
-      xhr.setRequestHeader('X-CSRF-Token', '<?php echo ?>';
-   }
+    var jsonData = { [csrfName]: csrfHash, id: row_data.id};
+    console.log(jsonData)
     if(action == "editor_edit"){
          $.ajax({
             type: "post",
-            url: "home/edit/"+row_data.id,
+            url: baseurl+"home/edit/"+row_data.id,
+            data:jsonData,
             success:function(url){
                     alert(url);
                 }
