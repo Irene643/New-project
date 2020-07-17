@@ -39,3 +39,18 @@ a.project-holder:hover {
 }
 .pagination > li > a, .pagination > li > span{background-color:red}
 .pagination > li.active > a, .pagination > li.active >  span{background-color:green}
+.editor_edit{
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.editor_view{
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+.editor_remove{
+color: #fff;
+background-color: #dc3545;
+border-color: #dc3545;
+}

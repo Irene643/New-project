@@ -3,7 +3,6 @@ $( function() {
     $( "#datepicker" ).datepicker();
     $( "#datepicker" ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
     $("#sign-up").css("display","none");
-} );
 //check if password match
 $('#password, #confirm_password').on('keyup', function () {
   if ($('#password').val() == $('#confirm_password').val()) {
@@ -18,12 +17,11 @@ $("#signup").click(function(){
 });
 //show various pr
 // var source;
-// $(document).ready(function() {
-//   $("#sign-up").css("display","none");
+  $("#sign-up").css("display","none");
   
-//   $("#addproject").hide();
+  $("#addproject").hide();
  
-//   $("#userDetails").hide();
+  $("#userDetails").hide();
 
 //   $('.all').click(function() {
 //     $("#addproject").show();
@@ -62,7 +60,7 @@ $("#signup").click(function(){
 //   //   });
 //   // });
 
-// });
+});
 
 
 // var showData = (function(){

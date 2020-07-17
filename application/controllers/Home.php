@@ -218,10 +218,16 @@ class Home extends CI_Controller {
 		return true;
 	}
 	//Edit project
-	public function edit()
+	public function edit(){
+		$data = $this->data;
+		$id = $this->uri->segment(3);
+		$data['single_project'] = $this->project->get_project_by_id($id);
+		$this->load->view('template/edit', $data);
+	}
+
+	public function update()
     {
 		$data = $this->data;
-		
 		$title=$this->input->post('title');
 		$category=$this->input->post('category');
 		$status=$this->input->post('status');
@@ -256,7 +262,7 @@ class Home extends CI_Controller {
 		if ($this->form_validation->run() === FALSE)
 		{
 			echo('Please try again');
-			redirect( base_url() . 'index.php/projects#all');
+			redirect( base_url() . '/index.php/home/edit/'.$id);
 		}else{
 			$post_data = array(
 				'created_at'=>$created_at,
@@ -274,7 +280,7 @@ class Home extends CI_Controller {
 
             $this->project->set_project($id, $post_data);
             //$this->load->view('news/success');
-            redirect( base_url() . 'index.php/projects');
+            redirect( base_url() . 'index.php/writer-dashboard');
         }
 	}
 	public function delete()
@@ -289,7 +295,7 @@ class Home extends CI_Controller {
         $project = $this->project->get_project_by_id($id);
         
         $this->project->delete_project($id);        
-        redirect( base_url() . 'index.php/projects');        
+        redirect( base_url() . 'index.php/writer-dashboard');        
     }
     
 }

@@ -91,7 +91,7 @@
             <div id="pages" class="collapse">
               <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
                 <li class="sidebar-list-item "><a id="all"href="#all" class=" all sidebar-link text-muted pl-lg-5">All<span class="badge badge-pill badge-light"><?php  echo count($writer_projects);?></span></a></li>
-                <li class="sidebar-list-item"><a id="unassigned" href="<?php echo base_url(); ?>" class="sidebar-link text-muted pl-lg-5">Unassigned<span class="badge badge-pill badge-secondary"><?php  echo count($unassigned);?></span></a></li>
+                <li class="sidebar-list-item"><a id="unassigned" href="#unassigned" class="sidebar-link text-muted pl-lg-5">Unassigned<span class="badge badge-pill badge-secondary"><?php  echo count($unassigned);?></span></a></li>
                 <li class="sidebar-list-item"><a id="inprogress" href="#inprogress" class="sidebar-link text-muted pl-lg-5">In Progress<span class="badge badge-pill badge-primary"><?php  echo count($open);?></span></a></li>
                 <li class="sidebar-list-item"><a id="waiting" href="#waiting" class="sidebar-link text-muted pl-lg-5">Waiting for Client<span class="badge badge-pill badge-info"><?php  echo count($waiting_for_client);?></span></a></li>
                 <li class="sidebar-list-item"><a id="completed" href="#completed" class="sidebar-link text-muted pl-lg-5">Done<span class="badge badge-pill badge-success"><?php  echo count($completed);?></span></a></li>
@@ -172,7 +172,7 @@
                   <th>Status</th>
                   <th>Date</th>
                   <th>Budget</th>
-                  <th colspan="3">Actions</th>
+                  <th>Actions</th>
                 </tr>
             </thead>
             <tbody>

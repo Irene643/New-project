@@ -1,9 +1,9 @@
 var editor; // use a global for the submit and return data rendering in the userDetailss
- 
+var source;
 $(document).ready(function() {
-    var source;
+    
     $('#all').click(function() {
-        source = "home/in_progress";
+        source = "home/all";
         showData();
     });
 
@@ -93,7 +93,7 @@ var showData = (function(){
     var table = $('#userDetails').DataTable( {
         // "dom": '<"top"i>rt<"bottom"flp><"clear">',
         "pagingType": "full_numbers",
-        ajax: "home/in_progress",
+        ajax: source,
         columns: [
             // { data: null, render: function ( data, type, row ) {
             //     // Combine the first and last names into a single table field
@@ -109,14 +109,13 @@ var showData = (function(){
             // { "data": "budget" },
             
             {
-            data: null,
             className: "center",
-            defaultContent: '<button class="editor_edit">Edit</button> / <button class="editor_remove">Delete</button>'
+            defaultContent: '<button class="editor_view">View</button> <button class="editor_edit">Edit</button> <button class="editor_remove">Delete</button>'
             }
         ],
         destroy : true
     } );
-   $('#userDetails tbody').on( 'click', 'button', function () {
+   $('#userDetails tbody').on( 'click', 'button', function (e) {
     var action = this.className;
     var csrfName = '<?php echo $this->security->get_csrf_token_name(); ?>',
     csrfHash = '<?php echo $this->security->get_csrf_hash(); ?>';
@@ -126,19 +125,14 @@ var showData = (function(){
     var jsonData = { [csrfName]: csrfHash, id: row_data.id};
     console.log(jsonData)
     if(action == "editor_edit"){
-         $.ajax({
-            type: "post",
-            url: baseurl+"home/edit/"+row_data.id,
-            data:jsonData,
-            success:function(url){
-                    alert(url);
-                }
-        });
+         window.open("home/edit/"+row_data.id, "_self");
+    }else if(action == "editor_remove"){
+        if(confirm("Are You sure you want to delete this Project?")){
+            window.open("home/delete/"+row_data.id, "_self");
+        }
+        
     }else{
-         $.ajax({
-            type: "post",
-            url: "home/delete/"+row_data.id,
-        });
+        window.open("home/view_single/"+row_data.id, "_self"); 
     }
     
         // var data_row = table.row($(this).closest('tr')).data();
