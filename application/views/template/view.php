@@ -90,7 +90,7 @@
           <li class="sidebar-list-item"><a href="#all" data-toggle="collapse" data-target="#pages" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted all"><i class="o-wireframe-1 mr-3 text-gray"></i><span>Projects</span></a>
             <div id="pages" class="collapse">
               <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                <li class="sidebar-list-item "><a href="#all" class=" all sidebar-link text-muted pl-lg-5">All<span class="badge badge-pill badge-light"><?php  echo count($projects);?></span></a></li>
+                <li class="sidebar-list-item "><a id="all" href="#all" class=" all sidebar-link text-muted pl-lg-5">All<span class="badge badge-pill badge-light"><?php  echo count($projects);?></span></a></li>
                 <li class="sidebar-list-item"><a id="unassigned" href="#unassigned" class="sidebar-link text-muted pl-lg-5">Unassigned<span class="badge badge-pill badge-secondary"><?php  echo count($unassigned);?></span></a></li>
                 <li class="sidebar-list-item"><a id="inprogress" href="#inprogress" class="sidebar-link text-muted pl-lg-5">In Progress<span class="badge badge-pill badge-primary"><?php  echo count($open);?></span></a></li>
                 <li class="sidebar-list-item"><a id="waiting" href="#waiting" class="sidebar-link text-muted pl-lg-5">Waiting for Client<span class="badge badge-pill badge-info"><?php  echo count($waiting_for_client);?></span></a></li>
@@ -256,6 +256,7 @@
     <script src="<?php echo base_url(); ?>assets/js/charts-home.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/front.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/dat.js"></script>
     <!-- <script type="text/javascript"> 
         $(document).ready(function() { 
             $("#mytaable").dataTable(); 

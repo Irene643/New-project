@@ -37,8 +37,11 @@ a.project-holder:hover {
   color: inherit;
   text-decoration: none;
 }
-.pagination > li > a, .pagination > li > span{background-color:red}
-.pagination > li.active > a, .pagination > li.active >  span{background-color:green}
+.dataTables_filter {
+    width: 50%;
+    float: right;
+    text-align: right;
+ }
 .editor_edit{
     color: #fff;
     background-color: #007bff;

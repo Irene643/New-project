@@ -90,11 +90,11 @@
           <li class="sidebar-list-item"><a href="#all" data-toggle="collapse" data-target="#pages" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted all"><i class="o-wireframe-1 mr-3 text-gray"></i><span>Projects</span></a>
             <div id="pages" class="collapse">
               <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                <li class="sidebar-list-item "><a id="all"href="#all" class=" all sidebar-link text-muted pl-lg-5">All<span class="badge badge-pill badge-light"><?php  echo count($writer_projects);?></span></a></li>
-                <li class="sidebar-list-item"><a id="unassigned" href="#unassigned" class="sidebar-link text-muted pl-lg-5">Unassigned<span class="badge badge-pill badge-secondary"><?php  echo count($unassigned);?></span></a></li>
-                <li class="sidebar-list-item"><a id="inprogress" href="#inprogress" class="sidebar-link text-muted pl-lg-5">In Progress<span class="badge badge-pill badge-primary"><?php  echo count($open);?></span></a></li>
-                <li class="sidebar-list-item"><a id="waiting" href="#waiting" class="sidebar-link text-muted pl-lg-5">Waiting for Client<span class="badge badge-pill badge-info"><?php  echo count($waiting_for_client);?></span></a></li>
-                <li class="sidebar-list-item"><a id="completed" href="#completed" class="sidebar-link text-muted pl-lg-5">Done<span class="badge badge-pill badge-success"><?php  echo count($completed);?></span></a></li>
+                <li class="sidebar-list-item "><a id="writerall" href="#all"class=" all sidebar-link text-muted pl-lg-5">All<span class="badge badge-pill badge-light"><?php  echo count($writer_projects);?></span></a></li>
+                <li class="sidebar-list-item"><a id="writerinprogress" href="#inprogress" class="sidebar-link text-muted pl-lg-5">In progress<span class="badge badge-pill badge-primary"><?php  echo count($writer_open);?></span></a></li>
+                <li class="sidebar-list-item"><a id="writerwaiting" href="#waiting" class="sidebar-link text-muted pl-lg-5">Waiting for Client<span class="badge badge-pill badge-info"><?php  echo count($writer_waiting_for_client);?></span></a></li>
+                <li class="sidebar-list-item"><a id="writercompleted" href="#completed" class="sidebar-link text-muted pl-lg-5">Done<span class="badge badge-pill badge-success"><?php  echo count($writer_completed);?></span></a></li>
+                <li class="sidebar-list-item"><a id="writerbids" href="#bids" class="sidebar-link text-muted pl-lg-5">Bids<span class="badge badge-pill badge-secondary"></span></a></li>
               </ul>
             </div>
           </li>
@@ -117,7 +117,7 @@
                   <div class="flex-grow-1 d-flex align-items-center">
                     <div class="dot mr-3 bg-violet"></div>
                     <div class="text">
-                      <h6><a href="#" class="mb-0 text-muted all"><?php echo $all_projects_title ?></a></h6><span class="text-gray"><?php  echo count($writer_projects);?></span>
+                      <h6><a href="#" class="mb-0 text-muted all"><?php echo $all_projects_title ?></a></h6><span class="text-gray"><?php  echo count($projects);?></span>
                     </div>
                   </div>
                   <div class="icon text-white bg-violet"><i class="fas fa-server"></i></div>
@@ -159,9 +159,8 @@
             </div>
           </section>
           <section>
-          <a href="<?php echo base_url(); ?>index.php/create" id="addproject" class="btn btn-primary">Add Project</a>
             <!-- datatable -->
-          <table id="userDetails" class="datatable table table-bordered table-hover table-striped" cellspacing="0" width="100%">
+          <table id="writerDetails" class="datatable table table-bordered table-hover table-striped" cellspacing="0" width="100%">
           
             <thead>
                 <tr>
@@ -171,8 +170,7 @@
                   <th>Size</th>
                   <th>Status</th>
                   <th>Date</th>
-                  <th>Budget</th>
-                  <th>Actions</th>
+                  <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -246,19 +244,10 @@
     <script src="<?php echo base_url(); ?>assets/vendor/jquery/jquery.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/vendor/popper.js/umd/popper.min.js"> </script>
     <script src="<?php echo base_url(); ?>assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <!-- <script type="text/javascript" src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
-    <script type="text/javascript" src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="//cdn.datatables.net/tabletools/2.2.3/js/dataTables.tableTools.min.js"></script>
-    <!-- <script type="text/javascript" src="//cdn.datatables.net/plug-ins/380cb78f450/integration/bootstrap/3/dataTables.bootstrap.js"></script> -->
-    <!-- <script type="text/javascript" src="dataTables.editor.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
     <!--data table--> 
-    
-    <!-- <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script> -->
-    <!-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs/pdfmake-0.1.18/dt-1.10.12/b-1.2.2/b-colvis-1.2.2/b-html5-1.2.2/b-print-1.2.2/r-2.1.0/datatables.min.js"></script>  -->
-    <script type="text/javascript" src="https://editor.datatables.net/extensions/Editor/js/dataTables.editor.min.js"> </script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/pdfmake-0.1.18/dt-1.10.12/b-1.2.2/b-colvis-1.2.2/b-html5-1.2.2/b-print-1.2.2/r-2.1.0/datatables.min.js"></script> 
     <script src="<?php echo base_url(); ?>assets/vendor/jquery.cookie/jquery.cookie.js"> </script>
     <script src="<?php echo base_url(); ?>assets/vendor/chart.js/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>

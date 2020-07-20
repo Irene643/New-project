@@ -70,20 +70,7 @@ class Project extends CI_Model {
         $query = $this->db->get('status');
         return $query->result();
     }
-    public function getWriterProjects(){
-        $this->db->select('project.*, category.name as category, reference.name as reference, status.name as status');    
-        $this->db->from('project');
-        $this->db->join('category', 'category.id = project.category_id','left');
-        $this->db->join('reference', 'reference.id = project.reference_id','left');
-        $this->db->join('status', 'status.id = project.status_id');
-        if(isset($_SESSION["id"])):
-        $this->db->where('assigned_to =', $_SESSION["id"]);
-        endif;
-        $query = $this->db->get();
-        // print_r($_SESSION["id"]);
-        return $query->result ();
-        
-    }
+   
     public function getAllProjects(){
         $this->db->select('project.*, category.name as category, reference.name as reference, status.name as status');    
         $this->db->from('project');

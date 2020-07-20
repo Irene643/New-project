@@ -55,7 +55,7 @@ $route['default_controller'] = 'home';
 
 // $route['writer-dashboard'] = 'login/login_user';
 $route['admin-dashboard'] = 'home/admin_dashboard';
-$route['writer-dashboard'] = 'home/writer_dashboard';
+$route['writer-dashboard'] = 'writer/index';
 $route['create'] = 'home/create';
 $route['add-project'] = 'home/saveProject';
 $route['project/view/(:any)'] = 'home/view_single/$1';

@@ -26,6 +26,30 @@ $(document).ready(function() {
         source = "home/completed";
         showData();
     });
+    $('#writerall').click(function() {
+        source = "writer/all";
+        showWriterData();
+    });
+
+    $('#bids').click(function() {
+        source = "writer/unassigned";
+        showWriterData();
+    });
+
+    $('#writerinprogress').click(function() {
+        source = "writer/in_progress";
+        showWriterData();
+    });
+
+    $('#writerwaiting').click(function() {
+        source = "writer/waiting_for_client";
+        showWriterData();
+    });
+
+    $('#writercompleted').click(function() {
+        source = "writer/completed";
+        showWriterData();
+    });
     editor = new $.fn.dataTable.Editor( {
         "ajax": "home/saveProject",
         "table": "#userDetails",
@@ -91,7 +115,7 @@ $(document).ready(function() {
 var showData = (function(){
    
     var table = $('#userDetails').DataTable( {
-        // "dom": '<"top"i>rt<"bottom"flp><"clear">',
+        "dom": '<"top"i>rt<"bottom"flp><"clear">',
         "pagingType": "full_numbers",
         ajax: source,
         columns: [
@@ -99,19 +123,17 @@ var showData = (function(){
             //     // Combine the first and last names into a single table field
             //     return data.first_name+' '+data.last_name;
             // } },
-            {"data":"id"},
             { "data": "title" },
             { "data": "category" },
             { "data": "reference" },
             { "data": "size" },
             { "data": "status" },
             { "data": "due_date" },
-            // { "data": "budget" },
-            
+            { "data": "budget" },
             {
-            className: "center",
-            defaultContent: '<button class="editor_view">View</button> <button class="editor_edit">Edit</button> <button class="editor_remove">Delete</button>'
-            }
+                className: "center",
+                defaultContent: '<button class="editor_view">View</button> <button class="editor_edit">Edit</button> <button class="editor_remove">Delete</button>'
+                }
         ],
         destroy : true
     } );
@@ -141,4 +163,38 @@ var showData = (function(){
    //      var data_row = table.row($(this).closest('tr')).data();
    //      alert(data_row);
    //  })
+} );
+var showWriterData = (function(){
+    var table = $('#writerDetails').DataTable( {
+        "dom": '<"top"i>rt<"bottom"flp><"clear">',
+        "pagingType": "full_numbers",
+        ajax: source,
+        columns: [
+            // { data: null, render: function ( data, type, row ) {
+            //     // Combine the first and last names into a single table field
+            //     return data.first_name+' '+data.last_name;
+            // } },
+            { "data": "title" },
+            { "data": "category" },
+            { "data": "reference" },
+            { "data": "size" },
+            { "data": "status" },
+            { "data": "due_date" },
+            // 
+            {
+                className: "center",
+                defaultContent: '<button class="editor_view">View</button>'
+                } 
+        ],
+        destroy : true
+    } );
+    $('#writerDetails tbody').on( 'click', 'button', function (e) {
+        var action = this.className;
+        baseurl = '<?php echo base_url(); ?>';
+        
+        var row_data = table.row( $(this).parents('tr') ).data();
+             window.open("home/view/"+row_data.id, "_self");
+        
+            // var data_row = table.row($(this).closest('tr')).data();
+        } );
 } );

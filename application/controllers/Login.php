@@ -22,7 +22,7 @@ class Login extends CI_Controller {
 			'project_references' => $this->project->getProjectReferenceType(),
 			'project_status' => $this->project->getProjectStatus(),
 			'proficiencies' => $this->project->getProjectCategory(),
-			'writer_projects' => $this->project->getWriterProjects(),
+			'writer_projects' => $this->writer_model->getAllProjects(),
 			'all_projects_title' => 'All Projects',
 			'open_projects_title' => 'Open Projects',
 			'completed_projects_title' => 'Completed Projects'

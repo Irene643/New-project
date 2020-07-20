@@ -15,11 +15,11 @@ class Home extends CI_Controller {
 			'completed' => $this->project->getCompletedProjects(),
 			'unassigned' => $this->project->get_unassigned_projects(),
 			'waiting_for_client' => $this->project->get_waiting_for_client_projects(),
+			'writer_projects' => $this->writer_model->getAllProjects(),
 			'project_categories' => $this->project->getProjectCategory(),
 			'project_references' => $this->project->getProjectReferenceType(),
 			'project_status' => $this->project->getProjectStatus(),
 			'proficiencies' => $this->project->getProjectCategory(),
-			'writer_projects' => $this->project->getWriterProjects(),
 			'all_projects_title' => 'All Projects',
 			'open_projects_title' => 'Open Projects',
 			'completed_projects_title' => 'Completed Projects'
@@ -140,12 +140,6 @@ class Home extends CI_Controller {
 		$this->load->view('template/view', $data);
 	}
 
-	public function writer_dashboard()
-	{
-		$data = $this->data;	
-		$this->load->view('writer/index', $data);
-	}
-
 	public function unassigned(){
 		$data = $this->data;
 
@@ -167,7 +161,6 @@ class Home extends CI_Controller {
             "sEcho"    =>1,
             "aaData" => $open
 		);
-		
 		echo json_encode($json_req);
 	}
 
@@ -179,7 +172,7 @@ class Home extends CI_Controller {
             "sEcho"    =>1,
             "aaData" => $waiting
 		);
-		
+		// print_r($waiting);die;
 		echo json_encode($json_req);
 	}
 	public function completed(){
