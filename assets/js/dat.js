@@ -50,45 +50,7 @@ $(document).ready(function() {
         source = "writer/completed";
         showWriterData();
     });
-    editor = new $.fn.dataTable.Editor( {
-        "ajax": "home/saveProject",
-        "table": "#userDetails",
-        "fields": [ {
-            "label": "First name:",
-            "name": "first_name"
-        }, {
-            "label": "Last name:",
-            "name": "category"
-        }, {
-            "label": "Position:",
-            "name": "reference"
-        }, {
-            "label": "Office:",
-            "name": "size"
-        }, {
-            "label": "Extension:",
-            "name": "status"
-        }, {
-            "label": "Start date:",
-            "name": "due_date",
-            "type": "datetime"
-        }, {
-            "label": "Salary:",
-            "name": "budget"
-        }
-        ]
-    } );
- 
-    // New record
-    $('a.editor_create').on('click', function (e) {
-        e.preventDefault();
- 
-        editor.create( {
-            title: 'Create new record',
-            buttons: 'Add'
-        } );
-    } );
- 
+  
     // Edit record
     $('#userDetails').on('click', 'a.editor_edit', function (e) {
         e.preventDefault();
@@ -115,7 +77,7 @@ $(document).ready(function() {
 var showData = (function(){
    
     var table = $('#userDetails').DataTable( {
-        "dom": '<"top"i>rt<"bottom"flp><"clear">',
+        "dom": '<"top"i>rt<"top"flp><"clear">',
         "pagingType": "full_numbers",
         ajax: source,
         columns: [
@@ -193,7 +155,7 @@ var showWriterData = (function(){
         baseurl = '<?php echo base_url(); ?>';
         
         var row_data = table.row( $(this).parents('tr') ).data();
-             window.open("home/view/"+row_data.id, "_self");
+             window.open("home/view_single/"+row_data.id, "_self");
         
             // var data_row = table.row($(this).closest('tr')).data();
         } );

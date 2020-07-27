@@ -243,8 +243,10 @@
                             <a href="#"id="bid" type="submit"class="btn btn-sm btn-success">Apply now</a>
                             </form>
 
-                          <?php endif;?>
+                          <?php endif;if(!isset($_SESSION['id'])):?>
+                          
                             <button id="bid-not-loggedin" class="btn btn-sm btn-success">Apply now</button>
+                            <?php endif ?>
                             <span id="error-msg"></span>
                         </div>
                       </div>

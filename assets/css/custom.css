@@ -57,3 +57,7 @@ color: #fff;
 background-color: #dc3545;
 border-color: #dc3545;
 }
+.search{
+    padding-left: 3em !important;
+    padding-right: 3em !important;
+}

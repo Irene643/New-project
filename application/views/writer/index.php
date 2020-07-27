@@ -80,83 +80,48 @@
       </nav>
     </header>
     <div class="d-flex align-items-stretch">
-      <div id="sidebar" class="sidebar py-3">
-        <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">MAIN</div>
-        <ul class="sidebar-menu list-unstyled">
-              <li class="sidebar-list-item"><a href="<?php echo base_url(); ?>" class="sidebar-link text-muted active"><i class="o-home-1 mr-3 text-gray"></i><span>Home</span></a></li>
-              <li class="sidebar-list-item"><a href="../login/index" class="sidebar-link text-muted"><i class="o-sales-up-1 mr-3 text-gray"></i><span>Charts</span></a></li>
-              <li class="sidebar-list-item"><a href="tables" class="sidebar-link text-muted"><i class="o-table-content-1 mr-3 text-gray"></i><span>Tables</span></a></li>
-              <li class="sidebar-list-item"><a href="<?php echo base_url(); ?>index.php/create" class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>Forms</span></a></li>
-          <li class="sidebar-list-item"><a href="#all" data-toggle="collapse" data-target="#pages" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted all"><i class="o-wireframe-1 mr-3 text-gray"></i><span>Projects</span></a>
-            <div id="pages" class="collapse">
-              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                <li class="sidebar-list-item "><a id="writerall" href="#all"class=" all sidebar-link text-muted pl-lg-5">All<span class="badge badge-pill badge-light"><?php  echo count($writer_projects);?></span></a></li>
-                <li class="sidebar-list-item"><a id="writerinprogress" href="#inprogress" class="sidebar-link text-muted pl-lg-5">In progress<span class="badge badge-pill badge-primary"><?php  echo count($writer_open);?></span></a></li>
-                <li class="sidebar-list-item"><a id="writerwaiting" href="#waiting" class="sidebar-link text-muted pl-lg-5">Waiting for Client<span class="badge badge-pill badge-info"><?php  echo count($writer_waiting_for_client);?></span></a></li>
-                <li class="sidebar-list-item"><a id="writercompleted" href="#completed" class="sidebar-link text-muted pl-lg-5">Done<span class="badge badge-pill badge-success"><?php  echo count($writer_completed);?></span></a></li>
-                <li class="sidebar-list-item"><a id="writerbids" href="#bids" class="sidebar-link text-muted pl-lg-5">Bids<span class="badge badge-pill badge-secondary"></span></a></li>
-              </ul>
-            </div>
-          </li>
-              <li class="sidebar-list-item"><a href="<?php echo base_url(); ?>index.php/login" class="sidebar-link text-muted"><i class="o-exit-1 mr-3 text-gray"></i><span>Login</span></a></li>
-        </ul>
-        <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">EXTRAS</div>
-        <ul class="sidebar-menu list-unstyled">
-              <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-database-1 mr-3 text-gray"></i><span>Demo</span></a></li>
-              <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-imac-screen-1 mr-3 text-gray"></i><span>Demo</span></a></li>
-              <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-paperwork-1 mr-3 text-gray"></i><span>Demo</span></a></li>
-              <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>Demo</span></a></li>
-        </ul>
-      </div>
+      <?php require_once(APPPATH.'views/writer/sidebar.php');?>
       <div class="page-holder w-100 d-flex flex-wrap">
         <div class="container-fluid px-xl-5">
           <section class="py-5">
+          <?php echo form_open("index.php/home/search");?>
             <div class="row">
               <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
-                <div class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
                   <div class="flex-grow-1 d-flex align-items-center">
-                    <div class="dot mr-3 bg-violet"></div>
-                    <div class="text">
-                      <h6><a href="#" class="mb-0 text-muted all"><?php echo $all_projects_title ?></a></h6><span class="text-gray"><?php  echo count($projects);?></span>
-                    </div>
-                  </div>
-                  <div class="icon text-white bg-violet"><i class="fas fa-server"></i></div>
+                    <select name="category" value="<?php echo set_value('category'); ?>" class="form-control">
+                      <option  selected value="">All Categories</option>
+                      <?php foreach ($project_categories as $category):?>
+                        <option value="<?php echo $category->id ?>" <?php if ($category->id == set_value('category')) echo "selected = 'selected'"?>><?php echo $category->name ?></option>
+                      <?php endforeach; ?>
+                      </select>
                 </div>
               </div>
               <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
-                <div class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
                   <div class="flex-grow-1 d-flex align-items-center">
-                    <div class="dot mr-3 bg-blue"></div>
-                    <div class="text">
-                      <h6 class="mb-0"><?php  echo $open_projects_title;?></h6><span class="text-gray"><?php  echo count($open);?></span>
-                    </div>
-                  </div>
-                  <div class="icon text-white bg-blue"><i class="far fa-clipboard"></i></div>
+                  <select name="reference_type" value="<?php echo set_value('reference_type'); ?>" class="form-control" id="referenceType">
+                    <option selected value="">All Reference Types</option>
+                    <?php foreach ($project_references as $reference):?>
+                      <option value="<?php echo $reference->id ?>"><?php echo $reference->name ?></option>
+                    <?php endforeach; ?>
+                  </select>
                 </div>
               </div>
               <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
-                <div class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
                   <div class="flex-grow-1 d-flex align-items-center">
-                    <div class="dot mr-3 bg-green"></div>
-                    <div class="text">
-                      <h6 class="mb-0"><?php  echo $completed_projects_title;?></h6><span class="text-gray"><?php  echo count($completed);?></span>
-                    </div>
-                  </div>
-                  <div class="icon text-white bg-green"><i class="fa fa-dolly-flatbed"></i></div>
+                    <select name="pages" value="<?php echo set_value('pages'); ?>" class="form-control">
+                      <option  selected value="">All Pages</option>
+                      <option  selected value="0-5">0-5</option>
+                      <option  selected value="6-10">6-10</option>
+                      <option  selected value="11-15">11-15</option>
+                    </select>
                 </div>
               </div>
               <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
-                <div class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
-                  <div class="flex-grow-1 d-flex align-items-center">
-                    <div class="dot mr-3 bg-red"></div>
-                    <div class="text">
-                      <h6 class="mb-0">New invoices</h6><span class="text-gray">123</span>
-                    </div>
-                  </div>
-                  <div class="icon text-white bg-red"><i class="fas fa-receipt"></i></div>
+                <div class="flex-grow-1 d-flex align-items-center">
+                  <button class="btn btn-primary search"type="submit">SEARCH</button>
                 </div>
               </div>
-            </div>
+           </form>
           </section>
           <section>
             <!-- datatable -->

@@ -137,7 +137,7 @@ class Home extends CI_Controller {
 	public function admin_dashboard()
 	{
 		$data = $this->data;	
-		$this->load->view('template/view', $data);
+		$this->load->view('admin/index', $data);
 	}
 
 	public function unassigned(){
@@ -289,6 +289,18 @@ class Home extends CI_Controller {
         
         $this->project->delete_project($id);        
         redirect( base_url() . 'index.php/writer-dashboard');        
-    }
+	}
+	public function search(){
+		// $category = $_POST['category'];
+		// $reference = $_POST['reference_type'];
+		// $pages = $_POST['pages'];
+
+		$search_data = Array(
+			$category =$_POST['category'],
+			$reference = $_POST['reference_type'],
+			$pages = $_POST['pages']
+		);
+		print_r($search_data);die;
+	}
     
 }

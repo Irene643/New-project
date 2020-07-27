@@ -111,6 +111,7 @@ class Login extends CI_Controller {
 	   
 	  }
 	  public function sign_up(){
+		  echo(1);
 		print_r($_POST);
 		$this->form_validation->set_rules('firstname', 'First name', 'required');
 		$this->form_validation->set_rules('lastname', 'Last Name', 'required');
