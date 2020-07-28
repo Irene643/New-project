@@ -293,14 +293,16 @@ class Home extends CI_Controller {
 	public function search(){
 		// $category = $_POST['category'];
 		// $reference = $_POST['reference_type'];
-		// $pages = $_POST['pages'];
+		$pages = $_POST['pages'];
 
 		$search_data = Array(
-			$category =$_POST['category'],
-			$reference = $_POST['reference_type'],
-			$pages = $_POST['pages']
+			'category' =>$_POST['category'],
+			'reference' => $_POST['reference_type'],
 		);
-		print_r($search_data);die;
+		$str = "'$pages'";
+		preg_match_all("/\d+/", $str, $matches);
+		// print_r($matches[0][0]);die;
+		$this->project->search($search_data, $matches);
 	}
     
 }
