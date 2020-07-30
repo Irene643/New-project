@@ -291,6 +291,7 @@ class Home extends CI_Controller {
         redirect( base_url() . 'index.php/writer-dashboard');        
 	}
 	public function search(){
+		$data = $this->data;
 		// $category = $_POST['category'];
 		// $reference = $_POST['reference_type'];
 		$pages = $_POST['pages'];
@@ -303,6 +304,15 @@ class Home extends CI_Controller {
 		preg_match_all("/\d+/", $str, $matches);
 		// print_r($matches[0][0]);die;
 		$this->project->search($search_data, $matches);
+
+		$result = $this->project->search($search_data, $matches);
+		if(!empty($result)){
+			$data['search_results'] = $result;
+			print_r($data['search_results']);
+			redirect( base_url() . 'index.php/writer-dashboard');
+		}else{
+			echo('no results found');
+		}
 	}
     
 }

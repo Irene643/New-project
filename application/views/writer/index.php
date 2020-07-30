@@ -110,7 +110,7 @@
                   <div class="flex-grow-1 d-flex align-items-center">
                     <select name="pages" value="<?php echo set_value('pages'); ?>" class="form-control">
                       <option  selected value="">All Pages</option>
-                      <option  selected value="0-5">0-5</option>
+                      <option  selected value="0-5">1-5</option>
                       <option  selected value="6-10">6-10</option>
                       <option  selected value="11-15">11-15</option>
                     </select>
@@ -124,6 +124,73 @@
            </form>
           </section>
           <section>
+          <div class="card">
+                  <div class="card-header text-center">Search Results </div>
+                  <div class="card-body">
+                  <?php foreach($unassigned as $search_results):
+                  $current_date = strtotime(date('Y-m-d h:i:s'));
+                  $created_at = strtotime($search_results->created_at);
+                  $hr_difference = round(($current_date - $created_at)/(60*60),0);
+                  if($hr_difference >= 0){
+                    if($hr_difference > 24 ) {
+                      $day_difference = round(($hr_difference/24),0)."d";
+                    }
+                    if($hr_difference <= 24 ){
+                      $hr_difference = $hr_difference ."h";
+                    }
+                  }
+                    // print_r($hr_difference);
+                    ?>
+                    
+                <div class="card">
+                  <div class="card-header text-center"><?=$search_results->title?><span class="float-right"><?php if($hr_difference < 24):?><span style="color:green"class="badge badge-light">New</span><?php endif; if($hr_difference >24){echo $day_difference;}else{ echo $hr_difference;}?><i class="fa fa-heart"style="color: orange;padding-left:0.5em" ></i></span></div>
+                    <a href="<?=base_url();?>index.php/project/view/<?=$search_results->id;?>"title="View this job"class="project-holder">
+                      <div class="card-body">
+                        <div>
+                          <p>Reference Type: <?=$search_results->reference?></p>
+                          <p>Due Date: <?=$search_results->due_date?></p>
+                          <p>Price: <?=$search_results->budget?></p>
+                          <?php
+                            $due_date = strtotime($search_results->due_date);
+                            $due_in = round(($due_date - $current_date)/(60*60),0);
+
+                            if($due_in > 0){
+                              if($due_in > 24 ) {
+                                $due_in = round(($due_in/24),0)."days";
+                              }else{
+                                $due_in = $due_in ."h";
+                              }
+                            }else{
+                              $due_in = "Expired";
+                            }
+                          ?>
+                          <p>Due in: <?=$due_in?></p>
+                          <div class="main-text"><?=$search_results->description?></div>
+                        </div></a>
+                        <div class="text-center read-more">
+                          <?php 
+                            if(isset($_SESSION['id'])):
+                               // echo form_open('index.php/writer/bid');
+                            ?>
+                            <form id="bid-form">
+                            <input type="hidden" name="user_id" value="<?= $_SESSION['id']?>"> 
+                            <input type="hidden" name="project_id" value="<?= $search_results->id?>">
+                            <a href="#"id="bid" type="submit"class="btn btn-sm btn-success">Apply now</a>
+                            </form>
+
+                          <?php endif;if(!isset($_SESSION['id'])):?>
+                          
+                            <button id="bid-not-loggedin" class="btn btn-sm btn-success">Apply now</button>
+                            <?php endif ?>
+                            <span id="error-msg"></span>
+                        </div>
+                      </div>
+                      
+                    </div>
+                    <br>
+                    <?php endforeach ?>
+                  </div>
+                </div>
             <!-- datatable -->
           <table id="writerDetails" class="datatable table table-bordered table-hover table-striped" cellspacing="0" width="100%">
           
@@ -140,7 +207,7 @@
             </thead>
             <tbody>
             </tbody>
-        </table>
+          </table>
         <!-- datatable end -->
             
           </section>

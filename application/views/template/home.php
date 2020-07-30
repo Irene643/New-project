@@ -260,101 +260,95 @@
               <?php if(!isset($_SESSION['is_logged_in'])):?>
               <div class="col-lg-5">
                 <div id="login" class="card">
-                <!-- <h1 class="text-base text-primary text-center text-uppercase mb-4 card-login">Writedrone</h1> -->
                   <div class="card-header text-center">Login</div>
-                    <div class="card-body">
-                <!-- <p class="text-muted">ogin to co.</p> -->
-                <!-- <form id="loginForm" method="POST"action="<?php echo base_url();?>index.php/login/login_user" class="mt-4">-->
-                        <?php echo validation_errors(); ?>
-                        <?php echo form_open('index.php/login/login_user'); ?>  
-                          <div class="form-group mb-4">
-                            <input type="text" name="username" placeholder="Username or Email address" class="form-control border-0 shadow form-control-lg">
-                            <span class="text-danger"><?php echo form_error('username')?></span>
+                    <div class="card-body">        <?php echo validation_errors(); ?>
+                      <?php echo form_open('index.php/login/login_user'); ?>  
+                        <div class="form-group mb-4">
+                          <input type="text" name="username" placeholder="Username or Email address" class="form-control border-0 shadow form-control-lg">
+                          <span class="text-danger"><?php echo form_error('username')?></span>
+                        </div>
+                        <div class="form-group mb-4">
+                          <input type="password" name="password" placeholder="Password" class="form-control border-0 shadow form-control-lg text-violet">
+                          <span class="text-danger"><?php echo form_error('password')?></span>
+                        </div>
+                        <div class="form-group mb-4">
+                          <div class="custom-control custom-checkbox">
+                            <input id="customCheck1" type="checkbox" checked class="custom-control-input">
+                            <label for="customCheck1" class="custom-control-label">Remember Me</label>
                           </div>
-                          <div class="form-group mb-4">
-                            <input type="password" name="password" placeholder="Password" class="form-control border-0 shadow form-control-lg text-violet">
-                            <span class="text-danger"><?php echo form_error('password')?></span>
-                          </div>
-                          <div class="form-group mb-4">
-                            <div class="custom-control custom-checkbox">
-                              <input id="customCheck1" type="checkbox" checked class="custom-control-input">
-                              <label for="customCheck1" class="custom-control-label">Remember Me</label>
-                            </div>
-                          </div>
-                          <div class="form-btn">
-                            <p class="text-muted">New user?</p>
-                            <a id="signup" class="btn btn-primary shadow px-5">Sign up</a>
-                            <button type="submit" name="login"class="btn btn-primary back-btn shadow px-5">Login</button>
-                          </div>
-                        </form>
-                      </div>
+                        </div>
+                        <div class="form-btn">
+                          <p class="text-muted">New user?</p>
+                          <a id="signup" class="btn btn-primary shadow px-5">Sign up</a>
+                          <button type="submit" name="login"class="btn btn-primary back-btn shadow px-5">Login</button>
+                        </div>
+                      </form>
+                    </div>
                   </div>
+                </div>
                 <div class="card" id="sign-up">
-                <!-- <h1 class="text-base text-primary text-center text-uppercase mb-4 card-login">Writedrone</h1> -->
                   <div class="card-header text-center">Sign Up</div>
-                    <div class="card-body">
-                <!-- <p class="text-muted">ogin to co.</p> -->
-                <!-- <form id="loginForm" method="POST"action="<?php echo base_url();?>index.php/login/login_user" class="mt-4">-->
-                        <?php echo validation_errors(); ?>
-                        <?php echo form_open('index.php/login/sign_up'); ?>
-                          <div class="form-group mb-4">
-                            <label for="firstname">First Name</label>
-                            <input type="text" name="firstname" placeholder="First Name" class="form-control border-0 shadow form-control-lg text-violet">
-                            <span class="text-danger"><?php echo form_error('firstname')?></span>
-                          </div> 
-                          <div class="form-group mb-4">
-                            <label for="lastname">Last Name</label>
-                            <input type="text" name="lastname" placeholder="Last Name" class="form-control border-0 shadow form-control-lg text-violet">
-                            <span class="text-danger"><?php echo form_error('lastname')?></span>
-                          </div>  
-                          <div class="form-group mb-4">
-                          <label for="email">Email</label>
-                            <input type="email" name="email" placeholder="Email address" class="form-control border-0 shadow form-control-lg text-violet">
-                            <span class="text-danger"><?php echo form_error('email')?></span>
-                          </div> 
-                          <div class="form-group mb-4">
-                            <label for="username">Username</label>
-                            <input type="text" name="username" placeholder="Username" class="form-control border-0 shadow form-control-lg text-violet">
-                            <span class="text-danger"><?php echo form_error('username')?></span>
-                          </div>
-                          <div class="form-group mb-4">
-                            <label for="password">Password</label>
-                            <input type="password" name="password" id="password" placeholder="********" class="form-control border-0 shadow form-control-lg text-violet">
-                            <span class="text-danger"><?php echo form_error('password')?></span>
-                          </div>
-                          <div class="form-group mb-4">
-                            <label for="confirm_password">Confirm Password</label>
-                            <input type="password" name="confirm_password" placeholder="********" id="confirm_password"class="form-control border-0 shadow form-control-lg text-violet">
-                            <span class="text-danger"><?php echo form_error('confirm_password')?></span>
-                            <span id='message'></span>
-                          </div>
-                          <div class="form-group mb-4">
-                            <label for="experience_length">Experience Length</label>
-                            <select name="experience_length" class="form-control border-0 shadow form-control-lg text-violet">
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="More than 3 years">More than 3 years</option>
-                            </select>
-                            <span class="text-danger"><?php echo form_error('experience_length')?></span>
-                          </div>
-                          <div class="form-group mb-4">
-                            <label for="proficiency_areas">Proficiency Area(s)</label><br><span class="text-muted">Press and hold Ctrl(Windows) or Command(Mac) to select multiple</span>
-                            <select name="proficiency[]" multiple id="proficiency"class="form-control">
-                            <?php foreach ($project_categories as $category):?>
-                              <!-- <?php $selected = in_array($category->id,$prof) ? " selected " : null;?> -->
-                              <option value="<?php echo $category->id ?>"><?=$category->name?></option>
-                            <?php endforeach; ?>
-                            
-                            </select>
-                            <span></span>
-                          </div>
-                          <div class="form-btn text-center">
-                            <!-- <a href="<?php echo base_url()?>"class="btn btn-primary shadow px-5">Sign up</a> -->
-                            <button type="submit" name="signup"class="btn btn-primary  shadow px-5">Sign Up</button>
-                          </div>
-                        </form>
-                      </div>
+                    <div class="card-body"><!-- <form id="loginForm" method="POST"action="<?php echo base_url();?>index.php/login/login_user" class="mt-4">-->
+                      <?php echo validation_errors(); ?>
+                      <?php echo form_open('index.php/login/sign_up'); ?>
+                        <div class="form-group mb-4">
+                          <label for="firstname">First Name</label>
+                          <input type="text" name="firstname" placeholder="First Name" class="form-control border-0 shadow form-control-lg text-violet">
+                          <span class="text-danger"><?php echo form_error('firstname')?></span>
+                        </div> 
+                        <div class="form-group mb-4">
+                          <label for="lastname">Last Name</label>
+                          <input type="text" name="lastname" placeholder="Last Name" class="form-control border-0 shadow form-control-lg text-violet">
+                          <span class="text-danger"><?php echo form_error('lastname')?></span>
+                        </div>  
+                        <div class="form-group mb-4">
+                        <label for="email">Email</label>
+                          <input type="email" name="email" placeholder="Email address" class="form-control border-0 shadow form-control-lg text-violet">
+                          <span class="text-danger"><?php echo form_error('email')?></span>
+                        </div> 
+                        <div class="form-group mb-4">
+                          <label for="username">Username</label>
+                          <input type="text" name="username" placeholder="Username" class="form-control border-0 shadow form-control-lg text-violet">
+                          <span class="text-danger"><?php echo form_error('username')?></span>
+                        </div>
+                        <div class="form-group mb-4">
+                          <label for="password">Password</label>
+                          <input type="password" name="password" id="password" placeholder="********" class="form-control border-0 shadow form-control-lg text-violet">
+                          <span class="text-danger"><?php echo form_error('password')?></span>
+                        </div>
+                        <div class="form-group mb-4">
+                          <label for="confirm_password">Confirm Password</label>
+                          <input type="password" name="confirm_password" placeholder="********" id="confirm_password"class="form-control border-0 shadow form-control-lg text-violet">
+                          <span class="text-danger"><?php echo form_error('confirm_password')?></span>
+                          <span id='message'></span>
+                        </div>
+                        <div class="form-group mb-4">
+                          <label for="experience_length">Experience Length</label>
+                          <select name="experience_length" class="form-control border-0 shadow form-control-lg text-violet">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="More than 3 years">More than 3 years</option>
+                          </select>
+                          <span class="text-danger"><?php echo form_error('experience_length')?></span>
+                        </div>
+                        <div class="form-group mb-4">
+                          <label for="proficiency_areas">Proficiency Area(s)</label><br><span class="text-muted">Press and hold Ctrl(Windows) or Command(Mac) to select multiple</span>
+                          <select name="proficiency[]" multiple id="proficiency"class="form-control">
+                          <?php foreach ($project_categories as $category):?>
+                            <!-- <?php $selected = in_array($category->id,$prof) ? " selected " : null;?> -->
+                            <option value="<?php echo $category->id ?>"><?=$category->name?></option>
+                          <?php endforeach; ?>
+                          
+                          </select>
+                          <span></span>
+                        </div>
+                        <div class="form-btn text-center">
+                          <!-- <a href="<?php echo base_url()?>"class="btn btn-primary shadow px-5">Sign up</a> -->
+                          <button type="submit" name="signup"class="btn btn-primary  shadow px-5">Sign Up</button>
+                        </div>
+                      </form>
+                    </div>
                   </div>
                 </div>
                 <?php endif;?>
