@@ -32,7 +32,8 @@ class Writer extends CI_Controller {
 	//index function
 	public function index()
 	{
-		$data = $this->data;	
+		$data = $this->data;
+		$data['no_results'] = 2;	
 		$this->load->view('writer/index', $data);
 	}
 

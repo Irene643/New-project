@@ -131,7 +131,7 @@
               </div>
             </div>
           </section>
-          <section>
+          <section id="admin-projects">
           <a href="<?php echo base_url(); ?>index.php/create" id="addproject" class="btn btn-primary">Add Project</a>
             <!-- datatable -->
           <table id="userDetails" class="datatable table table-bordered table-hover table-striped" cellspacing="0" width="100%">

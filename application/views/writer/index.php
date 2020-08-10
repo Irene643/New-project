@@ -83,8 +83,8 @@
       <?php require_once(APPPATH.'views/writer/sidebar.php');?>
       <div class="page-holder w-100 d-flex flex-wrap">
         <div class="container-fluid px-xl-5">
-          <section class="py-5">
-          <?php echo form_open("index.php/home/search");?>
+          <section id="form-search"class="py-5">
+            <?php echo form_open("index.php/home/search");?>
             <div class="row">
               <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
                   <div class="flex-grow-1 d-flex align-items-center">
@@ -110,9 +110,9 @@
                   <div class="flex-grow-1 d-flex align-items-center">
                     <select name="pages" value="<?php echo set_value('pages'); ?>" class="form-control">
                       <option  selected value="">All Pages</option>
-                      <option  selected value="0-5">1-5</option>
-                      <option  selected value="6-10">6-10</option>
-                      <option  selected value="11-15">11-15</option>
+                      <option  value="1-5">1-5</option>
+                      <option  value="6-10">6-10</option>
+                      <option  value="11-15">11-15</option>
                     </select>
                 </div>
               </div>
@@ -122,60 +122,93 @@
                 </div>
               </div>
            </form>
+           <?php 
+            $card_title = "Search Results";
+            if(empty($search_results)){
+              // print_r($no_results );die;
+              if($no_results == 1){?>
+                <br><div class="alert alert-danger alert-dismissible search_alert" role="alert">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <span class="text-center">No projects match your search!</span>
+                </div><?php
+              }
+              $card_title = "All Unassigned Projects";
+              $search_results = $unassigned;
+            } 
+            ?>
           </section>
           <section>
-          <div class="card">
-                  <div class="card-header text-center">Search Results </div>
-                  <div class="card-body">
-                  <?php foreach($unassigned as $search_results):
-                  $current_date = strtotime(date('Y-m-d h:i:s'));
-                  $created_at = strtotime($search_results->created_at);
-                  $hr_difference = round(($current_date - $created_at)/(60*60),0);
-                  if($hr_difference >= 0){
-                    if($hr_difference > 24 ) {
-                      $day_difference = round(($hr_difference/24),0)."d";
-                    }
-                    if($hr_difference <= 24 ){
-                      $hr_difference = $hr_difference ."h";
-                    }
-                  }
-                    // print_r($hr_difference);
-                    ?>
+            <!-- project card-->
+            <div class="card project-card">
+              <div class="card-header text-center"><?=$card_title?></div>
+              <div class="card-body">
+              
+              <?php 
+              // print_r($search_results);die;
+              foreach($search_results as $search_result):
+              $current_date = strtotime(date('Y-m-d h:i:s'));
+              $created_at = strtotime($search_result->created_at);
+              $hr_difference = round(($current_date - $created_at)/(60*60),0);
+              // print_r($created_at);exit;
+              if($hr_difference >= 0){
+                if($hr_difference >= 24 ){
+                  $day_difference = round(($hr_difference/24),0)."d";
+                  $days = round(($hr_difference/24),0);
+                  if($days > 31)$month_difference = round(($days/30),0)."months";
+                }
+                if($hr_difference <= 24 )$hr_difference = $hr_difference ."h";
+              }
+              ?>
                     
                 <div class="card">
-                  <div class="card-header text-center"><?=$search_results->title?><span class="float-right"><?php if($hr_difference < 24):?><span style="color:green"class="badge badge-light">New</span><?php endif; if($hr_difference >24){echo $day_difference;}else{ echo $hr_difference;}?><i class="fa fa-heart"style="color: orange;padding-left:0.5em" ></i></span></div>
-                    <a href="<?=base_url();?>index.php/project/view/<?=$search_results->id;?>"title="View this job"class="project-holder">
+                  <div class="card-header text-center">
+                    <?=$search_result->title?><span class="float-right">
+                      <?php if($hr_difference < 24):?>
+                        <span style="color:green"class="badge badge-light">New</span>
+                      <?php endif; 
+                      if($hr_difference >24){
+                        // print_r($day_difference);exit;
+                        if($days > 31){
+                          echo $month_difference;
+                        }else{
+                          echo $day_difference;
+                        }
+                        
+                      }else{
+                        echo $hr_difference;
+                      }?>
+                        <i class="fa fa-heart"style="color: orange;padding-left:0.5em" ></i></span>
+                    </div>
+                    <a href="<?=base_url();?>index.php/project/view/<?=$search_result->id;?>"title="View this job"class="project-holder">
                       <div class="card-body">
                         <div>
-                          <p>Reference Type: <?=$search_results->reference?></p>
-                          <p>Due Date: <?=$search_results->due_date?></p>
-                          <p>Price: <?=$search_results->budget?></p>
+                          <p>Category: <?=$search_result->category?></p>
+                          <p>Reference Type: <?=$search_result->reference?></p>
+                          <p>Due Date: <?=$search_result->due_date?></p>
+                          <p>Price: <?=$search_result->budget?></p>
                           <?php
-                            $due_date = strtotime($search_results->due_date);
+                            $due_date = strtotime($search_result->due_date);
                             $due_in = round(($due_date - $current_date)/(60*60),0);
 
                             if($due_in > 0){
-                              if($due_in > 24 ) {
-                                $due_in = round(($due_in/24),0)."days";
-                              }else{
-                                $due_in = $due_in ."h";
-                              }
+                              $due_in > 24 ? $due_in = round(($due_in/24),0)."days" : $due_in = $due_in ."h";
+                              
                             }else{
                               $due_in = "Expired";
                             }
                           ?>
                           <p>Due in: <?=$due_in?></p>
-                          <div class="main-text"><?=$search_results->description?></div>
+                          <div class="main-text"><?php echo $search_result->description?></div>
                         </div></a>
                         <div class="text-center read-more">
                           <?php 
                             if(isset($_SESSION['id'])):
                                // echo form_open('index.php/writer/bid');
                             ?>
-                            <form id="bid-form">
-                            <input type="hidden" name="user_id" value="<?= $_SESSION['id']?>"> 
-                            <input type="hidden" name="project_id" value="<?= $search_results->id?>">
-                            <a href="#"id="bid" type="submit"class="btn btn-sm btn-success">Apply now</a>
+                            <form method="POST" id="bid-form" action="home/bid">
+                            <input type="hidden" id="user_id" name="user_id" value="<?= $_SESSION['id']?>"> 
+                            <input type="hidden" id="project_id" name="project_id" value="<?= $search_result->id?>">
+                            <button type="submit"class="btn btn-sm btn-success bid">Apply now</button>
                             </form>
 
                           <?php endif;if(!isset($_SESSION['id'])):?>
@@ -191,24 +224,24 @@
                     <?php endforeach ?>
                   </div>
                 </div>
-            <!-- datatable -->
-          <table id="writerDetails" class="datatable table table-bordered table-hover table-striped" cellspacing="0" width="100%">
-          
-            <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Category</th>
-                  <th>Reference</th>
-                  <th>Size</th>
-                  <th>Status</th>
-                  <th>Date</th>
-                  <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-        <!-- datatable end -->
+              <!-- datatable -->
+            <table id="writerDetails" class="datatable table table-bordered table-hover table-striped" cellspacing="0" width="100%">
+            
+              <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Reference</th>
+                    <th>Size</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                  </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+            <!-- datatable end -->
             
           </section>
           <section class="py-5">

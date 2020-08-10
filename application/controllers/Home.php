@@ -308,11 +308,18 @@ class Home extends CI_Controller {
 		$result = $this->project->search($search_data, $matches);
 		if(!empty($result)){
 			$data['search_results'] = $result;
-			print_r($data['search_results']);
-			redirect( base_url() . 'index.php/writer-dashboard');
+			// print_r($data['search_results']);
+			$data['no_results'] = 0;
+			$this->load->view('writer/index', $data);
+			// redirect( base_url() . 'index.php/writer-dashboard');
 		}else{
-			echo('no results found');
+			$data['no_results'] = 1;
+			// redirect( base_url() . 'index.php/writer-dashboard');
+			$this->load->view('writer/index', $data);
 		}
+	}
+	public function bid(){
+		
 	}
     
 }

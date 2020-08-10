@@ -1,7 +1,7 @@
 var editor; // use a global for the submit and return data rendering in the userDetailss
 var source;
 $(document).ready(function() {
-    $('#writerDetails').hide();
+    $('#admin-projects').hide();
     
     $('#all').click(function() {
         source = "home/all";
@@ -76,7 +76,7 @@ $(document).ready(function() {
 } );
 
 var showData = (function(){
-    $('#writerDetails').show();
+    $('#admin-projects').show();
     var table = $('#userDetails').DataTable( {
         "dom": '<"top"i>rt<"top"flp><"clear">',
         "pagingType": "full_numbers",
@@ -128,7 +128,11 @@ var showData = (function(){
    //  })
 } );
 var showWriterData = (function(){
+    // alert('here');
+    $('.project-card').hide();
+    $('#form-search').hide();
     $('#writerDetails').show();
+    
     var table = $('#writerDetails').DataTable( {
         "dom": '<"top"i>rt<"bottom"flp><"clear">',
         "pagingType": "full_numbers",

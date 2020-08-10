@@ -61,3 +61,10 @@ border-color: #dc3545;
     padding-left: 3em !important;
     padding-right: 3em !important;
 }
+#writerDetails_wrapper{
+    margin-top: 4em !important;
+}
+.search_alert{
+    margin: 1rem 1rem !important;
+    width: 100% !important;
+}

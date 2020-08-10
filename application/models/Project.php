@@ -120,47 +120,70 @@ class Project extends CI_Model {
         return $this->db->delete('project');
     }
     public function search($search_data,  $matches){
-        // var_dump($search_data['category']);die;
-        //Truthtable order C, R, P
-        //1 1 0 = 1 0
-        if((empty($matches[0])) && (isset($search_data['reference']) || $search_data['reference'] != "") && (isset($search_data['category']) || $search_data['category'] != "")){
-            $condition = "reference_id =" . "'" . $search_data['reference'] . "' AND " . "category_id =" . "'" . $search_data['category'] . "'";
+        // if(isset($search_data['category']) && ($search_data['category'] != "")){
+        //     //1 1 1
+        //     if(isset($search_data['reference']) && !empty($matches[0]))$condition = "reference_id =" . "'" . $search_data['reference'] . "' AND " . "category_id =" . "'" . $search_data['category'] . "' AND size BETWEEN " . $matches[0][0] . " AND " . $matches[0][1] . "";
+        //     //1 0 0
+        //     if((!isset($search_data['reference']) || ($search_data['reference'] == "") ) && empty($matches[0])) $condition = "category_id =" . "'" . $search_data['category'] . "'";
+        // }else{
+        //     //0 1 1
+        //     if((isset($search_data['reference']) && ($search_data['reference'] != "")) && !empty($matches[0])){
+                
+        //         $condition ="reference_id =" . "'" . $search_data['reference'] . "' AND size BETWEEN " . $matches[0][0] . " AND " . $matches[0][1] . "";
+        //     }
+        //     //0 0 0
+        //     if((!isset($search_data['reference']) || ($search_data['reference'] == "")) && empty($matches[0])){
+                
+        //         $condition = "";
+        //     }
+            
+        // }
+        // if(isset($search_data['reference']) && ($search_data['reference'] != "")){
+        //     //0 1 0
+        //     if((!isset($search_data['category']) || ($search_data['category'] == "")) && empty($matches[0])){
+        //         $condition = "reference_id  =" . "'" . $search_data['reference'] . "'";
+        //     }
+        // }else{
+        //     //1 0 1
+        //     if((isset($search_data['category']) || ($search_data['category'] != "")) && !empty($matches[0])){
+        //         $condition ="category_id =" . "'" . $search_data['category'] . "' AND size BETWEEN " . $matches[0][0] . " AND " . $matches[0][1] . "";
+        //     }
+        // }
+        // if(!empty($matches[0])){
+        //     //0 0 1
+        //     if((!isset($search_data['reference']) || ($search_data['reference'] == "")) && (!isset($search_data['category']) || ($search_data['category'] == ""))){
+        //         $condition = "size BETWEEN " . $matches[0][0] . " AND " . $matches[0][1] . "";
+        //     }
+        // }else{
+        //     //1 1 0
+        //     if((isset($search_data['reference']) && ($search_data['reference'] != "")) && (isset($search_data['category']) && ($search_data['category'] != ""))){
+        //         $condition = "reference_id =" . "'" . $search_data['reference'] . "' AND " . "category_id =" . "'" . $search_data['category'] . "'";   
+        //     }
+        // }
+        $condition = "";
+        $cat = $search_data['category']; 
+        $ref = $search_data['reference']; 
+        if(isset($cat) && $cat != ''){
+            $condition .= "category_id =" . "'" . $cat . "'";
+
+            if((isset($ref) && $ref != '') || !empty($matches[0])) $condition .= " AND"; 
+
         }
-        //1 0 1 = 0 1
-        elseif((!isset($search_data['reference']) || $search_data['reference'] == "") && (isset($search_data['category']) || $search_data['category'] != NULL) && (!empty($matches[0]))){
-            $condition ="category_id =" . "'" . $search_data['category'] . "' AND size BETWEEN " . $matches[0][0] . " AND " . $matches[0][1] . "";
+        if(isset($ref) && $ref != ''){ 
+            $condition .= " reference_id =" . "'" . $ref . "'";
+
+            if(!empty($matches[0])) $condition .= " AND"; 
+        } 
+        if(!empty($matches[0])){ 
+
+            $condition .= " size BETWEEN " . $matches[0][0] . " AND " . $matches[0][1] ;
         }
-        //0 1 1 = 0 1
-        elseif((!isset($search_data['category']) || $search_data['category'] == NULL) && (isset($search_data['reference']) || $search_data['reference'] != NULL) && (!empty($matches[0]))){
-            $condition ="reference_id =" . "'" . $search_data['reference'] . "' AND size BETWEEN " . $matches[0][0] . " AND " . $matches[0][1] . "";
-        }
-        //0 0 1 = 0 1
-        elseif((!isset($search_data['category']) || $search_data['category'] == "") && (!isset($search_data['reference']) || $search_data['reference'] == "") && (!empty($matches[0])))
-        {
-            $condition = "size BETWEEN " . $matches[0][0] . " AND " . $matches[0][1] . "";
-        }
-        //1 0 0 = 0 0
-        elseif((isset($search_data['category']) || $search_data['category'] != "") && (!isset($search_data['reference']) || $search_data['reference'] == "") && (empty($matches[0]))){
-            $condition = "category_id =" . "'" . $search_data['category'] . "'";
-        }
-        //0 1 0 = 0 0
-        elseif((!isset($search_data['category']) || $search_data['category'] == "") && (isset($search_data['reference']) || $search_data['reference'] != "") && (empty($matches[0]))){
-            $condition = "reference_id  =" . "'" . $search_data['reference'] . "'";
-        }
-        //1 1 1 = 1 1
-        elseif((isset($search_data['category']) && $search_data['category'] != "") && (isset($search_data['reference']) || $search_data['reference'] != "") && (!empty($matches[0]))){
-            $condition = "reference_id =" . "'" . $search_data['reference'] . "' AND " . "category_id =" . "'" . $search_data['category'] . "' AND size BETWEEN " . $matches[0][0] . " AND " . $matches[0][1] . "";
-        }
-        //0 0 0 = 0 0
-        elseif((!isset($search_data['category']) && $search_data['category'] == "") && (!isset($search_data['reference']) || $search_data['reference'] == "") && (empty($matches[0]))){
-            $condition = "";
-        }else{
-            die("invalid search input");
-        }
-        
-        $this->db->select('project.*');    
+        $this->db->select('project.*, category.name as category, reference.name as reference, status.name as status');    
         $this->db->from('project');
-        if(!isset($condition)){
+        $this->db->join('category', 'category.id = project.category_id','left');
+        $this->db->join('reference', 'reference.id = project.reference_id','left');
+        $this->db->join('status', 'status.id = project.status_id');
+        if(!$condition){
             $query = $this->db->get();
         }else{
             $this->db->where($condition);
