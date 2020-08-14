@@ -144,22 +144,22 @@ $('#bid-not-loggedin').click(function(e){
   //   alert(projectId);
   //   // alert('1')
   // });
-  $('.bid').on('click',function(evt) {
-    evt.preventDefault();
-    // cache the current form object
-    var userId= $('#user_id').addClass();
-    var form = $(this).parent('form').serialize();
-    console.log(form);
-    var url = form.attr('action');
-    var fromData = form.serialize();
-    userId = JSON.stringify(userId);
-    alert(form)
+  // $('.bid').on('click',function(evt) {
+  //   evt.preventDefault();
+  //   // cache the current form object
+  //   var userId= $('#user_id').addClass();
+  //   var form = $(this).parent('form').serialize();
+  //   console.log(form);
+  //   var url = form.attr('action');
+  //   var fromData = form.serialize();
+  //   userId = JSON.stringify(userId);
+  //   alert(form)
     // $.post(url, fromData, function(response) {
     //     // make changes to current form and its related element
     //     form.hide();
     //     form.next('.match_avail_success').removeclass('success_display');
     // });
-});
+// });
 // $('.bid').on('click', function (e) {
 //   e.preventDefault();
 //   $.ajax({

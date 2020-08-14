@@ -145,6 +145,7 @@
                   <th>Status</th>
                   <th>Date</th>
                   <th>Budget</th>
+                  <th>Bids</th>
                   <th colspan="3">Actions</th>
                 </tr>
             </thead>

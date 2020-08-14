@@ -205,7 +205,7 @@
                             if(isset($_SESSION['id'])):
                                // echo form_open('index.php/writer/bid');
                             ?>
-                            <form method="POST" id="bid-form" action="home/bid">
+                            <form method="POST" id="bid-form" action="writer/bid">
                             <input type="hidden" id="user_id" name="user_id" value="<?= $_SESSION['id']?>"> 
                             <input type="hidden" id="project_id" name="project_id" value="<?= $search_result->id?>">
                             <button type="submit"class="btn btn-sm btn-success bid">Apply now</button>

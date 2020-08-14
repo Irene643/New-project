@@ -14,7 +14,7 @@
                 <li class="sidebar-list-item"><a id="writerinprogress" href="#inprogress" class="sidebar-link text-muted pl-lg-5">In progress<span class="badge badge-pill badge-primary"><?php  echo count($writer_open);?></span></a></li>
                 <li class="sidebar-list-item"><a id="writerwaiting" href="#waiting" class="sidebar-link text-muted pl-lg-5">Waiting for Client<span class="badge badge-pill badge-info"><?php  echo count($writer_waiting_for_client);?></span></a></li>
                 <li class="sidebar-list-item"><a id="writercompleted" href="#completed" class="sidebar-link text-muted pl-lg-5">Done<span class="badge badge-pill badge-success"><?php  echo count($writer_completed);?></span></a></li>
-                <li class="sidebar-list-item"><a id="writerbids" href="#bids" class="sidebar-link text-muted pl-lg-5">Bids<span class="badge badge-pill badge-secondary"></span></a></li>
+                <li class="sidebar-list-item"><a id="writerbids" href="#bids" class="sidebar-link text-muted pl-lg-5">Bids<span class="badge badge-pill badge-secondary"><?php echo count($get_bids);?></span></a></li>
                 </ul>
             </div>
             </li>

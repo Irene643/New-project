@@ -7,9 +7,24 @@ class Writer_model extends CI_Model {
         // session_start();
     }
     public function add_bid($data){
-    	$query = $this->db->insert('bid', $data);
-    	redirect('');
+        // print_r($data['project_id']);exit;
+        $query = $this->db->get_where('bid',$data);
+        if($query->num_rows() > 0){
+            echo("Record exists");  
+        }else{
+           return $this->db->insert('bid', $data); 
+        }
+        redirect('/index.php/writer-dashboard');
+        echo('you have already applied');
+        
     }
+
+    public function getBids(){
+        $query = $this->db->get_where('bid','user_id = '.$_SESSION["id"]);
+        if($query->num_rows() > 0)
+        return $query->result();
+    }
+
     public function getAllProjects(){
         $this->db->select('project.*, category.name as category, reference.name as reference, status.name as status');    
         $this->db->from('project');

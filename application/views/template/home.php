@@ -235,12 +235,12 @@
                         <div class="text-center read-more">
                           <?php 
                             if(isset($_SESSION['id'])):
-                               // echo form_open('index.php/writer/bid');
+                            echo form_open('index.php/writer/bid');
                             ?>
                             <form id="bid-form">
                             <input type="hidden" name="user_id" value="<?= $_SESSION['id']?>"> 
                             <input type="hidden" name="project_id" value="<?= $unassigned_project->id?>">
-                            <a href="#"id="bid" type="submit"class="btn btn-sm btn-success">Apply now</a>
+                            <button type="submit"class="btn btn-sm btn-success">Apply now</button>
                             </form>
 
                           <?php endif;if(!isset($_SESSION['id'])):?>

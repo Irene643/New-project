@@ -93,6 +93,7 @@ var showData = (function(){
             { "data": "status" },
             { "data": "due_date" },
             { "data": "budget" },
+            {"data":"bids"},
             {
                 className: "center",
                 defaultContent: '<button class="editor_view">View</button> <button class="editor_edit">Edit</button> <button class="editor_remove">Delete</button>'

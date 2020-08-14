@@ -72,11 +72,12 @@ class Project extends CI_Model {
     }
    
     public function getAllProjects(){
-        $this->db->select('project.*, category.name as category, reference.name as reference, status.name as status');    
+        $this->db->select('project.*, category.name as category, reference.name as reference, status.name as status, , count(bid.project_id) as bids' );    
         $this->db->from('project');
         $this->db->join('category', 'category.id = project.category_id','left');
         $this->db->join('reference', 'reference.id = project.reference_id','left');
-        $this->db->join('status', 'status.id = project.status_id');
+        $this->db->join('status', 'status.id = project.status_id','left');
+        $this->db->join('bid', 'bid.project_id = project.id','left');
         $query = $this->db->get();
         return $query->result ();
     }
@@ -97,7 +98,7 @@ class Project extends CI_Model {
         $this->db->from('project');
         $this->db->join('category', 'category.id = project.category_id','left');
         $this->db->join('reference', 'reference.id = project.reference_id','left');
-        $this->db->join('status', 'status.id = project.status_id');
+        $this->db->join('status', 'status.id = project.status_id'); 
         $this->db->where('project.id =',$id);
         // $this->db->order_by STR_TO_DATE(DateTime, created_at,101)  DESC;
 

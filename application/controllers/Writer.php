@@ -24,6 +24,7 @@ class Writer extends CI_Controller {
 			'project_references' => $this->project->getProjectReferenceType(),
 			'project_status' => $this->project->getProjectStatus(),
 			'proficiencies' => $this->project->getProjectCategory(),
+			'get_bids' => $this->writer_model->getBids(),
 			'all_projects_title' => 'All Projects',
 			'open_projects_title' => 'Open Projects',
 			'completed_projects_title' => 'Completed Projects'
@@ -38,7 +39,7 @@ class Writer extends CI_Controller {
 	}
 
 	public function bid(){
-		print_r($_POST);die;
+		// print_r($_POST);die;
 		$user_id = $this->input->post('user_id');
 		$project_id = $this->input->post('project_id');
 		$data = array(
@@ -46,6 +47,10 @@ class Writer extends CI_Controller {
 			'project_id' => $project_id
 		);
 		$this->writer_model->add_bid($data);
+	}
+	public function get_user_bids(){
+		$data = $this->data;
+		print_r($this->writer_model->getBids());
 	}
 
 	public function unassigned(){
