@@ -50,7 +50,14 @@ class Writer extends CI_Controller {
 	}
 	public function get_user_bids(){
 		$data = $this->data;
-		print_r($this->writer_model->getBids());
+		
+		$json_req = array(
+
+            "sEcho"    =>1,
+            "aaData" => $data['get_bids']
+		);
+		
+		echo json_encode($json_req);
 	}
 
 	public function unassigned(){

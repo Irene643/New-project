@@ -20,7 +20,14 @@ class Writer_model extends CI_Model {
     }
 
     public function getBids(){
-        $query = $this->db->get_where('bid','user_id = '.$_SESSION["id"]);
+        $this->db->select('bid.*, project.*,category.name as category, reference.name as reference, status.name as status');
+        $this->db->from('bid');
+        $this->db->join('project', 'project.id = bid.project_id');
+        $this->db->join('category', 'category.id = project.category_id','left');
+        $this->db->join('reference', 'reference.id = project.reference_id','left');
+        $this->db->join('status', 'status.id = project.status_id');
+        $this->db->where('user_id = '.$_SESSION["id"]);
+        $query = $this->db->get();
         if($query->num_rows() > 0)
         return $query->result();
     }

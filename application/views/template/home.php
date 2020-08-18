@@ -29,6 +29,7 @@
     <!-- navbar-->
     <header class="header">
       <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow">
+      <img src="<?php echo base_url(); ?>assets/img/icon.png                                                                                                                                                                                                                                                                                                                                                                                                                                                            " width="100px" height="100px" style="margin-left:10em">
         <?php if (!isset($_SESSION['is_logged_in'])):?>
         <div class=" navbar-brand collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">

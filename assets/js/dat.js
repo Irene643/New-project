@@ -51,6 +51,10 @@ $(document).ready(function() {
         source = "writer/completed";
         showWriterData();
     });
+    $('#writerbids').click(function() {
+        source = "writer/get_user_bids";
+        showWriterData();
+    });
   
     // Edit record
     $('#userDetails').on('click', 'a.editor_edit', function (e) {
